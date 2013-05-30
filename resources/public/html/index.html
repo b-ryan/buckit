@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="budget">
+  <head>
+    <title>Budget</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/css/jquery-ui.min.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/angular.js"></script>
+    <script src="/js/angular-resource.js"></script>
+    <script src="/js/budget.js"></script>
+  </head>
+  <body>
+    <ng-view></ng-view>
+    <script type="text/ng-template" id="/index.html">
+      hi!
+    </script>
+    <script type="text/ng-template" id="/accounts.html">
+      <ul class="nav nav-tabs">
+        <li ng-repeat="account in accounts"
+            class="{{activeAccountId == account._id && 'active' || ''}}">
+          <a href="" ng-click="setActive(account)">
+            {{account.name}}
+          </a>
+        </li>
+      </ul>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Account</td>
+            <td>Date</td>
+            <td>Amount</td>
+            <td>Merchant</td>
+            <td>Category</td>
+            <td>Status</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="transaction in transactions | orderBy:'-date'">
+            <td>
+              {{transaction.account}}
+            </td>
+            <td>
+              <input
+                class="input-item"
+                type="text"
+                datepicker
+                ng-model="transaction.date"
+                ng-change="update(transaction)">
+            </td>
+            <td>
+              <input
+                class="input-item"
+                type="text"
+                ng-model="transaction.amount"
+                ng-blur="update(transaction)">
+            </td>
+            <td>
+              <input
+                class="input-item"
+                type="text"
+                ng-model="transaction.merchant"
+                ng-blur="update(transaction)">
+            </td>
+            <td>
+              <input
+                class="input-item"
+                type="text"
+                ng-model="transaction.category"
+                ng-blur="update(transaction)">
+            </td>
+            <td>
+              <select
+                ng-model="transaction.status"
+                ng-options="s for s in STATUSES"
+                ng-change="update(transaction)">
+              </select>
+            </td>
+            <td>
+              <a href="" ng-click="remove(transaction)">
+                <i class="icon-remove"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn" href="" ng-click="create()">Add</a>
+    </script>
+  </body>
+</html>

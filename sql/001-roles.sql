@@ -1,0 +1,2 @@
+CREATE ROLE budget LOGIN ENCRYPTED PASSWORD 'password';
+CREATE DATABASE budget OWNER budget;
