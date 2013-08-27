@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-import os, sys
 import bottle
+import argparse
+import routes
 
-DIR = os.path.abspath(os.path.dirname(__file__))
-public_dir = os.path.abspath(os.path.join(DIR, '../public'))
+parser = argparse.ArgumentParser()
+parser.add_argument('--migrate', action='store_true')
+args = parser.parse_args()
 
-@bottle.route('/public/<path:path>')
-def public(path):
-    return bottle.static_file(path, root=public_dir)
-
-@bottle.route('/')
-def index():
-    return bottle.static_file('html/index.html', root=public_dir)
-
-bottle.run(port=9000, reloader=True)
+if args.migrate:
+    import model
+    from model.base import Base
+    import db
+    Base.metadata.create_all(db.engine)
+else:
+    bottle.run(port=9000, reloader=True)
