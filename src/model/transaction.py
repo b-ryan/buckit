@@ -1,5 +1,5 @@
 import base
-from sqlalchemy import Column, ForeignKey, Integer, DateTime, Enum
+from sqlalchemy import Column, ForeignKey, Integer, Date, Enum
 
 TransactionStatus = Enum(
     'not_reconciled',
@@ -14,7 +14,7 @@ class Transaction(base.Base):
 
     id         = Column(Integer, primary_key=True)
     account_id = Column(Integer, ForeignKey('accounts.id'))
-    datetime   = Column(DateTime, nullable=False)
+    date       = Column(Date, nullable=False)
     status     = Column(TransactionStatus)
 
     def __repr__(self):
