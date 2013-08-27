@@ -9,5 +9,11 @@ class Split(base.Base):
     transaction_id = Column(Integer, ForeignKey('transactions.id'))
     amount         = Column(Float)
 
+    def __json__(self):
+        return {
+            'id':      self.id,
+            'amount':  self.amount,
+        }
+
     def __repr__(self):
         return "<Split ('{0}')>".format(self.amount)

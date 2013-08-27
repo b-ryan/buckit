@@ -17,5 +17,13 @@ class Transaction(base.Base):
     date       = Column(Date, nullable=False)
     status     = Column(TransactionStatus)
 
+    def __json__(self):
+        return {
+            'id':      self.id,
+            'account': self.account,
+            'date':    self.date,
+            'status':  self.status,
+        }
+
     def __repr__(self):
         return "<Transaction ('{0}')".format(self.id)
