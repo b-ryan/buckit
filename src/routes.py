@@ -27,8 +27,20 @@ def index():
 @bottle.get('/accounts')
 def accounts():
     session = config.Session()
-    accounts = session.query(model.Account).all()
-    session.close()
-
+    response = json.dumps(
+        session.query(model.Account).all(),
+        cls=CustomEncoder,
+    )
     bottle.response.content_type = 'application/json'
-    return json.dumps(accounts, cls=CustomEncoder)
+    return response
+
+@bottle.get('/transactions')
+def transactions():
+    session = config.Session()
+    response = json.dumps(
+        session.query(model.Transaction).all(),
+        cls=CustomEncoder,
+    )
+    session.close()
+    bottle.response.content_type = 'application/json'
+    return response
