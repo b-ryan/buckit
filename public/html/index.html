@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="budget">
+  <head>
+    <title>Budget</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- JQUERY & JQUERY UI -->
+    <script src="/public/lib/jquery/jquery.js"></script>
+    <script src="/public/lib/jquery/jquery-ui.min.js"></script>
+    <link href="/public/lib/jquery/jquery-ui.min.css" rel="stylesheet" media="screen">
+
+    <!-- BOOTSTRAP -->
+    <script src="/public/lib/bootstrap/bootstrap.js"></script>
+    <link href="/public/lib/bootstrap/bootstrap.css" rel="stylesheet" media="screen">
+
+    <!-- ANGULAR -->
+    <script src="/public/lib/angular/angular.js"></script>
+    <script src="/public/lib/angular/angular-resource.js"></script>
+
+    <!-- BUDGET -->
+    <script src="/public/js/budget.js"></script>
+    <link href="/public/css/style.css" rel="stylesheet" media="screen">
+
+  </head>
+  <body>
+
+    Welcome to the budget app. Below is a view.
+    <ng-view></ng-view>
+
+  </body>
+</html>

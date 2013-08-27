@@ -3,11 +3,11 @@ var KEY_ENTER = 13;
 angular.module('budget', ['ngResource'], function($routeProvider) {
     $routeProvider
       .when('/accounts/:_id', {
-        templateUrl: '/accounts.html',
+        templateUrl: '/public/html/accounts.html',
         controller: TransactionListCtrl,
       })
       .otherwise({
-        templateUrl: '/index.html',
+        templateUrl: '/public/html/welcome.html',
       });
   })
   .factory('Transaction', function($resource) {
