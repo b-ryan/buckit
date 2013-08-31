@@ -1,5 +1,5 @@
 import base
-from sqlalchemy import Column, ForeignKey, Integer, Date, Enum
+from sqlalchemy import Column, ForeignKey, Integer, Date, Enum, Float
 from sqlalchemy.orm import relationship
 
 TransactionStatus = Enum(
@@ -8,6 +8,23 @@ TransactionStatus = Enum(
     'reconciled',
     name='transaction_status',
 )
+
+class Split(base.Base):
+
+    __tablename__ = 'splits'
+
+    id             = Column(Integer, primary_key=True)
+    transaction_id = Column(Integer, ForeignKey('transactions.id'))
+    amount         = Column(Float)
+
+    def __json__(self):
+        return {
+            'id':      self.id,
+            'amount':  self.amount,
+        }
+
+    def __repr__(self):
+        return "<Split ('{0}')>".format(self.amount)
 
 class Transaction(base.Base):
 

@@ -7,6 +7,7 @@ import config
 parser = argparse.ArgumentParser()
 parser.add_argument('--migrate', action='store_true')
 parser.add_argument('--seed', action='store_true')
+parser.add_argument('--serve', action='store_true')
 args = parser.parse_args()
 
 if args.migrate:
@@ -16,5 +17,8 @@ if args.migrate:
 elif args.seed:
     import seed
     seed.seed()
-else:
+elif args.serve:
     bottle.run(port=config.port, reloader=config.use_reloader)
+else:
+    parser.print_help()
+    exit(1)
