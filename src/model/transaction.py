@@ -38,13 +38,18 @@ class Transaction(base.Base):
     account = relationship('Account')
     splits = relationship('Split')
 
+    @property
+    def total_amount(self):
+        return sum([split.amount for split in self.splits])
+
     def __json__(self):
         return {
-            'id':      self.id,
-            'account': self.account,
-            'date':    self.date,
-            'status':  self.status,
-            'splits':  self.splits,
+            'id':            self.id,
+            'account':       self.account,
+            'date':          self.date,
+            'status':        self.status,
+            'splits':        self.splits,
+            'total_amount':  self.total_amount,
         }
 
     def __repr__(self):
