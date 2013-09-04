@@ -38,7 +38,9 @@ def accounts():
 def transactions():
     session = config.Session()
     response = json.dumps(
-        session.query(model.Transaction).all(),
+        session.query(model.Transaction)\
+            .order_by(model.Transaction.date.desc())\
+            .all(),
         cls=CustomEncoder,
     )
     session.close()
