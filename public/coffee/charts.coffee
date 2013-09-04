@@ -8,15 +8,26 @@ budget.directive 'firstchart', () ->
 
     link: (scope, elem, attrs) ->
 
-        cbk = (newVals) ->
+        cbk = (transactions) ->
+
+            # seriesData = ([new Date(x.date), x.total_amount] for x in transactions)
+            seriesData = [
+                [Date.parse('2013-08-29'), 2]
+                [Date.parse('2013-09-01'), 4]
+                [Date.parse('2013-09-01'), 9]
+            ]
+
+            console.log seriesData
 
             $('#container').highcharts
                 chart:
-                    type: 'line',
+                    type: 'line'
+                    zoomType: 'x'
                 title:
                     text: 'Transactions Summary'
                 xAxis:
                     type: 'datetime'
+                    minTickInterval: 24 * 60 * 60 * 1000
                     title:
                         text: null
                 yAxis:
@@ -24,10 +35,7 @@ budget.directive 'firstchart', () ->
                         text: 'Amount'
                 series: [
                     {
-                        data: [
-                            [Date.UTC(2013, 7, 29), 2]
-                            [Date.UTC(2013, 8, 1), 4]
-                        ]
+                        data: seriesData
                     }
                 ]
 
