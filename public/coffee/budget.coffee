@@ -1,4 +1,4 @@
-angular.module 'budget', ['ngResource'], ($routeProvider) ->
+window.budget = angular.module 'budget', ['ngResource'], ($routeProvider) ->
     $routeProvider
         .otherwise
             templateUrl: '/public/html/welcome.html',
