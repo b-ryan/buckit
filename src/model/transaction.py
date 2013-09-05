@@ -40,7 +40,7 @@ class Transaction(base.Base):
 
 class Split(base.Base):
 
-    __tablename__ = 'splits'
+    __tablename__ = 'transaction_splits'
 
     id             = Column(Integer, primary_key=True)
     transaction_id = Column(Integer, ForeignKey('transactions.id'))
