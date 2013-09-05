@@ -3,8 +3,12 @@
   <pre ng-repeat="transaction in transactions">{{transaction | json}}</pre>
 
   <form>
-    Date:   <input type="text" ng-model="transaction.date" /><br />
-    Status: <input type="text" ng-model="transaction.status" /><br />
+    <input type="text" placeholder="Date" ng-model="transaction.date">
+    <select ng-model="transaction.status">
+      <option value="not_reconciled">Not Reconciled</option>
+      <option value="cleared">Cleared</option>
+      <option value="reconciled">Reconciled</option>
+    </select>
 
     <button ng-click="save(transaction)">SAVE</button>
   </form>
