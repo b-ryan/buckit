@@ -10,14 +10,9 @@ budget.directive 'firstchart', () ->
 
         cbk = (transactions) ->
 
-            # seriesData = ([new Date(x.date), x.total_amount] for x in transactions)
-            seriesData = [
-                [Date.parse('2013-08-29'), 2]
-                [Date.parse('2013-09-01'), 4]
-                [Date.parse('2013-09-01'), 9]
-            ]
-
-            console.log seriesData
+            seriesData = (
+                [Date.parse(x.date), x.total_amount] for x in transactions
+            )
 
             $('#container').highcharts 'StockChart'
                 chart:
