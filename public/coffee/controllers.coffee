@@ -1,8 +1,14 @@
-window.TransactionsCtrl = ($scope, Transaction) ->
+window.TransactionsCtrl = ($scope, Account, Transaction) ->
 
+    $scope.accounts = Account.query()
     $scope.transactions = Transaction.query()
-    $scope.transaction = new Transaction()
+
+    $scope.reset = () ->
+        $scope.transaction = new Transaction
+            status: 'not_reconciled'
 
     $scope.save = (transaction) ->
         console.log(transaction)
-        $scope.transaction = new Transaction()
+        $scope.reset()
+
+    $scope.reset()

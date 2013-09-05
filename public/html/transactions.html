@@ -1,9 +1,12 @@
 <div ng-controller="TransactionsCtrl">
 
-  <pre ng-repeat="transaction in transactions">{{transaction | json}}</pre>
-
   <form>
     <input type="text" placeholder="Date" ng-model="transaction.date">
+    <select ng-model="transaction.account_id">
+      <option ng-repeat="account in accounts" value="{{account.id}}">
+        {{account.name}}
+      </option>
+    </select>
     <select ng-model="transaction.status">
       <option value="not_reconciled">Not Reconciled</option>
       <option value="cleared">Cleared</option>
@@ -12,5 +15,11 @@
 
     <button ng-click="save(transaction)">SAVE</button>
   </form>
+
+  <h3>Accounts</h3>
+  <pre ng-repeat="account in accounts">{{account | json}}</pre>
+
+  <h3>Transactions</h3>
+  <pre ng-repeat="transaction in transactions">{{transaction | json}}</pre>
 
 </div>
