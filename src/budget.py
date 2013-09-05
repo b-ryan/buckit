@@ -4,21 +4,24 @@ import argparse
 import routes
 import config
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--migrate', action='store_true')
-parser.add_argument('--seed', action='store_true')
-parser.add_argument('--serve', action='store_true')
-args = parser.parse_args()
-
-if args.migrate:
+def migrate(args):
     import model
     from model.base import Base
     Base.metadata.create_all(config.engine)
-elif args.seed:
+
+def seed(args):
     import seed
     seed.seed()
-elif args.serve:
+
+def serve(args):
     bottle.run(port=config.port, reloader=config.use_reloader)
-else:
-    parser.print_help()
-    exit(1)
+
+parser = argparse.ArgumentParser()
+subs = parser.add_subparsers()
+
+subs.add_parser('migrate').set_defaults(func=migrate)
+subs.add_parser('seed').set_defaults(func=seed)
+subs.add_parser('serve').set_defaults(func=serve)
+
+args = parser.parse_args()
+args.func(args)
