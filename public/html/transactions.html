@@ -2,4 +2,11 @@
 
   <pre ng-repeat="transaction in transactions">{{transaction | json}}</pre>
 
+  <form>
+    Date:   <input type="text" ng-model="transaction.date" /><br />
+    Status: <input type="text" ng-model="transaction.status" /><br />
+
+    <button ng-click="save(transaction)">SAVE</button>
+  </form>
+
 </div>
