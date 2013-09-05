@@ -19,20 +19,26 @@ budget.directive 'firstchart', () ->
 
             console.log seriesData
 
-            $('#container').highcharts
+            $('#container').highcharts 'StockChart'
                 chart:
-                    type: 'line'
+                    type: 'column'
                     zoomType: 'x'
                 title:
                     text: 'Transactions Summary'
                 xAxis:
-                    type: 'datetime'
                     minTickInterval: 24 * 60 * 60 * 1000
+                    minPadding: 0.05
+                    maxPadding: 0.05
                     title:
                         text: null
                 yAxis:
                     title:
                         text: 'Amount'
+                plotOptions:
+                    series:
+                        dataGrouping:
+                            approximation: 'sum'
+                            forced: true
                 series: [
                     {
                         data: seriesData
