@@ -2,3 +2,8 @@
   border: none;
   -webkit-box-shadow: none;
 }
+
+.content {
+  margin: auto;
+  width: 80%;
+}

@@ -34,6 +34,8 @@ budget.directive 'firstchart', () ->
                         dataGrouping:
                             approximation: 'sum'
                             forced: true
+                scrollbar:
+                    enabled: false
                 series: [
                     {
                         data: seriesData

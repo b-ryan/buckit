@@ -30,7 +30,13 @@
   <body>
 
     Welcome to the budget app. Below is a view.
-    <ng-view></ng-view>
+
+    <div class="content">
+
+      <ng-include src="'/public/html/chart.html'"></ng-include>
+      <ng-include src="'/public/html/transactions.html'"></ng-include>
+
+    </div>
 
   </body>
 </html>

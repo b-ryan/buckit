@@ -1,7 +1,6 @@
-window.budget = angular.module 'budget', ['ngResource'], ($routeProvider) ->
-    $routeProvider
-        .otherwise
-            templateUrl: '/public/html/welcome.html',
+budget = angular.module 'budget', ['ngResource']
 
-.factory 'Transaction', ($resource) ->
+budget.factory 'Transaction', ($resource) ->
     return $resource '/transactions/:id'
+
+window.budget = budget
