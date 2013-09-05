@@ -9,23 +9,6 @@ TransactionStatus = Enum(
     name='transaction_status',
 )
 
-class Split(base.Base):
-
-    __tablename__ = 'splits'
-
-    id             = Column(Integer, primary_key=True)
-    transaction_id = Column(Integer, ForeignKey('transactions.id'))
-    amount         = Column(Float)
-
-    def __json__(self):
-        return {
-            'id':      self.id,
-            'amount':  self.amount,
-        }
-
-    def __repr__(self):
-        return "<Split ('{0}')>".format(self.amount)
-
 class Transaction(base.Base):
 
     __tablename__ = 'transactions'
@@ -54,3 +37,20 @@ class Transaction(base.Base):
 
     def __repr__(self):
         return "<Transaction ('{0}')".format(self.id)
+
+class Split(base.Base):
+
+    __tablename__ = 'splits'
+
+    id             = Column(Integer, primary_key=True)
+    transaction_id = Column(Integer, ForeignKey('transactions.id'))
+    amount         = Column(Float)
+
+    def __json__(self):
+        return {
+            'id':      self.id,
+            'amount':  self.amount,
+        }
+
+    def __repr__(self):
+        return "<Split ('{0}')>".format(self.amount)
