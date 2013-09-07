@@ -9,7 +9,7 @@ def transactions():
     session = config.Session()
     response = json.dumps(
         session.query(model.Transaction)\
-            .order_by(model.Transaction.date.desc())\
+            .order_by(model.Transaction.date.asc())\
             .all(),
         cls=CustomEncoder,
     )
