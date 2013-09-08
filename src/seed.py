@@ -4,7 +4,10 @@ import config
 def seed():
     session = config.Session()
 
-    account = model.Account(name='Primary Checking')
+    account = model.Account(
+        name='Primary Checking',
+        type='
+    )
 
     splits = [
         model.Split(amount=23),
