@@ -4,22 +4,26 @@ import config
 def seed():
     session = config.Session()
 
-    account = model.Account(
+    checking = model.Account(
         name='Primary Checking',
-        type='
+        type='asset',
+    )
+
+    groceries = model.Account(
+        name='Groceries',
+        type='expense',
     )
 
     splits = [
-        model.Split(amount=23),
-        model.Split(amount=0.5),
+        model.Split(account=checking, amount=-25),
+        model.Split(account=groceries, amount=25),
     ]
+
     trans1 = model.Transaction(
-        account=account,
         date='2013-08-30',
         status='not_reconciled',
         splits=splits,
     )
 
-    session.add(account)
     session.add(trans1)
     session.commit()
