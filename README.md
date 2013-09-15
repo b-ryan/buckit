@@ -4,5 +4,5 @@ A self-hosted budgeting app.
 
 ## Running
 
-coffee -cwo public/js public/coffee
+coffee -cwo public/.compiled public/coffee
 src/budget --serve
