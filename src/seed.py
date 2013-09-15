@@ -2,7 +2,6 @@ import model
 import config
 
 def seed():
-    session = config.Session()
 
     checking = model.Account(
         name='Primary Checking',
@@ -21,9 +20,9 @@ def seed():
 
     trans1 = model.Transaction(
         date='2013-08-30',
-        status='not_reconciled',
         splits=splits,
     )
 
+    session = config.Session()
     session.add(trans1)
     session.commit()

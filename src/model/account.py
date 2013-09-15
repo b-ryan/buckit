@@ -31,6 +31,7 @@ class Account(base.Base):
         return {
             'id':   self.id,
             'name': self.name,
+            'type': self.type,
         }
 
     def __repr__(self):
