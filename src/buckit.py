@@ -3,6 +3,7 @@ import bottle
 import argparse
 import routes
 import config
+import cli
 
 def migrate(args):
     import model
@@ -22,6 +23,8 @@ subs = parser.add_subparsers()
 subs.add_parser('migrate').set_defaults(func=migrate)
 subs.add_parser('seed').set_defaults(func=seed)
 subs.add_parser('serve').set_defaults(func=serve)
+
+cli.add_parsers(subs)
 
 args = parser.parse_args()
 args.func(args)
