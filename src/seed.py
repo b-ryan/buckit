@@ -1,27 +1,48 @@
-import model
+from model import Account, Transaction, Split
 import config
 
 def seed():
-    checking = model.Account(
+    checking = Account(
         name='Primary Checking',
         type='asset',
     )
 
-    groceries = model.Account(
+    credit_card = Account(
+        name='Credit Card',
+        type='liability',
+    )
+
+    groceries = Account(
         name='Groceries',
         type='expense',
     )
 
-    splits = [
-        model.Split(account=checking, amount=-25),
-        model.Split(account=groceries, amount=25),
-    ]
-
-    transaction = model.Transaction(
+    transaction_1 = Transaction(
         date='2013-08-30',
-        splits=splits,
+        splits=[
+            Split(account=credit_card, amount=-25),
+            Split(account=groceries, amount=25),
+        ],
+    )
+
+    transaction_2 = Transaction(
+        date='2013-09-04',
+        splits=[
+            Split(account=credit_card, amount=-5),
+            Split(account=groceries, amount=5),
+        ],
+    )
+
+    transaction_3 = Transaction(
+        date='2013-09-04',
+        splits=[
+            Split(account=checking, amount=-30),
+            Split(account=credit_card, amount=30),
+        ],
     )
 
     session = config.Session()
-    session.add(transaction)
+    session.add(transaction_1)
+    session.add(transaction_2)
+    session.add(transaction_3)
     session.commit()

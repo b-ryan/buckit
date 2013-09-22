@@ -12,6 +12,6 @@ def public(path):
 def index():
     return bottle.static_file('html/index.html', root=public_dir)
 
-import accounts
-import transactions
-import summaries
+import _accounts
+import _transactions
+import _summaries
