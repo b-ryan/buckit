@@ -1,7 +1,11 @@
-from model import Account, Transaction, Split
+from model import Account, Payee, Transaction, Split
 import config
 
 def seed():
+    supermarket = Payee(
+        name='Supermarket',
+    )
+
     checking = Account(
         name='Primary Checking',
         type='asset',
@@ -17,23 +21,25 @@ def seed():
         type='expense',
     )
 
-    transaction_1 = Transaction(
+    groceries_purchase_1 = Transaction(
         date='2013-08-30',
+        payee=supermarket,
         splits=[
             Split(account=credit_card, amount=-25),
             Split(account=groceries, amount=25),
         ],
     )
 
-    transaction_2 = Transaction(
+    groceries_purchase_2 = Transaction(
         date='2013-09-04',
+        payee=supermarket,
         splits=[
             Split(account=credit_card, amount=-5),
             Split(account=groceries, amount=5),
         ],
     )
 
-    transaction_3 = Transaction(
+    credit_card_payment = Transaction(
         date='2013-09-04',
         splits=[
             Split(account=checking, amount=-30),
@@ -42,7 +48,7 @@ def seed():
     )
 
     session = config.Session()
-    session.add(transaction_1)
-    session.add(transaction_2)
-    session.add(transaction_3)
+    session.add(groceries_purchase_1)
+    session.add(groceries_purchase_2)
+    session.add(credit_card_payment)
     session.commit()
