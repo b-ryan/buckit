@@ -2,18 +2,57 @@ from alembic import context
 from sqlalchemy import engine_from_config
 from logging.config import fileConfig
 
-from buckit.model.base import Base
-from buckit.config import engine
+import os.path as path
+import sys
+
+curr_dir = path.abspath(path.dirname(__file__))
+sys.path.append(path.join(curr_dir, '../src'))
+
+from model.base import Base
+import config
 
 fileConfig(context.config.config_file_name)
 
-context.configure(
-    connection=engine.connect(),
-    target_metadata=Base.metadata,
-)
+def run_migrations_offline():
+    """Run migrations in 'offline' mode.
 
-try:
+    This configures the context with just a URL
+    and not an Engine, though an Engine is acceptable
+    here as well.  By skipping the Engine creation
+    we don't even need a DBAPI to be available.
+
+    Calls to context.execute() here emit the given string to the
+    script output.
+
+    """
+    url = config.db_url
+    context.configure(url=url)
+
     with context.begin_transaction():
         context.run_migrations()
-finally:
-    connection.close()
+
+def run_migrations_online():
+    """Run migrations in 'online' mode.
+
+    In this scenario we need to create an Engine
+    and associate a connection with the context.
+
+    """
+    connection = config.engine.connect()
+
+    context.configure(
+        connection=connection,
+        target_metadata=Base.metadata,
+    )
+
+    try:
+        with context.begin_transaction():
+            context.run_migrations()
+    finally:
+        connection.close()
+
+if context.is_offline_mode():
+    run_migrations_offline()
+else:
+    run_migrations_online()
+
