@@ -3,7 +3,7 @@ import json
 from sqlalchemy import func
 import buckit.config
 from buckit.model import Transaction
-from _utils import CustomEncoder
+from buckit.utils import CustomEncoder
 
 @bottle.get('/summary')
 def transactions():

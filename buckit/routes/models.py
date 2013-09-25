@@ -2,7 +2,7 @@ import bottle
 import json
 import buckit.config
 import buckit.model
-from _utils import CustomEncoder
+from buckit.utils import CustomEncoder
 
 @bottle.get('/accounts')
 def accounts():
