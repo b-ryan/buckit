@@ -1,15 +1,15 @@
 import bottle
-import config
-import model
 import json
+import buckit.config
+import buckit.model
 from _utils import CustomEncoder
 
 @bottle.get('/transactions')
 def transactions():
-    session = config.Session()
+    session = buckit.config.Session()
     response = json.dumps(
-        session.query(model.Transaction)\
-            .order_by(model.Transaction.date.asc())\
+        session.query(buckit.model.Transaction)\
+            .order_by(buckit.model.Transaction.date.asc())\
             .all(),
         cls=CustomEncoder,
     )

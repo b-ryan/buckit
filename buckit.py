@@ -1,13 +1,13 @@
-#!env/bin/python
+#!/usr/bin/env python
 import bottle
 import argparse
-import routes
-import config
-import cli
+import buckit.routes as routes
+import buckit.config as config
+import buckit.cli as cli
+import buckit.seed
 
 def seed(args):
-    import seed
-    seed.seed()
+    buckit.seed.seed()
 
 def serve(args):
     bottle.run(port=config.port, reloader=config.use_reloader)

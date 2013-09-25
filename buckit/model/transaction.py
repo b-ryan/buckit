@@ -1,7 +1,6 @@
 import base
 from sqlalchemy import Column, ForeignKey, Integer, Date, Enum, Float
 from sqlalchemy.orm import relationship
-import model
 
 class Transaction(base.Base):
 

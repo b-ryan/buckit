@@ -1,5 +1,5 @@
-from model import Account, Payee, Transaction, Split
-import config
+from buckit.model import Account, Payee, Transaction, Split
+import buckit.config
 
 def seed():
     supermarket = Payee(
@@ -47,7 +47,7 @@ def seed():
         ],
     )
 
-    session = config.Session()
+    session = buckit.config.Session()
     session.add(groceries_purchase_1)
     session.add(groceries_purchase_2)
     session.add(credit_card_payment)

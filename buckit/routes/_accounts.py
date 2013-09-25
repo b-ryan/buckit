@@ -1,14 +1,14 @@
 import bottle
-import config
-import model
 import json
+import buckit.config
+import buckit.model
 from _utils import CustomEncoder
 
 @bottle.get('/accounts')
 def accounts():
-    session = config.Session()
+    session = buckit.config.Session()
     response = json.dumps(
-        session.query(model.Account)\
+        session.query(buckit.model.Account)\
             .all(),
         cls=CustomEncoder,
     )

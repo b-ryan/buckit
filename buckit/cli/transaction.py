@@ -1,9 +1,9 @@
-import model
-import config
+import buckit.model
+import buckit.config
 
 def list_transactions(args):
-    session = config.Session()
-    trs = session.query(model.Transaction).all()
+    session = buckit.config.Session()
+    trs = session.query(buckit.model.Transaction).all()
     print trs
 
 def init_parser(parent_parser):
