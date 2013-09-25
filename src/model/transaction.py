@@ -1,6 +1,7 @@
 import base
 from sqlalchemy import Column, ForeignKey, Integer, Date, Enum, Float
 from sqlalchemy.orm import relationship
+import model
 
 class Transaction(base.Base):
 
@@ -8,7 +9,9 @@ class Transaction(base.Base):
 
     id         = Column(Integer, primary_key=True)
     date       = Column(Date, nullable=False)
+    payee_id   = Column(Integer, ForeignKey('payees.id'))
 
+    payee  = relationship('Payee')
     splits = relationship('Split')
 
     @property
@@ -19,6 +22,7 @@ class Transaction(base.Base):
         return {
             'id':            self.id,
             'date':          self.date,
+            'payee':         self.payee,
             'splits':        self.splits,
             'total_amount':  self.total_amount,
         }

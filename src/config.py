@@ -1,9 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+db_url = 'postgresql://buckit:password@127.0.0.1/buckit'
+
 engine = create_engine(
-  'postgresql://buckit:password@127.0.0.1/buckit',
-  pool_recycle=3600, # recycle connections every hour
+    db_url,
+    pool_recycle=3600, # recycle connections every hour
 )
 
 Session = sessionmaker(bind=engine)
