@@ -2,7 +2,7 @@ import importlib
 
 modules = [
     importlib.import_module(m) for m in [
-        'buckit.cli.transaction',
+        'buckit.cli.show',
     ]
 ]
 

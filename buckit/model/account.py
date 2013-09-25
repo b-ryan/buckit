@@ -34,5 +34,9 @@ class Account(base.Base):
             'type': self.type,
         }
 
-    def __repr__(self):
-        return "<Account ('{0}')".format(self.name)
+    def __str__(self):
+        return "Account id:{0} name:{1} type:{2}".format(
+            self.id,
+            self.name,
+            self.type,
+        )

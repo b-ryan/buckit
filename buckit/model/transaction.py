@@ -26,6 +26,11 @@ class Transaction(base.Base):
             'total_amount':  self.total_amount,
         }
 
+    def __str__(self):
+        payee_name = self.payee.name if self.payee else ''
+        s = "Transaction id:{0} date:{1}".format(self.id, self.date, payee_name)
+        return s
+
 ReconciledStatus = Enum(
     'not_reconciled',
     'cleared',
