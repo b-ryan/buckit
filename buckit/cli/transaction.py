@@ -4,7 +4,9 @@ import buckit.config
 def list_transactions(args):
     session = buckit.config.Session()
     trs = session.query(buckit.model.Transaction).all()
-    print trs
+    for transaction in trs:
+        payee_name = transaction.payee.name if transaction.payee else ''
+        print transaction.id, transaction.date, payee_name
 
 def init_parser(parent_parser):
     parser = parent_parser.add_parser('transaction')
