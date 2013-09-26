@@ -4,6 +4,7 @@ from buckit.config import Session
 models = {
     'accounts': buckit.model.Account,
     'transactions': buckit.model.Transaction,
+    'splits': buckit.model.Split,
 }
 
 def show(args):

@@ -28,7 +28,8 @@ class Transaction(base.Base):
 
     def __str__(self):
         payee_name = self.payee.name if self.payee else ''
-        s = "Transaction id:{0} date:{1}".format(self.id, self.date, payee_name)
+        s = "Transaction id:{0} date:{1}\n".format(self.id, self.date, payee_name)
+        s += "\n".join([' ' * 4 + str(split) for split in self.splits])
         return s
 
 ReconciledStatus = Enum(
@@ -62,3 +63,10 @@ class Split(base.Base):
             'amount':            self.amount,
             'reconciled_status': self.reconciled_status,
         }
+
+    def __str__(self):
+        return "Split id:{0} account:{1} amount:{2}".format(
+            self.id,
+            self.account.name,
+            self.amount,
+        )
