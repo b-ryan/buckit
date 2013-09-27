@@ -3,17 +3,21 @@ import seed
 import show
 import add
 
+commands = {
+    'seed':  seed,
+    'serve': serve,
+    'show':  show,
+    'add':   add,
+}
+
 def add_parsers(parent_parser):
-    parent_parser.add_parser('seed')\
-        .set_defaults(func=seed.seed)
+    for command in commands:
+        p = parent_parser.add_parser(command)
 
-    parent_parser.add_parser('serve')\
-        .set_defaults(func=serve.serve)
+        module = commands[command]
 
-    p = parent_parser.add_parser('show')
-    p.set_defaults(func=show.show)
-    p.add_argument('object')
+        if hasattr(module, 'handle_args'):
+            p.set_defaults(func=getattr(module, 'handle_args'))
 
-    p = parent_parser.add_parser('add')
-    p.set_defaults(func=add.add)
-    p.add_argument('object')
+        if hasattr(module, 'setup_args'):
+            getattr(module, 'setup_args')(p)

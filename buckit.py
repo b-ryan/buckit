@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import buckit.cli as cli
+import sys
 
 def serve(args):
     bottle.run(port=config.port, reloader=config.use_reloader)
@@ -11,4 +12,9 @@ subs = parser.add_subparsers()
 cli.add_parsers(subs)
 
 args = parser.parse_args()
-args.func(args)
+
+try:
+    args.func(args)
+except cli.exception.CliException as e:
+    print >> sys.stderr, e.message
+    exit(1)

@@ -12,3 +12,7 @@ Session = sessionmaker(bind=engine)
 
 port = 9000
 use_reloader = True
+
+## a format interpertable by the datetime.datetime library (eg. by the
+## strftime function)
+date_format = '%Y-%m-%d'
