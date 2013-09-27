@@ -1,10 +1,6 @@
-import importlib
-
-modules = [
-    importlib.import_module(m) for m in [
-        'buckit.cli.show',
-    ]
-]
+import show
 
 def add_parsers(parent_parser):
-    [m.init_parser(parent_parser) for m in modules]
+    p = parent_parser.add_parser('show')
+    p.set_defaults(func=show.show)
+    p.add_argument('object')
