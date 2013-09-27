@@ -1,7 +1,7 @@
 from buckit.model import Account, Payee, Transaction, Split
 import buckit.config
 
-def seed():
+def seed(args):
     supermarket = Payee(
         name='Supermarket',
     )
