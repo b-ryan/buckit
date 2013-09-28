@@ -19,4 +19,3 @@ def with_session(func):
             session.close()
         return result
     return wrapped
-

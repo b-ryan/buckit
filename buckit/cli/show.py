@@ -2,7 +2,8 @@ import buckit.model
 from buckit.utils import with_session
 
 models = {
-    'accounts': buckit.model.Account,
+    'accounts':     buckit.model.Account,
+    'payees':       buckit.model.Payee,
     'transactions': buckit.model.Transaction,
 }
 

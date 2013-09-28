@@ -13,3 +13,6 @@ class Payee(base.Base):
             'id':   self.id,
             'name': self.name,
         }
+
+    def __str__(self):
+        return "Payee id:{0} name:{1}".format(self.id, self.name)
