@@ -26,6 +26,7 @@ class Account(base.Base):
     type      = Column(AccountType, nullable=False)
 
     parent_account = relationship('Account')
+    splits         = relationship('Split')
 
     def __json__(self):
         return {

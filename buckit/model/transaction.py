@@ -54,7 +54,8 @@ class Split(base.Base):
     amount             = Column(Float)
     reconciled_status  = Column(ReconciledStatus, default='not_reconciled')
 
-    account = relationship('Account')
+    account     = relationship('Account')
+    transaction = relationship('Transaction')
 
     def __json__(self):
         return {

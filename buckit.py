@@ -15,6 +15,6 @@ args = parser.parse_args()
 
 try:
     args.func(args)
-except cli.exception.CliException as e:
+except cli.common.CliException as e:
     print >> sys.stderr, e.message
     exit(1)

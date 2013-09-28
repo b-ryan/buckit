@@ -1,4 +1,4 @@
-import exception
+import common
 from buckit.config import date_format
 from buckit.utils import with_session
 import buckit.model as m
@@ -18,12 +18,6 @@ def setup_parser(parent_parser):
     p.add_argument('--amount', '-a', required=True)
     p.set_defaults(func=add_transaction)
 
-def search_by_name(session, model, name):
-    result = session.query(model).filter_by(name=name).first()
-    if result is not None:
-        return result
-    raise exception.CliException('Unknown: ' + name)
-
 @with_session
 def add_transaction(session, args):
     transaction = m.Transaction()
@@ -31,13 +25,13 @@ def add_transaction(session, args):
     try:
         transaction.date = datetime.strptime(args.date, date_format).date()
     except ValueError:
-        raise exception.CliException('Invalid date format')
+        raise common.CliException('Invalid date format')
 
     if args.payee:
-        transaction.payee = search_by_name(session, m.Payee, args.payee)
+        transaction.payee = common.search_by_name(session, m.Payee, args.payee)
 
-    from_account = search_by_name(session, m.Account, args.from_account)
-    to_account = search_by_name(session, m.Account, args.to_account)
+    from_account = common.search_by_name(session, m.Account, args.from_account)
+    to_account = common.search_by_name(session, m.Account, args.to_account)
 
     transaction.splits = [
         m.Split(account=from_account, amount=float(args.amount) * -1),
