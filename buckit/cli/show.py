@@ -42,14 +42,13 @@ def print_table(table, has_header=True):
 def show_transactions(session, args):
     account = common.search_by_name(session, m.Account, args.account)
 
-    table = [('id', 'date', 'payee', 'to_account', 'amount')]
+    table = [('id', 'date', 'payee', 'amount')]
     for split in account.splits:
         transaction = split.transaction
         table.append((
             str(transaction.id),
             str(transaction.date),
             transaction.payee.name if transaction.payee else '',
-            split.account.name,
             str(split.amount),
         ))
 
