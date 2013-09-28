@@ -2,6 +2,8 @@ import common
 import buckit.model as m
 from buckit.utils import with_session
 from sqlalchemy.orm import joinedload
+import subprocess
+import sys
 
 def setup_parser(parent_parser):
     parser = parent_parser.add_parser('show')
@@ -23,6 +25,14 @@ def show(session, args):
     for result in results:
         print result
 
+def get_pager():
+    return subprocess.Popen(
+        ['less', '-F', '-R', '-S', '-X', '-K'],
+        stdin=subprocess.PIPE,
+        stdout=sys.stdout,
+        stderr=sys.stderr,
+    )
+
 def print_table(table, has_header=True):
     if len(table) == 0:
         return
@@ -34,9 +44,14 @@ def print_table(table, has_header=True):
     if has_header:
         table.insert(1, ['-' * x for x in widths])
 
+    pager = get_pager()
+
     fmt = ' | '.join(('{:<' + str(width) + '}' for width in widths))
     for row in table:
-        print fmt.format(*row)
+        pager.stdin.write(fmt.format(*row) + "\n")
+
+    pager.stdin.close()
+    pager.wait()
 
 @with_session
 def show_transactions(session, args):
