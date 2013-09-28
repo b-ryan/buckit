@@ -31,8 +31,7 @@ def add_transaction(session, args):
     try:
         transaction.date = datetime.strptime(args.date, date_format).date()
     except ValueError:
-        msg = 'Invalid date format'
-        raise exception.CliException(msg)
+        raise exception.CliException('Invalid date format')
 
     if args.payee:
         transaction.payee = search_by_name(session, m.Payee, args.payee)
