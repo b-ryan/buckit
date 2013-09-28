@@ -1,23 +1,13 @@
-import serve
-import seed
-import show
-import add
+import importlib
 
-commands = {
-    'seed':  seed,
-    'serve': serve,
-    'show':  show,
-    'add':   add,
-}
+modules = [
+    importlib.import_module(m) for m in [
+        'buckit.cli.show',
+        'buckit.cli.add',
+        'buckit.cli.serve',
+        'buckit.cli.seed',
+    ]
+]
 
 def add_parsers(parent_parser):
-    for command in commands:
-        p = parent_parser.add_parser(command)
-
-        module = commands[command]
-
-        if hasattr(module, 'handle_args'):
-            p.set_defaults(func=getattr(module, 'handle_args'))
-
-        if hasattr(module, 'setup_args'):
-            getattr(module, 'setup_args')(p)
+    [m.setup_parser(parent_parser) for m in modules]

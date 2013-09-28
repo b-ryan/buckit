@@ -4,7 +4,8 @@ from buckit.utils import with_session
 import buckit.model as m
 import datetime
 
-def setup_args(parser):
+def setup_parser(parent_parser):
+    parser = parent_parser.add_parser('add')
     subs = parser.add_subparsers()
 
     p = subs.add_parser('transaction')
@@ -12,6 +13,9 @@ def setup_args(parser):
         default=datetime.date.today().strftime(date_format),
     )
     p.add_argument('--payee', '-p')
+    p.add_argument('--account', '-a', required=True)
+    p.add_argument('--recipient', '-r', required=True)
+    p.add_argument('--amount', '-x', required=True)
     p.set_defaults(func=add_transaction)
 
 @with_session

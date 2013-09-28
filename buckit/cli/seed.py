@@ -1,7 +1,11 @@
 from buckit.model import Account, Payee, Transaction, Split
 import buckit.config
 
-def handle_args(args):
+def setup_parser(parent_parser):
+    parser = parent_parser.add_parser('seed')
+    parser.set_defaults(func=seed)
+
+def seed(args):
     supermarket = Payee(
         name='Supermarket',
     )
