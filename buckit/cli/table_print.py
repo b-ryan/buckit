@@ -28,8 +28,7 @@ def p(table,
     column_widths = determine_column_widths(table)
     fmt = gen_format(column_widths, divider, column_padding)
 
-    if has_header:
-        print_once = ['-' * x for x in column_widths]
+    print_once = ['-' * x for x in column_widths] if has_header else None
 
     for row in table:
         fd.write(fmt.format(*row))
