@@ -2,6 +2,7 @@ import common
 import buckit.model as m
 from buckit.utils import with_session
 from sqlalchemy.orm import joinedload
+import table_print
 
 def setup_parser(parent_parser):
     parser = parent_parser.add_parser('show')
@@ -23,21 +24,6 @@ def show(session, args):
     for result in results:
         print result
 
-def print_table(table, has_header=True):
-    if len(table) == 0:
-        return
-
-    columns = zip(*table)
-    max_values = [max(col, key=len) for col in columns]
-    widths = [len(x) for x in max_values]
-
-    if has_header:
-        table.insert(1, ['-' * x for x in widths])
-
-    fmt = ' | '.join(('{:<' + str(width) + '}' for width in widths))
-    for row in table:
-        print fmt.format(*row)
-
 @with_session
 def show_transactions(session, args):
     account = common.search_by_name(session, m.Account, args.account)
@@ -52,4 +38,4 @@ def show_transactions(session, args):
             str(split.amount),
         ))
 
-    print_table(table)
+    table_print.p(table)
