@@ -6,7 +6,7 @@ import os.path as path
 import sys
 
 curr_dir = path.abspath(path.dirname(__file__))
-sys.path.append(path.join(curr_dir, '../src'))
+sys.path.append(path.join(curr_dir, '../buckit'))
 
 from model.base import Base
 import config
