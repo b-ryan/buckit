@@ -15,7 +15,7 @@ def setup_parser(parent_parser):
     p.set_defaults(func=show, model=m.Payee)
 
     p = subs.add_parser('transactions')
-    p.add_argument('--account', required=True)
+    p.add_argument('--account', '-a', required=True)
     p.set_defaults(func=show_transactions)
 
 @with_session

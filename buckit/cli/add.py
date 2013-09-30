@@ -13,9 +13,9 @@ def setup_parser(parent_parser):
         default=date.today().strftime(date_format),
     )
     p.add_argument('--payee', '-p')
-    p.add_argument('--from-account', '-f', required=True)
+    p.add_argument('--account', '-a', required=True)
     p.add_argument('--to-account', '-t', required=True)
-    p.add_argument('--amount', '-a', required=True)
+    p.add_argument('--amount', '-x', required=True, type=float)
     p.set_defaults(func=add_transaction)
 
 @with_session
@@ -30,12 +30,12 @@ def add_transaction(session, args):
     if args.payee:
         transaction.payee = common.search_by_name(session, m.Payee, args.payee)
 
-    from_account = common.search_by_name(session, m.Account, args.from_account)
+    account = common.search_by_name(session, m.Account, args.account)
     to_account = common.search_by_name(session, m.Account, args.to_account)
 
     transaction.splits = [
-        m.Split(account=from_account, amount=float(args.amount) * -1),
-        m.Split(account=to_account,   amount=float(args.amount)),
+        m.Split(account=account, amount=args.amount * -1),
+        m.Split(account=to_account, amount=args.amount),
     ]
 
     session.add(transaction)
