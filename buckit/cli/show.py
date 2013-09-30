@@ -27,9 +27,15 @@ def show(session, args):
 @with_session
 def show_transactions(session, args):
     account = common.search_by_name(session, m.Account, args.account)
+    splits = session.query(m.Split)\
+        .join(m.Account)\
+        .join(m.Transaction)\
+        .filter(m.Account.name == args.account)\
+        .order_by(m.Transaction.date.desc())\
+        .all()
 
     table = [('id', 'date', 'payee', 'amount')]
-    for split in account.splits:
+    for split in splits:
         transaction = split.transaction
         table.append((
             str(transaction.id),
