@@ -21,6 +21,10 @@ def p(table,
         divider='|',
         column_padding=1,
         has_header=True):
+    '''Prints a table with the options listed above. Currently requires
+    that the table contain only strings. Otherwise unexpected behavior will
+    occur.
+    '''
 
     if len(table) == 0:
         return
