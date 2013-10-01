@@ -18,7 +18,7 @@
     <script src="/public/lib/angular/angular-resource.js"></script>
 
     <!-- HIGHCHARTS -->
-    <script src="http://code.highcharts.com/stock/highstock.js"></script>
+    <script src="/public/lib/highcharts/highstock.js"></script>
 
     <!-- BUCKIT -->
     <script src="/public/.compiled/buckit.js"></script>
@@ -29,15 +29,19 @@
   </head>
   <body>
 
-    <div class="content">
-
-      <h1>Buckit</h1>
-      <hr>
-
-      <ng-include src="'/public/html/accounts.html'"></ng-include>
-      <ng-include src="'/public/html/transactions.html'"></ng-include>
-      <ng-include src="'/public/html/chart.html'"></ng-include>
-
+    <div class="tabbable tabs-left">
+      <ul class="nav nav-tabs ">
+        <li><a href="#accounts-tab" data-toggle="tab">Accounts</a></li>
+        <li><a href="#ledgers-tab" data-toggle="tab">Ledgers</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane" id="accounts-tab">
+          Accounts tab
+        </div>
+        <div class="tab-pane" id="ledgers-tab">
+          Ledgers tab
+        </div>
+      </div>
     </div>
 
   </body>
