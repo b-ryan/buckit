@@ -1,4 +1,4 @@
-budget.directive 'firstchart', () ->
+buckit.directive 'firstchart', () ->
 
     restrict: 'E'
     replace: true,
