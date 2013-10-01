@@ -5,20 +5,11 @@ def determine_column_widths(table, column_padding):
     max_values = [max(col, key=len) for col in columns]
     return [len(x) + column_padding * 2 for x in max_values]
 
-def gen_format(column_widths, divider):
-    length_fmts = (
-        '{:^' + str(width) + '}'
-        for width in column_widths
-    )
-    mid = divider.join(length_fmts)
-    return '{divider}{mid}{divider}\n'.format(
-        divider=divider,
-        mid=mid,
-    )
+def create_full_row_fmt(divider, width_fmts):
+    return '{0}{1}{0}\n'.format(divider, divider.join(width_fmts))
 
 def p(table,
         fd=sys.stdout,
-        divider='|',
         column_padding=1,
         has_header=True):
     '''Prints a table with the options listed above. Currently requires
@@ -30,12 +21,21 @@ def p(table,
         return
 
     column_widths = determine_column_widths(table, column_padding)
-    fmt = gen_format(column_widths, divider)
+    width_fmts = ['{:^' + str(width) + '}' for width in column_widths]
+    border_vals = ['-' * x for x in column_widths] if has_header else None
 
-    print_once = ['-' * x for x in column_widths] if has_header else None
+    border_fmt = create_full_row_fmt('*', width_fmts)
+    row_fmt = create_full_row_fmt('|', width_fmts)
 
+    print_border = lambda: fd.write(border_fmt.format(*border_vals))
+    print_border()
+
+    is_header = True
     for row in table:
-        fd.write(fmt.format(*row))
-        if print_once is not None:
-            fd.write(fmt.format(*print_once))
-            print_once = None
+        fd.write(row_fmt.format(*row))
+
+        if has_header and is_header:
+            print_border()
+            is_header = False
+
+    print_border()
