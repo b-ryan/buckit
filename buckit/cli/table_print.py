@@ -8,31 +8,31 @@ def determine_column_widths(table, column_padding):
 def create_full_row_fmt(divider, width_fmts):
     return '{0}{1}{0}\n'.format(divider, divider.join(width_fmts))
 
-def p(table,
+def p(table, header=None,
         fd=sys.stdout,
-        column_padding=1,
-        has_header=True):
+        column_padding=1):
 
     if len(table) == 0:
         return
 
-    stringified = [map(str, row) for row in table]
-    column_widths = determine_column_widths(stringified, column_padding)
+    table = [map(str, row) for row in table]
+    full_table = ([header] if header is not None else []) + table
+
+    column_widths = determine_column_widths(full_table, column_padding)
     width_fmts = ['{:^' + str(width) + '}' for width in column_widths]
-    border_vals = ['-' * x for x in column_widths] if has_header else None
+    border_vals = ['-' * x for x in column_widths]
 
     border_fmt = create_full_row_fmt('*', width_fmts)
     row_fmt = create_full_row_fmt('|', width_fmts)
 
     print_border = lambda: fd.write(border_fmt.format(*border_vals))
+    print_row = lambda row: fd.write(row_fmt.format(*row))
+
     print_border()
 
-    is_header = True
-    for row in stringified:
-        fd.write(row_fmt.format(*row))
+    if header is not None:
+        print_row(header)
+        print_border()
 
-        if has_header and is_header:
-            print_border()
-            is_header = False
-
+    [print_row(row) for row in table]
     print_border()
