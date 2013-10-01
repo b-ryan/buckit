@@ -12,15 +12,12 @@ def p(table,
         fd=sys.stdout,
         column_padding=1,
         has_header=True):
-    '''Prints a table with the options listed above. Currently requires
-    that the table contain only strings. Otherwise unexpected behavior will
-    occur.
-    '''
 
     if len(table) == 0:
         return
 
-    column_widths = determine_column_widths(table, column_padding)
+    stringified = [map(str, row) for row in table]
+    column_widths = determine_column_widths(stringified, column_padding)
     width_fmts = ['{:^' + str(width) + '}' for width in column_widths]
     border_vals = ['-' * x for x in column_widths] if has_header else None
 
@@ -31,7 +28,7 @@ def p(table,
     print_border()
 
     is_header = True
-    for row in table:
+    for row in stringified:
         fd.write(row_fmt.format(*row))
 
         if has_header and is_header:

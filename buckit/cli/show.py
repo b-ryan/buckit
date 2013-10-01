@@ -9,7 +9,7 @@ def setup_parser(parent_parser):
     p.set_defaults(func=show, model=m.Account)
 
     p = parent_parser.add_parser('payees')
-    p.set_defaults(func=show, model=m.Payee)
+    p.set_defaults(func=show_payees)
 
     p = parent_parser.add_parser('ledger')
     p.add_argument('--account', '-a', required=True)
@@ -22,6 +22,13 @@ def show(session, args):
         print result
 
 @with_session
+def show_payees(session, args):
+    payees = session.query(m.Payee).all()
+    table = [(p.id, p.name,) for p in payees]
+    table.insert(0, ('id', 'name',))
+    table_print.p(table)
+
+@with_session
 def show_ledger(session, args):
     account = common.search_by_name(session, m.Account, args.account)
     splits = session.query(m.Split)\
@@ -31,14 +38,14 @@ def show_ledger(session, args):
         .order_by(m.Transaction.date.desc())\
         .all()
 
-    table = [('id', 'date', 'payee', 'amount')]
+    table = [('id', 'date', 'payee', 'amount',)]
     for split in splits:
         transaction = split.transaction
         table.append((
-            str(transaction.id),
-            str(transaction.date),
+            transaction.id,
+            transaction.date,
             transaction.payee.name if transaction.payee else '',
-            str(split.amount),
+            split.amount,
         ))
 
     table_print.p(table)
