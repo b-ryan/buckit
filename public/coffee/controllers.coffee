@@ -1,6 +1,9 @@
-window.TransactionsCtrl = ($scope, Account, Transaction) ->
+window.AccountsCtrl = ($scope, Account) ->
 
     $scope.accounts = Account.query()
+
+window.TransactionsCtrl = ($scope, Transaction) ->
+
     $scope.transactions = Transaction.query()
 
     $scope.reset = () ->
