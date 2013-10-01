@@ -14,9 +14,9 @@ def setup_parser(parent_parser):
     p = subs.add_parser('payees')
     p.set_defaults(func=show, model=m.Payee)
 
-    p = subs.add_parser('transactions')
+    p = subs.add_parser('ledger')
     p.add_argument('--account', '-a', required=True)
-    p.set_defaults(func=show_transactions)
+    p.set_defaults(func=show_ledger)
 
 @with_session
 def show(session, args):
@@ -25,7 +25,7 @@ def show(session, args):
         print result
 
 @with_session
-def show_transactions(session, args):
+def show_ledger(session, args):
     account = common.search_by_name(session, m.Account, args.account)
     splits = session.query(m.Split)\
         .join(m.Account)\
