@@ -1,13 +1,13 @@
 import sys
 
-def determine_column_widths(table):
+def determine_column_widths(table, column_padding):
     columns = zip(*table)
     max_values = [max(col, key=len) for col in columns]
-    return [len(x) for x in max_values]
+    return [len(x) + column_padding * 2 for x in max_values]
 
-def gen_format(column_widths, divider, column_padding):
+def gen_format(column_widths, divider):
     length_fmts = (
-        '{:^' + str(width + column_padding * 2) + '}'
+        '{:^' + str(width) + '}'
         for width in column_widths
     )
     mid = divider.join(length_fmts)
@@ -29,8 +29,8 @@ def p(table,
     if len(table) == 0:
         return
 
-    column_widths = determine_column_widths(table)
-    fmt = gen_format(column_widths, divider, column_padding)
+    column_widths = determine_column_widths(table, column_padding)
+    fmt = gen_format(column_widths, divider)
 
     print_once = ['-' * x for x in column_widths] if has_header else None
 
