@@ -5,16 +5,13 @@ from sqlalchemy.orm import joinedload
 import table_print
 
 def setup_parser(parent_parser):
-    parser = parent_parser.add_parser('show')
-    subs = parser.add_subparsers()
-
-    p = subs.add_parser('accounts')
+    p = parent_parser.add_parser('accounts')
     p.set_defaults(func=show, model=m.Account)
 
-    p = subs.add_parser('payees')
+    p = parent_parser.add_parser('payees')
     p.set_defaults(func=show, model=m.Payee)
 
-    p = subs.add_parser('ledger')
+    p = parent_parser.add_parser('ledger')
     p.add_argument('--account', '-a', required=True)
     p.set_defaults(func=show_ledger)
 
