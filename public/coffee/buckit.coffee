@@ -1,4 +1,4 @@
-buckit = angular.module 'buckit', ['ngResource', 'ui.bootstrap']
+buckit = angular.module 'buckit', ['ngResource']
 
 buckit.factory 'Transaction', ($resource) ->
     return $resource '/transactions/:id'
