@@ -29,18 +29,14 @@
   </head>
   <body>
 
-    <div class="tabbable tabs-left">
+    <div class="tabbable tabs-left" ng-controller="TabsCtrl">
       <ul class="nav nav-tabs ">
-        <li><a href="#accounts-tab" data-toggle="tab">Accounts</a></li>
-        <li><a href="#ledgers-tab" data-toggle="tab">Ledgers</a></li>
+        <li ng-repeat="tab in tabs" class="{{tab.active && 'active'}}">
+          <a href="{{tab.href}}">{{tab.name}}</a>
+        </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane" id="accounts-tab">
-          Accounts tab
-        </div>
-        <div class="tab-pane" id="ledgers-tab">
-          Ledgers tab
-        </div>
+        <ng-view></ng-view>
       </div>
     </div>
 
