@@ -1,14 +1,13 @@
-window.TabsCtrl = ($scope, $route) ->
+window.TabsCtrl = ($scope, $route, $location) ->
 
     $scope.tabs = [
         {
             name: 'Accounts'
-            href: '#accounts'
+            href: '#/accounts'
         }
         {
             name: 'Ledger'
-            href: '#ledger'
-            active: true
+            href: '#/ledger'
         }
     ]
 
@@ -28,10 +27,9 @@ window.TabsCtrl = ($scope, $route) ->
     # };
 
     $scope.$on '$routeChangeSuccess', () ->
-        console.log 'route change'
-        console.log $route.current.$route
         for tab in $scope.tabs
-            tab.active = false
+            console.log tab.href == '#' + $location.path()
+            tab.active = tab.href == '#' + $location.path()
 
     # $scope.$on('$routeChangeSuccess', function() {
     #     $scope.clearClass($scope.tabs);
