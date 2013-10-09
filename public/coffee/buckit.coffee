@@ -1,4 +1,10 @@
-buckit = angular.module 'buckit', ['ngResource']
+buckit = angular.module 'buckit', ['ngResource'],
+    ($routeProvider) ->
+        $routeProvider
+            .when '/accounts',
+                templateUrl: '/public/html/accounts.html'
+            .when '/ledger',
+                templateUrl: '/public/html/ledger.html'
 
 buckit.factory 'Transaction', ($resource) ->
     return $resource '/transactions/:id'
