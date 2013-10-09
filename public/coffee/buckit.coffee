@@ -3,7 +3,7 @@ buckit = angular.module 'buckit', ['ngResource'],
         $routeProvider
             .when '/accounts',
                 templateUrl: '/public/html/accounts.html'
-            .when '/Ledger',
+            .when '/ledger',
                 templateUrl: '/public/html/ledger.html'
 
 buckit.factory 'Transaction', ($resource) ->
