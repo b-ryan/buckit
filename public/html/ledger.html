@@ -1,3 +1,5 @@
 <div ng-controller="LedgerCtrl">
   <h3>Ledger</h3>
+
+  <pre ng-repeat="t in transactions">{{t | json}}</pre>
 </div>

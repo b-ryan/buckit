@@ -23,6 +23,11 @@ window.AccountsCtrl = ($scope, Account) ->
 
     $scope.accounts = Account.query()
 
+window.LedgerCtrl = ($scope, Transaction) ->
+
+    $scope.transactions = Transaction.query()
+
+# not currently used
 window.TransactionsCtrl = ($scope, Transaction) ->
 
     $scope.transactions = Transaction.query()
