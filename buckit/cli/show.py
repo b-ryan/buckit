@@ -1,7 +1,6 @@
 import common
 import buckit.model as m
 from buckit.utils import with_session, get_ledger
-from sqlalchemy.orm import joinedload
 import table_print
 
 def setup_parser(parent_parser):
