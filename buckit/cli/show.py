@@ -1,6 +1,6 @@
 import common
 import buckit.model as m
-from buckit.utils import with_session
+from buckit.utils import with_session, get_ledger
 from sqlalchemy.orm import joinedload
 import table_print
 
@@ -30,12 +30,7 @@ def show_payees(session, args):
 @with_session
 def show_ledger(session, args):
     account = common.search_by_name(session, m.Account, args.account)
-    splits = session.query(m.Split)\
-        .join(m.Account)\
-        .join(m.Transaction)\
-        .filter(m.Account.name == args.account)\
-        .order_by(m.Transaction.date.desc())\
-        .all()
+    splits = get_ledger(session, account)
 
     table = []
     for split in splits:

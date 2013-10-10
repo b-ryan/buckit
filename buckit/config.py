@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 db_url = 'postgresql://buckit:password@127.0.0.1/buckit'
 
@@ -8,7 +8,7 @@ engine = create_engine(
     pool_recycle=3600, # recycle connections every hour
 )
 
-Session = sessionmaker(bind=engine)
+Session = scoped_session(sessionmaker(bind=engine))
 
 port = 9000
 use_reloader = True

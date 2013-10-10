@@ -1,5 +1,11 @@
+"""
+This file currently contains several bits of functionality
+that I don't know what to do with. I'm hoping I discover
+where all of this should properly live as the project matures
+"""
 import json
 from config import Session
+import buckit.model as m
 
 class CustomEncoder(json.JSONEncoder):
 
@@ -19,3 +25,12 @@ def with_session(func):
             session.close()
         return result
     return wrapped
+
+def get_ledger(session, account):
+    splits = session.query(m.Split)\
+        .join(m.Account)\
+        .join(m.Transaction)\
+        .filter(m.Account.id == account.id)\
+        .order_by(m.Transaction.date.desc())\
+        .all()
+    return splits

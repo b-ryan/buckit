@@ -13,18 +13,15 @@ class Transaction(base.Base):
     payee  = relationship('Payee')
     splits = relationship('Split')
 
-    @property
-    def total_amount(self):
-        return sum([split.amount for split in self.splits])
-
-    def __json__(self):
-        return {
+    def __json__(self, include_splits=True):
+        json = {
             'id':            self.id,
             'date':          self.date,
             'payee':         self.payee,
-            'splits':        self.splits,
-            'total_amount':  self.total_amount,
         }
+        if include_splits:
+            json['splits'] = [s.__json__(include_transaction=False) for s in self.splits]
+        return json
 
     def __str__(self):
         payee_name = self.payee.name if self.payee else ''
@@ -55,15 +52,18 @@ class Split(base.Base):
     reconciled_status  = Column(ReconciledStatus, default='not_reconciled')
 
     account     = relationship('Account')
-    transaction = relationship('Transaction')
+    transaction = relationship('Transaction', lazy=False)
 
-    def __json__(self):
-        return {
+    def __json__(self, include_transaction=True):
+        json = {
             'id':                self.id,
             'account':           self.account,
             'amount':            self.amount,
             'reconciled_status': self.reconciled_status,
         }
+        if include_transaction:
+            json['transaction'] = self.transaction.__json__(include_splits=False)
+        return json
 
     def __str__(self):
         return "Split id:{0} account:{1} amount:{2}".format(
