@@ -23,9 +23,9 @@ window.AccountsCtrl = ($scope, Account) ->
 
     $scope.accounts = Account.query()
 
-window.LedgerCtrl = ($scope, Transaction, Split) ->
+window.LedgerCtrl = ($scope, Split) ->
 
-    $scope.transactions = Split.query({account_id: 1})
+    $scope.splits = Split.query({account_id: 1})
 
 # not currently used
 window.TransactionsCtrl = ($scope, Transaction) ->

@@ -1,5 +1,21 @@
-<div ng-controller="LedgerCtrl">
+<div id="ledger" ng-controller="LedgerCtrl">
   <h3>Ledger</h3>
 
-  <pre ng-repeat="t in transactions">{{t | json}}</pre>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>date</th>
+        <th>payee</th>
+        <th>amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="split in splits">
+        <td>{{split.transaction.date}}</td>
+        <td>{{split.transaction.payee.name}}</td>
+        <td>{{split.amount}}</td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
