@@ -1,3 +1,4 @@
 from account     import Account
 from payee       import Payee
-from transaction import Split, Transaction
+from transaction import Transaction
+from split       import Split
