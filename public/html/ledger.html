@@ -1,4 +1,4 @@
-<div id="ledger" ng-controller="LedgerCtrl">
+<div id="ledger" ng-controller="AccountTransactionsCtrl">
   <h3>Ledger</h3>
 
   <table class="table table-bordered table-striped">
@@ -10,10 +10,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="split in splits">
-        <td>{{split.transaction.date}}</td>
-        <td>{{split.transaction.payee.name}}</td>
-        <td>{{split.amount}}</td>
+      <tr ng-repeat="transaction in transactions">
+        <td>{{transaction.date}}</td>
+        <td>{{transaction.payee.name}}</td>
+        <td>{{accountTotal(transaction.splits)}}</pre></td>
       </tr>
     </tbody>
   </table>

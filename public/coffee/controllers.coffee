@@ -19,25 +19,15 @@ window.TabsCtrl = ($scope, $route, $location) ->
 
     $scope.updateActive()
 
-window.AccountsCtrl = ($scope, Account) ->
+window.AccountsCtrl = ($scope, Accounts) ->
 
-    $scope.accounts = Account.query()
+    $scope.accounts = Accounts.query()
 
-window.LedgerCtrl = ($scope, Split) ->
+window.AccountTransactionsCtrl = ($scope, AccountTransactions) ->
 
-    $scope.splits = Split.query({account_id: 1})
+    $scope.transactions = AccountTransactions.query({account_id: 1})
 
-# not currently used
-window.TransactionsCtrl = ($scope, Transaction) ->
-
-    $scope.transactions = Transaction.query()
-
-    $scope.reset = () ->
-        $scope.transaction = new Transaction
-            status: 'not_reconciled'
-
-    $scope.save = (transaction) ->
-        console.log(transaction)
-        $scope.reset()
-
-    $scope.reset()
+    $scope.accountTotal = (transaction) ->
+        reducer = (sum, split) ->
+            return sum + if split.account.name == "Credit Card" then split.amount else 0
+        transaction.splits.reduce reducer, 0
