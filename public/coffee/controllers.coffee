@@ -31,14 +31,14 @@ window.AccountTransactionsCtrl = (
 
     $scope.setActiveTab(1)
 
-    $scope.accounts = Accounts.query () ->
-        $scope.changeCurrAccount $routeParams.account_id
-
     $scope.$watch 'currAccount', () ->
         if not $scope.currAccount
             return
         $location.path '/ledger/' + $scope.currAccount.id
         $scope.fetchTransactions()
+
+    $scope.accounts = Accounts.query () ->
+        $scope.changeCurrAccount $routeParams.account_id
 
     $scope.changeCurrAccount = (account_id) ->
         if account_id
