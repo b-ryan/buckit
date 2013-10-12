@@ -25,23 +25,27 @@ window.AccountsCtrl = ($scope, Accounts) ->
 window.AccountTransactionsCtrl = (
         $scope,
         $routeParams,
+        $location,
         Accounts,
         AccountTransactions) ->
 
     $scope.setActiveTab(1)
 
     $scope.accounts = Accounts.query () ->
-        if $routeParams.account_id
+        $scope.changeCurrAccount $routeParams.account_id
+
+    $scope.changeCurrAccount = (account_id) ->
+        if account_id
             match = $scope.accounts.filter (account) ->
-                account.id == parseInt($routeParams.account_id)
-            match[0].active = true
+                account.id == parseInt account_id
+            $scope.currAccount = match[0]
         else
-            $scope.accounts[0].active = true
-        console.log $scope.accounts
+            $scope.currAccount = $scope.accounts[0]
 
-    $scope.transactions = AccountTransactions.query({account_id: 1})
+        $scope.currAccount.active = true
+        $location.path '/ledger/' + $scope.currAccount.id
+        $scope.fetchTransactions()
 
-    $scope.accountTotal = (transaction) ->
-        reducer = (sum, split) ->
-            return sum + if split.account.name == "Credit Card" then split.amount else 0
-        transaction.splits.reduce reducer, 0
+    $scope.fetchTransactions = () ->
+        $scope.transactions = AccountTransactions.query
+            account_id: $scope.currAccount.id
