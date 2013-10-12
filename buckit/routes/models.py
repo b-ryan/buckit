@@ -22,16 +22,19 @@ def _json(func):
     return wrapped
 
 @bottle.get('/accounts')
+@with_session
+@_json
 def accounts():
-    session = buckit.config.Session()
-    response = json.dumps(
-        session.query(m.Account)\
-            .all(),
-        cls=CustomEncoder,
-    )
-    session.close()
-    bottle.response.content_type = 'application/json'
-    return response
+    return bottle.request.session.query(m.Account)\
+        .all()
+
+@bottle.get('/accounts/:account_id')
+@with_session
+@_json
+def accounts(account_id):
+    return bottle.request.session.query(m.Account)\
+        .filter_by(id=account_id)\
+        .first()
 
 @bottle.get('/accounts/:account_id/transactions')
 @with_session

@@ -2,7 +2,9 @@
   <div class="content">
     <h3>Ledger</h3>
     <select>
-      <option ng-repeat="account in accounts" value="{{account.id}}">
+      <option ng-repeat="account in accounts" value="{{account.id}}"
+        ng-selected="account.active"
+      >
         {{account.name}}
       </option>
     </select>

@@ -30,9 +30,15 @@ window.AccountTransactionsCtrl = (
 
     $scope.setActiveTab(1)
 
-    console.log($routeParams)
+    $scope.accounts = Accounts.query () ->
+        if $routeParams.account_id
+            match = $scope.accounts.filter (account) ->
+                account.id == parseInt($routeParams.account_id)
+            match[0].active = true
+        else
+            $scope.accounts[0].active = true
+        console.log $scope.accounts
 
-    $scope.accounts = Accounts.query()
     $scope.transactions = AccountTransactions.query({account_id: 1})
 
     $scope.accountTotal = (transaction) ->
