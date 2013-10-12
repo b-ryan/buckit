@@ -10,11 +10,6 @@ ReconciledStatus = Enum(
 )
 
 class Split(base.Base):
-    '''Splits describe where money is coming from and where it's going. A
-    transaction will always be set up like this:
-
-    TODO: Should individual splits be cleared/reconciled??
-    '''
 
     __tablename__ = 'transaction_splits'
 
@@ -28,19 +23,9 @@ class Split(base.Base):
     transaction = relationship('Transaction', lazy=False)
 
     def __json__(self, include_transaction=True):
-        json = {
+        return {
             'id':                self.id,
             'account':           self.account,
             'amount':            self.amount,
             'reconciled_status': self.reconciled_status,
         }
-        if include_transaction:
-            json['transaction'] = self.transaction.__json__(include_splits=False)
-        return json
-
-    def __str__(self):
-        return "Split id:{0} account:{1} amount:{2}".format(
-            self.id,
-            self.account.name,
-            self.amount,
-        )

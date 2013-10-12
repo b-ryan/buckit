@@ -14,17 +14,9 @@ class Transaction(base.Base):
     splits = relationship('Split')
 
     def __json__(self, include_splits=True):
-        json = {
-            'id':            self.id,
-            'date':          self.date,
-            'payee':         self.payee,
+        return {
+            'id':     self.id,
+            'date':   self.date,
+            'payee':  self.payee,
+            'splits': self.splits,
         }
-        if include_splits:
-            json['splits'] = [s.__json__(include_transaction=False) for s in self.splits]
-        return json
-
-    def __str__(self):
-        payee_name = self.payee.name if self.payee else ''
-        s = "Transaction id:{0} date:{1}\n".format(self.id, self.date, payee_name)
-        s += "\n".join([' ' * 4 + str(split) for split in self.splits])
-        return s

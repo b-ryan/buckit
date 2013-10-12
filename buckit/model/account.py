@@ -2,7 +2,8 @@ import base
 from sqlalchemy import Column, ForeignKey, Integer, String, Enum
 from sqlalchemy.orm import relationship
 
-"""Accounts encompass the concepts of both actual accounts, such as a
+"""
+Accounts encompass the concepts of both actual accounts, such as a
 checking or savings account, and categories, which can be either
 expense or income.
 """
@@ -34,10 +35,3 @@ class Account(base.Base):
             'name': self.name,
             'type': self.type,
         }
-
-    def __str__(self):
-        return "Account id:{0} name:{1} type:{2}".format(
-            self.id,
-            self.name,
-            self.type,
-        )
