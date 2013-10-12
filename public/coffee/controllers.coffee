@@ -11,6 +11,9 @@ window.TabsCtrl = ($scope) ->
         }
     ]
 
+    $scope.ACCOUNTS_TAB_INDEX = 0
+    $scope.LEDGER_TAB_INDEX = 1
+
     $scope.setActiveTab = (index) ->
         for tab in $scope.tabs
             tab.active = false
@@ -18,7 +21,7 @@ window.TabsCtrl = ($scope) ->
 
 window.AccountsCtrl = ($scope, Accounts) ->
 
-    $scope.setActiveTab(0)
+    $scope.setActiveTab($scope.ACCOUNTS_TAB_INDEX)
 
     $scope.accounts = Accounts.query()
 
@@ -29,7 +32,7 @@ window.AccountTransactionsCtrl = (
         Accounts,
         AccountTransactions) ->
 
-    $scope.setActiveTab(1)
+    $scope.setActiveTab($scope.LEDGER_TAB_INDEX)
 
     $scope.$watch 'currAccount', () ->
         if not $scope.currAccount
