@@ -1,20 +1,22 @@
 <div id="accounts" ng-controller="AccountsCtrl">
-  <h3>Accounts</h3>
+  <div class="content">
+    <h3>Accounts</h3>
 
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>type</th>
-        <th>name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="account in accounts">
-        <td>{{account.id}}</td>
-        <td>{{account.type}}</td>
-        <td>{{account.name}}</td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>type</th>
+          <th>name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="account in accounts">
+          <td>{{account.id}}</td>
+          <td>{{account.type}}</td>
+          <td>{{account.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

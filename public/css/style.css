@@ -8,10 +8,5 @@ html, body {
 }
 
 .content {
-  margin: auto;
-  width: 80%;
-}
-
-#accounts table {
   width: 90%;
 }
