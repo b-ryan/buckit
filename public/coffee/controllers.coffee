@@ -1,4 +1,4 @@
-window.TabsCtrl = ($scope, $route, $location) ->
+window.TabsCtrl = ($scope) ->
 
     $scope.tabs = [
         {
@@ -11,20 +11,28 @@ window.TabsCtrl = ($scope, $route, $location) ->
         }
     ]
 
-    $scope.updateActive = () ->
+    $scope.setActiveTab = (index) ->
         for tab in $scope.tabs
-            tab.active = tab.href == '#' + $location.path()
-
-    $scope.$on '$routeChangeSuccess', $scope.updateActive
-
-    $scope.updateActive()
+            tab.active = false
+        $scope.tabs[index].active = true
 
 window.AccountsCtrl = ($scope, Accounts) ->
 
+    $scope.setActiveTab(0)
+
     $scope.accounts = Accounts.query()
 
-window.AccountTransactionsCtrl = ($scope, AccountTransactions) ->
+window.AccountTransactionsCtrl = (
+        $scope,
+        $routeParams,
+        Accounts,
+        AccountTransactions) ->
 
+    $scope.setActiveTab(1)
+
+    console.log($routeParams)
+
+    $scope.accounts = Accounts.query()
     $scope.transactions = AccountTransactions.query({account_id: 1})
 
     $scope.accountTotal = (transaction) ->
