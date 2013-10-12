@@ -34,6 +34,12 @@ window.AccountTransactionsCtrl = (
     $scope.accounts = Accounts.query () ->
         $scope.changeCurrAccount $routeParams.account_id
 
+    $scope.$watch 'currAccount', () ->
+        if not $scope.currAccount
+            return
+        $location.path '/ledger/' + $scope.currAccount.id
+        $scope.fetchTransactions()
+
     $scope.changeCurrAccount = (account_id) ->
         if account_id
             match = $scope.accounts.filter (account) ->
@@ -41,10 +47,6 @@ window.AccountTransactionsCtrl = (
             $scope.currAccount = match[0]
         else
             $scope.currAccount = $scope.accounts[0]
-
-        $scope.currAccount.active = true
-        $location.path '/ledger/' + $scope.currAccount.id
-        $scope.fetchTransactions()
 
     $scope.fetchTransactions = () ->
         $scope.transactions = AccountTransactions.query
