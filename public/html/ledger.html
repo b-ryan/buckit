@@ -20,18 +20,28 @@
           <td>{{transaction.date}}</td>
           <td>{{transaction.payee.name}}</td>
           <td>{{transaction.splits | transactionDestination:currAccount}}</td>
-          <td>{{transaction.splits | transactionTotal:currAccount | currency}}</td>
+          <td>
+            {{transaction.splits | transactionTotal:currAccount | currency}}
+          </td>
         </tr>
       </tbody>
     </table>
-    <button class="btn" ng-click="openTransactionModal()">Open me!</button>
+    <div>
+      <h3>Create a new transaction</h3>
+      <div class="form-horizontal">
+        Date: <input
+          type="text"
+          datepicker-popup="MMMM dd, yyyy"
+          ng-model="newTransaction.date"
+          is-open="datepickerOpened"
+          ng-required="true"
+        />
+        <button class="btn" ng-click="openDatepicker()">
+          <i class="icon-calendar"></i>
+        </button>
+      </div>
+    </div>
   </div>
   <script type="text/ng-template" id="transactionModal.html">
-    <div class="modal-header">
-      <h3>I'm a modal!</h3>
-    </div>
-    <div class="model-body">
-      modal body!
-    </div>
   </script>
 </div>

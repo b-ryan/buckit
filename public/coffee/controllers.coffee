@@ -30,6 +30,7 @@ window.AccountTransactionsCtrl = (
         $routeParams,
         $location,
         $modal,
+        $timeout,
         Accounts,
         AccountTransactions) ->
 
@@ -59,3 +60,7 @@ window.AccountTransactionsCtrl = (
     $scope.openTransactionModal = () ->
         modalInstance = $modal.open
             templateUrl: 'transactionModal.html'
+
+    $scope.openDatepicker = () ->
+        $timeout () ->
+            $scope.datepickerOpened = true
