@@ -29,6 +29,7 @@ window.AccountTransactionsCtrl = (
         $scope,
         $routeParams,
         $location,
+        $modal,
         Accounts,
         AccountTransactions) ->
 
@@ -54,3 +55,7 @@ window.AccountTransactionsCtrl = (
     $scope.fetchTransactions = () ->
         $scope.transactions = AccountTransactions.query
             account_id: $scope.currAccount.id
+
+    $scope.openTransactionModal = () ->
+        modalInstance = $modal.open
+            templateUrl: 'transactionModal.html'
