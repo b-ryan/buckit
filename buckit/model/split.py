@@ -1,6 +1,7 @@
 import base
 from sqlalchemy import Column, ForeignKey, Integer, Enum, Float
 from sqlalchemy.orm import relationship
+from sqlalchemy.schema import UniqueConstraint
 
 ReconciledStatus = Enum(
     'not_reconciled',
@@ -21,6 +22,14 @@ class Split(base.Base):
 
     account     = relationship('Account')
     transaction = relationship('Transaction', lazy=False)
+
+    __table_args__ = (
+        UniqueConstraint(
+            'transaction_id',
+            'account_id',
+            name='transaction_splits_tran_acc_uix',
+        ),
+    )
 
     def __json__(self, include_transaction=True):
         return {
