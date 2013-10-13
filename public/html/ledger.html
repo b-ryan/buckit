@@ -18,7 +18,7 @@
         <tr ng-repeat="transaction in transactions">
           <td>{{transaction.date}}</td>
           <td>{{transaction.payee.name}}</td>
-          <td>{{transaction.splits | transactionTotal:1}}</pre></td>
+          <td>{{transaction.splits | transactionTotal:currAccount | currency}}</pre></td>
         </tr>
       </tbody>
     </table>

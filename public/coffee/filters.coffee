@@ -1,5 +1,5 @@
 buckit.filter 'transactionTotal', () ->
-    (splits, account_id) ->
+    (splits, account) ->
         reducer = (sum, split) ->
-            sum + if split.account.id == account_id then split.amount else 0
+            sum + if split.account.id == account.id then split.amount else 0
         splits.reduce reducer, 0
