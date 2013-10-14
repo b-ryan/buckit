@@ -57,9 +57,9 @@ window.AccountTransactionsCtrl = (
         $scope.transactions = AccountTransactions.query
             account_id: $scope.currAccount.id
 
-    $scope.openTransactionModal = () ->
-        modalInstance = $modal.open
-            templateUrl: 'transactionModal.html'
+window.NewTransactionCtrl = ($scope) ->
+
+    $scope.newTransaction = {}
 
     $scope.openDatepicker = () ->
         $timeout () ->
