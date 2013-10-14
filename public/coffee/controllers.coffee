@@ -25,25 +25,28 @@ window.AccountsCtrl = ($scope, Accounts) ->
 
     $scope.accounts = Accounts.query()
 
-window.AccountTransactionsCtrl = (
+window.LedgerCtrl = (
         $scope,
         $routeParams,
         $location,
         $modal,
         $timeout,
         Accounts,
-        AccountTransactions) ->
+        AccountTransactions,
+        Payees) ->
 
     $scope.setActiveTab($scope.LEDGER_TAB_INDEX)
+
+    $scope.accounts = Accounts.query () ->
+        $scope.changeCurrAccount $routeParams.account_id
+
+    $scope.payees = Payees.query()
 
     $scope.$watch 'currAccount', () ->
         if not $scope.currAccount
             return
         $location.path '/ledger/' + $scope.currAccount.id
         $scope.fetchTransactions()
-
-    $scope.accounts = Accounts.query () ->
-        $scope.changeCurrAccount $routeParams.account_id
 
     $scope.changeCurrAccount = (account_id) ->
         if account_id
@@ -59,8 +62,19 @@ window.AccountTransactionsCtrl = (
 
 window.NewTransactionCtrl = ($scope) ->
 
-    $scope.newTransaction = {}
+    $scope.statuses = [
+        'not_reconciled'
+        'cleared'
+        'reconciled'
+    ]
+
+    $scope.reset = () ->
+        $scope.transaction =
+            date: new Date()
+            splits: []
 
     $scope.openDatepicker = () ->
         $timeout () ->
             $scope.datepickerOpened = true
+
+    $scope.reset()

@@ -1,4 +1,4 @@
-<div id="ledger" ng-controller="AccountTransactionsCtrl">
+<div id="ledger" ng-controller="LedgerCtrl">
   <div class="content">
     <h3>Ledger</h3>
     <select
@@ -35,13 +35,19 @@
             <input
               type="text"
               datepicker-popup="MMMM dd, yyyy"
-              ng-model="newTransaction.date"
+              ng-model="transaction.date"
               is-open="datepickerOpened"
               ng-required="true"
             />
             <button class="btn" ng-click="openDatepicker()">
               <i class="icon-calendar"></i>
             </button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Payee</label>
+          <div class="controls">
+            <input type="text" auto-complete="payees:name" />
           </div>
         </div>
         <div class="control-group">

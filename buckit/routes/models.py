@@ -25,8 +25,7 @@ def _json(func):
 @with_session
 @_json
 def accounts():
-    return bottle.request.session.query(m.Account)\
-        .all()
+    return bottle.request.session.query(m.Account).all()
 
 @bottle.get('/accounts/:account_id')
 @with_session
@@ -60,6 +59,12 @@ def account_splits(account_id):
     session.close()
     bottle.response.content_type = 'application/json'
     return response
+
+@bottle.get('/payees')
+@with_session
+@_json
+def payees():
+    return bottle.request.session.query(m.Payee).all()
 
 @bottle.get('/transactions')
 def transactions():
