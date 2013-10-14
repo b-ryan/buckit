@@ -47,13 +47,21 @@
         <div class="control-group">
           <label class="control-label">Payee</label>
           <div class="controls">
-            <input type="text" auto-complete="payees:name" />
+            <input type="text" auto-complete="payees:name"
+              ng-model="payeeName" ng-blur="payeeNameChanged()" />
           </div>
         </div>
         <div class="control-group">
           <label class="control-label">Account</label>
           <div class="controls">
-            <input type="text" auto-complete="accounts:name" />
+            <input type="text" auto-complete="accounts:name"
+              ng-model="accountName" ng-blur="accountNameChanged()" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Amount</label>
+          <div class="controls">
+            <input type="text" ng-model="amount" />
           </div>
         </div>
       </div>

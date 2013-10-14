@@ -71,7 +71,15 @@ window.NewTransactionCtrl = ($scope) ->
     $scope.reset = () ->
         $scope.transaction =
             date: new Date()
-            splits: []
+        $scope.payeeName = null
+        $scope.accountName = null
+        $scope.amount = 0
+
+    $scope.payeeNameChanged = () ->
+        console.log $scope.payeeName
+
+    $scope.accountNameChanged = () ->
+        console.log $scope.accountName
 
     $scope.openDatepicker = () ->
         $timeout () ->

@@ -25,7 +25,9 @@ def _json(func):
 @with_session
 @_json
 def accounts():
-    return bottle.request.session.query(m.Account).all()
+    return bottle.request.session.query(m.Account)\
+        .order_by(m.Account.name)\
+        .all()
 
 @bottle.get('/accounts/:account_id')
 @with_session
