@@ -71,15 +71,38 @@ window.NewTransactionCtrl = ($scope, $timeout) ->
     $scope.reset = () ->
         $scope.transaction =
             date: new Date()
+            payee: null
+            splits: [
+                {
+                    account: null
+                    status: 'not_reconciled'
+                    amount: 0
+                }
+                {
+                    account: null
+                    status: 'not_reconciled'
+                    amount: 0
+                }
+            ]
         $scope.payeeName = null
         $scope.accountName = null
         $scope.amount = 0
 
+    findByName = (list, name) ->
+        matches = list.filter (x) ->
+            x.name == name
+        matches[0]
+
     $scope.payeeNameChanged = () ->
-        console.log $scope.payeeName
+        $scope.transaction.payee = findByName $scope.payees, $scope.payeeName
 
     $scope.accountNameChanged = () ->
-        console.log $scope.accountName
+        split = $scope.transaction.splits[1]
+        split.account = findByName $scope.accounts, $scope.accountName
+
+    $scope.$watch 'amount', (amount) ->
+        $scope.transaction.splits[0].amount = amount * -1
+        $scope.transaction.splits[1].amount = amount * 1
 
     $scope.openDatepicker = () ->
         $timeout () ->
