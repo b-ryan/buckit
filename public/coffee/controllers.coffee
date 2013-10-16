@@ -38,29 +38,29 @@ window.LedgerCtrl = (
     $scope.setActiveTab($scope.LEDGER_TAB_INDEX)
 
     $scope.accounts = Accounts.query () ->
-        $scope.changeCurrAccount $routeParams.account_id
+        $scope.changeAccount $routeParams.account_id
 
     $scope.payees = Payees.query()
 
-    $scope.$watch 'currAccount', () ->
-        if not $scope.currAccount
+    $scope.$watch 'account', () ->
+        if not $scope.account
             return
-        $location.path '/ledger/' + $scope.currAccount.id
+        $location.path '/ledger/' + $scope.account.id
         $scope.fetchTransactions()
 
-    $scope.changeCurrAccount = (account_id) ->
+    $scope.changeAccount = (account_id) ->
         if account_id
             match = $scope.accounts.filter (account) ->
                 account.id == parseInt account_id
-            $scope.currAccount = match[0]
+            $scope.account = match[0]
         else
-            $scope.currAccount = $scope.accounts[0]
+            $scope.account = $scope.accounts[0]
 
     $scope.fetchTransactions = () ->
         $scope.transactions = AccountTransactions.query
-            account_id: $scope.currAccount.id
+            account_id: $scope.account.id
 
-window.NewTransactionCtrl = ($scope) ->
+window.NewTransactionCtrl = ($scope, $timeout) ->
 
     $scope.statuses = [
         'not_reconciled'

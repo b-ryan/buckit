@@ -2,7 +2,7 @@
   <div class="content">
     <h3>Ledger</h3>
     <select
-      ng-model="currAccount"
+      ng-model="account"
       ng-options="account.name for account in accounts"
       >
     </select>
@@ -19,50 +19,62 @@
         <tr ng-repeat="transaction in transactions">
           <td>{{transaction.date}}</td>
           <td>{{transaction.payee.name}}</td>
-          <td>{{transaction.splits | transactionDestination:currAccount}}</td>
+          <td>{{transaction.splits | transactionDestination:account}}</td>
           <td>
-            {{transaction.splits | transactionTotal:currAccount | currency}}
+            {{transaction.splits | transactionTotal:account | currency}}
           </td>
         </tr>
       </tbody>
     </table>
     <div ng-controller="NewTransactionCtrl">
       <h3>Create a new transaction</h3>
-      <div class="form-horizontal">
-        <div class="control-group">
-          <label class="control-label">Date</label>
-          <div class="controls">
-            <input
-              type="text"
-              datepicker-popup="MMMM dd, yyyy"
-              ng-model="transaction.date"
-              is-open="datepickerOpened"
-              ng-required="true"
-            />
-            <button class="btn" ng-click="openDatepicker()">
-              <i class="icon-calendar"></i>
-            </button>
+      <div class="row">
+        <div class="span6">
+          <div class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">Date</label>
+              <div class="controls">
+                <div class="input-append">
+                  <input
+                    type="text"
+                    datepicker-popup="MMMM dd, yyyy"
+                    ng-model="transaction.date"
+                    is-open="datepickerOpened"
+                    ng-required="true"
+                  />
+                  <button class="btn" ng-click="openDatepicker()">
+                    <i class="icon-calendar"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Payee</label>
+              <div class="controls">
+                <input type="text" auto-complete="payees:name"
+                  ng-model="payeeName" ng-blur="payeeNameChanged()" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Account</label>
+              <div class="controls">
+                <input type="text" auto-complete="accounts:name"
+                  ng-model="accountName" ng-blur="accountNameChanged()" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Amount</label>
+              <div class="controls">
+                <div class="input-prepend">
+                  <span class="add-on">$</span>
+                  <input type="text" ng-model="amount" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="control-group">
-          <label class="control-label">Payee</label>
-          <div class="controls">
-            <input type="text" auto-complete="payees:name"
-              ng-model="payeeName" ng-blur="payeeNameChanged()" />
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Account</label>
-          <div class="controls">
-            <input type="text" auto-complete="accounts:name"
-              ng-model="accountName" ng-blur="accountNameChanged()" />
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Amount</label>
-          <div class="controls">
-            <input type="text" ng-model="amount" />
-          </div>
+        <div class="span6">
+          <pre>{{transaction | json}}</pre>
         </div>
       </div>
     </div>
