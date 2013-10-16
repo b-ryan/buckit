@@ -100,6 +100,9 @@ window.NewTransactionCtrl = ($scope, $timeout) ->
         split = $scope.transaction.splits[1]
         split.account = findByName $scope.accounts, $scope.accountName
 
+    $scope.$watch 'account', (account) ->
+        $scope.transaction.splits[0].account = account
+
     $scope.$watch 'amount', (amount) ->
         $scope.transaction.splits[0].amount = amount * -1
         $scope.transaction.splits[1].amount = amount * 1
