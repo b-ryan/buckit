@@ -32,7 +32,7 @@ window.LedgerCtrl = (
         $modal,
         $timeout,
         Account,
-        AccountTransaction,
+        Transaction,
         Payee) ->
 
     $scope.setActiveTab($scope.LEDGER_TAB_INDEX)
@@ -57,7 +57,7 @@ window.LedgerCtrl = (
             $scope.account = $scope.accounts[0]
 
     $scope.fetchTransactions = () ->
-        $scope.transactions = AccountTransaction.query
+        $scope.transactions = Transaction.query
             account_id: $scope.account.id
 
 window.NewTransactionCtrl = ($scope, $timeout) ->

@@ -37,31 +37,6 @@ def accounts(account_id):
         .filter_by(id=account_id)\
         .first()
 
-@bottle.get('/accounts/:account_id/transactions')
-@with_session
-@_json
-def account_transactions(account_id):
-    return bottle.request.session.query(m.Transaction)\
-        .join(m.Split)\
-        .join(m.Account)\
-        .filter(m.Account.id == account_id)\
-        .order_by(m.Transaction.date.desc())\
-        .all()
-
-@bottle.get('/accounts/:account_id/splits')
-def account_splits(account_id):
-    session = buckit.config.Session()
-    account = session.query(m.Account)\
-        .filter_by(id=account_id)\
-        .first()
-    response = json.dumps(
-        get_ledger(session, account),
-        cls=CustomEncoder,
-    )
-    session.close()
-    bottle.response.content_type = 'application/json'
-    return response
-
 @bottle.get('/payees')
 @with_session
 @_json
@@ -69,14 +44,18 @@ def payees():
     return bottle.request.session.query(m.Payee).all()
 
 @bottle.get('/transactions')
+@with_session
+@_json
 def transactions():
-    session = buckit.config.Session()
-    response = json.dumps(
-        session.query(m.Transaction)\
+    if bottle.request.query.account_id:
+        account_id = int(bottle.request.query.account_id)
+        return bottle.request.session.query(m.Transaction)\
+            .join(m.Split)\
+            .join(m.Account)\
+            .filter(m.Account.id == account_id)\
+            .order_by(m.Transaction.date.desc())\
+            .all()
+    else:
+        return bottle.request.session.query(m.Transaction)\
             .order_by(m.Transaction.date.asc())\
-            .all(),
-        cls=CustomEncoder,
-    )
-    session.close()
-    bottle.response.content_type = 'application/json'
-    return response
+            .all()
