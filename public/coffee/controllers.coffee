@@ -60,7 +60,7 @@ window.LedgerCtrl = (
         $scope.transactions = Transaction.query
             account_id: $scope.account.id
 
-window.NewTransactionCtrl = ($scope, $timeout) ->
+window.NewTransactionCtrl = ($scope, $timeout, Transaction) ->
 
     $scope.statuses = [
         'not_reconciled'
@@ -69,7 +69,7 @@ window.NewTransactionCtrl = ($scope, $timeout) ->
     ]
 
     $scope.reset = () ->
-        $scope.transaction =
+        $scope.transaction = new Transaction
             date: new Date()
             payee: null
             splits: [
@@ -87,6 +87,7 @@ window.NewTransactionCtrl = ($scope, $timeout) ->
         $scope.payeeName = null
         $scope.accountName = null
         $scope.amount = 0
+        $scope.splitStatus = 'not_reconciled'
 
     findByName = (list, name) ->
         matches = list.filter (x) ->
@@ -106,6 +107,9 @@ window.NewTransactionCtrl = ($scope, $timeout) ->
     $scope.$watch 'amount', (amount) ->
         $scope.transaction.splits[0].amount = amount * -1
         $scope.transaction.splits[1].amount = amount * 1
+
+    $scope.$watch 'splitStatus', (status) ->
+        $scope.transaction.splits[0].status = status
 
     $scope.openDatepicker = () ->
         $timeout () ->
