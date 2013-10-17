@@ -19,11 +19,11 @@ window.TabsCtrl = ($scope) ->
             tab.active = false
         $scope.tabs[index].active = true
 
-window.AccountsCtrl = ($scope, Accounts) ->
+window.AccountsCtrl = ($scope, Account) ->
 
     $scope.setActiveTab($scope.ACCOUNTS_TAB_INDEX)
 
-    $scope.accounts = Accounts.query()
+    $scope.accounts = Account.query()
 
 window.LedgerCtrl = (
         $scope,
@@ -31,16 +31,16 @@ window.LedgerCtrl = (
         $location,
         $modal,
         $timeout,
-        Accounts,
-        AccountTransactions,
-        Payees) ->
+        Account,
+        AccountTransaction,
+        Payee) ->
 
     $scope.setActiveTab($scope.LEDGER_TAB_INDEX)
 
-    $scope.accounts = Accounts.query () ->
+    $scope.accounts = Account.query () ->
         $scope.changeAccount $routeParams.account_id
 
-    $scope.payees = Payees.query()
+    $scope.payees = Payee.query()
 
     $scope.$watch 'account', () ->
         if not $scope.account
@@ -57,7 +57,7 @@ window.LedgerCtrl = (
             $scope.account = $scope.accounts[0]
 
     $scope.fetchTransactions = () ->
-        $scope.transactions = AccountTransactions.query
+        $scope.transactions = AccountTransaction.query
             account_id: $scope.account.id
 
 window.NewTransactionCtrl = ($scope, $timeout) ->

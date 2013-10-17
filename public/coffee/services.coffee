@@ -1,11 +1,11 @@
-buckit.factory 'Accounts', ($resource) ->
+buckit.factory 'Account', ($resource) ->
     $resource '/accounts/:account_id'
 
-buckit.factory 'AccountTransactions', ($resource) ->
+buckit.factory 'AccountTransaction', ($resource) ->
     $resource '/accounts/:account_id/transactions'
 
-buckit.factory 'Payees', ($resource) ->
+buckit.factory 'Payee', ($resource) ->
     $resource '/payees/:payee_id'
 
-buckit.factory 'Transactions', ($resource) ->
+buckit.factory 'Transaction', ($resource) ->
     $resource '/transactions/:id'
