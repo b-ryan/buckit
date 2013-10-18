@@ -43,6 +43,7 @@ class Split(base.Base):
     def from_json(json):
         return Split(
             id=json.get('id'),
+            transaction_id=json['transaction_id'],
             account_id=json['account_id'],
             amount=float(json['amount']),
             reconciled_status=json.get('reconciled_status', 'not_reconciled'),

@@ -21,6 +21,14 @@ def _json(func):
         return dumps(func(*args, **kwargs), cls=CustomEncoder)
     return wrapped
 
+def create_only(func):
+    def wrapped(*args, **kwargs):
+        if 'id' in bottle.request.json:
+            bottle.abort(400, 'Use PUT requests for updating objects')
+        else:
+            return func(*args, **kwargs)
+    return wrapped
+
 @bottle.get('/accounts')
 @with_session
 @_json
@@ -63,11 +71,16 @@ def transactions():
 @bottle.post('/transactions')
 @with_session
 @_json
+@create_only
 def create_transaction():
-    if 'id' in bottle.request.json:
-        bottle.abort(400, 'Use PUT requests for changing transactions')
-
     transaction = m.Transaction.from_json(bottle.request.json)
     bottle.request.session.add(transaction)
     bottle.request.session.commit()
     return transaction
+
+@bottle.post('/splits')
+@with_session
+@_json
+@create_only
+def create_split():
+    pass
