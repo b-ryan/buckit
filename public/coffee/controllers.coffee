@@ -115,4 +115,7 @@ window.NewTransactionCtrl = ($scope, $timeout, Transaction) ->
         $timeout () ->
             $scope.datepickerOpened = true
 
+    $scope.saveTransaction = () ->
+        $scope.transaction.$save()
+
     $scope.reset()
