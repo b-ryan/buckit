@@ -1,5 +1,5 @@
 import bottle
-import json
+from json import dumps
 import buckit.config
 import buckit.model as m
 from buckit.utils import CustomEncoder, get_ledger
@@ -18,7 +18,7 @@ def with_session(func):
 def _json(func):
     def wrapped(*args, **kwargs):
         bottle.response.content_type = 'application/json'
-        return json.dumps(func(*args, **kwargs), cls=CustomEncoder)
+        return dumps(func(*args, **kwargs), cls=CustomEncoder)
     return wrapped
 
 @bottle.get('/accounts')
@@ -64,5 +64,10 @@ def transactions():
 @with_session
 @_json
 def create_transaction():
+    if 'id' in bottle.request.json:
+        bottle.abort(400, 'Use PUT requests for changing transactions')
+
     transaction = m.Transaction.from_json(bottle.request.json)
+    bottle.request.session.add(transaction)
+    bottle.request.session.commit()
     return transaction

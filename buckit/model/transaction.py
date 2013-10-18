@@ -1,9 +1,7 @@
 import base
 from sqlalchemy import Column, ForeignKey, Integer, Date
 from sqlalchemy.orm import relationship
-from dateutil import parser
-from payee import Payee
-from split import Split
+from dateutil import parser as dateparser
 
 class Transaction(base.Base):
 
@@ -26,18 +24,8 @@ class Transaction(base.Base):
 
     @staticmethod
     def from_json(json):
-        print json
-
-        id = json.get('id', None)
-        date = parser.parse(json['date']).date()
-        payee = Payee.from_json(json['payee']) \
-            if json.get('payee', None) \
-            else None
-        splits = [Split.from_json(split) for split in json['splits']]
-
         return Transaction(
-            id=id,
-            date=date,
-            payee=payee,
-            splits=splits,
+            id=json.get('id,'),
+            date=dateparser.parse(json['date']),
+            payee_id=json.get('payee_id'),
         )
