@@ -35,3 +35,12 @@ class Account(base.Base):
             'name': self.name,
             'type': self.type,
         }
+
+    @staticmethod
+    def from_json(json):
+        return Account(
+            id=json.get('id', None),
+            parent_id=json.get('parent_id', None),
+            name=json['name'],
+            type=json['type'],
+        )

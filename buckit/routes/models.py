@@ -59,3 +59,10 @@ def transactions():
         return bottle.request.session.query(m.Transaction)\
             .order_by(m.Transaction.date.asc())\
             .all()
+
+@bottle.post('/transactions')
+@with_session
+@_json
+def create_transaction():
+    transaction = m.Transaction.from_json(bottle.request.json)
+    return transaction

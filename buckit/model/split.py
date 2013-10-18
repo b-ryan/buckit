@@ -2,6 +2,7 @@ import base
 from sqlalchemy import Column, ForeignKey, Integer, Enum, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import UniqueConstraint
+from account import Account
 
 ReconciledStatus = Enum(
     'not_reconciled',
@@ -38,3 +39,12 @@ class Split(base.Base):
             'amount':            self.amount,
             'reconciled_status': self.reconciled_status,
         }
+
+    @staticmethod
+    def from_json(json):
+        return Split(
+            id=json.get('id', None),
+            account=Account.from_json(json['account']),
+            amount=float(json['amount']),
+            reconciled_status=json.get('reconciled_status', 'not_reconciled'),
+        )

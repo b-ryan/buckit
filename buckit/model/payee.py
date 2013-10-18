@@ -13,3 +13,10 @@ class Payee(base.Base):
             'id':   self.id,
             'name': self.name,
         }
+
+    @staticmethod
+    def from_json(json):
+        return Payee(
+            id=json.get('id', None),
+            name=json['name'],
+        )
