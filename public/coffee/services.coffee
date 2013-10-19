@@ -6,3 +6,6 @@ buckit.factory 'Payee', ($resource) ->
 
 buckit.factory 'Transaction', ($resource) ->
     $resource '/transactions/:id'
+
+buckit.factory 'Split', ($resource) ->
+    $resource '/splits/:id'

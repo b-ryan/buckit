@@ -38,7 +38,7 @@
                   <input
                     type="text"
                     datepicker-popup="MMMM dd, yyyy"
-                    ng-model="transaction.date"
+                    ng-model="date"
                     is-open="datepickerOpened"
                     ng-required="true"
                   />
@@ -52,14 +52,14 @@
               <label class="control-label">Payee</label>
               <div class="controls">
                 <input type="text" auto-complete="payees:name"
-                  ng-model="payeeName" ng-blur="payeeNameChanged()" />
+                  ng-model="payeeName" ng-blur="updatePayeeId()" />
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Account</label>
               <div class="controls">
                 <input type="text" auto-complete="accounts:name"
-                  ng-model="accountName" ng-blur="accountNameChanged()" />
+                  ng-model="destAccountName" ng-blur="updateAccountId()" />
               </div>
             </div>
             <div class="control-group">
@@ -75,7 +75,7 @@
               <label class="control-label">Status</label>
               <div class="controls">
                 <select
-                  ng-model="splitStatus"
+                  ng-model="status"
                   ng-options="status for status in statuses"
                   >
                 </select>
@@ -89,7 +89,11 @@
           </div>
         </div>
         <div class="span6">
-          <pre>{{transaction | json}}</pre>
+          <pre>{{date | json}}</pre>
+          <pre>{{payeeId | json}}</pre>
+          <pre>{{destAccountId | json}}</pre>
+          <pre>{{amount | json}}</pre>
+          <pre>{{status | json}}</pre>
         </div>
       </div>
     </div>

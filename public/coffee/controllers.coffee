@@ -60,7 +60,7 @@ window.LedgerCtrl = (
         $scope.transactions = Transaction.query
             account_id: $scope.account.id
 
-window.NewTransactionCtrl = ($scope, $timeout, Transaction) ->
+window.NewTransactionCtrl = ($scope, $timeout, Transaction, Split) ->
 
     $scope.statuses = [
         'not_reconciled'
@@ -69,53 +69,51 @@ window.NewTransactionCtrl = ($scope, $timeout, Transaction) ->
     ]
 
     $scope.reset = () ->
-        $scope.transaction = new Transaction
-            date: new Date()
-            payee: null
-            splits: [
-                {
-                    account: null
-                    status: 'not_reconciled'
-                    amount: 0
-                }
-                {
-                    account: null
-                    status: 'not_reconciled'
-                    amount: 0
-                }
-            ]
+        $scope.date = new Date()
         $scope.payeeName = null
-        $scope.accountName = null
+        $scope.payeeId = null
+        $scope.destAccountName = null
+        $scope.destAccountId = null
         $scope.amount = 0
-        $scope.splitStatus = 'not_reconciled'
+        $scope.status = 'not_reconciled'
 
     findByName = (list, name) ->
         matches = list.filter (x) ->
             x.name == name
         matches[0]
 
-    $scope.payeeNameChanged = () ->
-        $scope.transaction.payee = findByName $scope.payees, $scope.payeeName
+    $scope.updatePayeeId = () ->
+        payee = findByName $scope.payees, $scope.payeeName
+        $scope.payeeId = payee.id
 
-    $scope.accountNameChanged = () ->
-        split = $scope.transaction.splits[1]
-        split.account = findByName $scope.accounts, $scope.accountName
+    $scope.updateAccountId = () ->
+        account = findByName $scope.accounts, $scope.destAccountName
+        $scope.destAccountId = account.id
 
-    $scope.$watch 'account', (account) ->
-        $scope.transaction.splits[0].account = account
+    $scope.saveTransaction = () ->
+        transaction = new Transaction
+            date: $scope.date
+            payee_id: $scope.payee_id
+        console.log transaction
 
-    $scope.$watch 'amount', (amount) ->
-        $scope.transaction.splits[0].amount = amount * -1
-        $scope.transaction.splits[1].amount = amount * 1
+        transaction.$save () ->
+            console.log transaction
+            new Split(
+                transaction_id: transaction.id
+                account_id: $scope.account.id
+                amount: $scope.amount * -1
+                reconciled_status: $scope.status
+            ).$save()
 
-    $scope.$watch 'splitStatus', (status) ->
-        $scope.transaction.splits[0].status = status
+            new Split(
+                transaction_id: transaction.id
+                account_id: $scope.destAccountId
+                amount: $scope.amount * 1
+                reconciled_status: 'not_reconciled'
+            ).$save()
 
     $scope.openDatepicker = () ->
         $timeout () ->
             $scope.datepickerOpened = true
-
-    $scope.saveTransaction = () ->
-        $scope.transaction.$save()
 
     $scope.reset()
