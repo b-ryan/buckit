@@ -93,24 +93,24 @@ window.NewTransactionCtrl = ($scope, $timeout, Transaction, Split) ->
     $scope.saveTransaction = () ->
         transaction = new Transaction
             date: $scope.date
-            payee_id: $scope.payee_id
+            payee_id: $scope.payeeId
+            splits: [
+                new Split(
+                    account_id: $scope.account.id
+                    amount: $scope.amount * -1
+                    reconciled_status: $scope.status
+                )
+
+                new Split(
+                    account_id: $scope.destAccountId
+                    amount: $scope.amount * 1
+                    reconciled_status: 'not_reconciled'
+                )
+            ]
         console.log transaction
 
         transaction.$save () ->
             console.log transaction
-            new Split(
-                transaction_id: transaction.id
-                account_id: $scope.account.id
-                amount: $scope.amount * -1
-                reconciled_status: $scope.status
-            ).$save()
-
-            new Split(
-                transaction_id: transaction.id
-                account_id: $scope.destAccountId
-                amount: $scope.amount * 1
-                reconciled_status: 'not_reconciled'
-            ).$save()
 
     $scope.openDatepicker = () ->
         $timeout () ->

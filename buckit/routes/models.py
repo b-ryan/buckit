@@ -73,9 +73,16 @@ def transactions():
 @_json
 @create_only
 def create_transaction():
-    transaction = m.Transaction.from_json(bottle.request.json)
-    bottle.request.session.add(transaction)
-    bottle.request.session.commit()
+    json = bottle.request.json
+    session = bottle.request.session
+
+    transaction = m.Transaction.from_json(json)
+    session.add(transaction)
+
+    if 'splits' in json:
+        transaction.splits = [m.Split.from_json(s) for s in json['splits']]
+
+    session.commit()
     return transaction
 
 @bottle.post('/splits')
