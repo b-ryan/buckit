@@ -13,6 +13,7 @@
           <th>Payee</th>
           <th>Details</th>
           <th>Amount</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -21,8 +22,9 @@
           <td>{{transaction.payee.name}}</td>
           <td>{{transaction.splits | transactionDestination:account}}</td>
           <td>
-            {{transaction.splits | transactionTotal:account | currency}}
+            {{transaction.splits | transactionAmount:account | currency}}
           </td>
+          <td>{{transaction.splits | transactionStatus:account}}</td>
         </tr>
       </tbody>
     </table>

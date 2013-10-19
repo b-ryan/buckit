@@ -107,10 +107,8 @@ window.NewTransactionCtrl = ($scope, $timeout, Transaction, Split) ->
                     reconciled_status: 'not_reconciled'
                 )
             ]
-        console.log transaction
 
-        transaction.$save () ->
-            console.log transaction
+        transaction.$save()
 
     $scope.openDatepicker = () ->
         $timeout () ->
