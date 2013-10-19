@@ -65,7 +65,7 @@ def transactions():
             .all()
     else:
         return bottle.request.session.query(m.Transaction)\
-            .order_by(m.Transaction.date.asc())\
+            .order_by(m.Transaction.date.desc())\
             .all()
 
 @bottle.post('/transactions')
@@ -83,4 +83,7 @@ def create_transaction():
 @_json
 @create_only
 def create_split():
-    pass
+    split = m.Split.from_json(bottle.request.json)
+    bottle.request.session.add(split)
+    bottle.request.session.commit()
+    return split
