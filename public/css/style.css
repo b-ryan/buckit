@@ -1,12 +1,12 @@
 html, body {
     height: 100%;
+    overflow-y: hidden;
 }
 
-.input-item {
-  border: none;
-  -webkit-box-shadow: none;
+.fill-screen {
+    height: 100%;
 }
 
-.content {
-  width: 90%;
+.main-content {
+    overflow-y: scroll;
 }

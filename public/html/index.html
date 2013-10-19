@@ -2,7 +2,6 @@
 <html ng-app="buckit">
   <head>
     <title>Buckit</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- JQUERY & JQUERY UI -->
     <script src="/public/lib/jquery/jquery.js"></script>
@@ -37,14 +36,14 @@
   </head>
   <body>
 
-    <div class="tabbable tabs-left" ng-controller="TabsCtrl">
-      <ul class="nav nav-tabs ">
+    <div class="tabbable tabs-left fill-screen" ng-controller="TabsCtrl">
+      <ul class="nav nav-tabs fill-screen">
         <li ng-repeat="tab in tabs" class="{{tab.active && 'active'}}">
           <a href="{{tab.href}}">{{tab.name}}</a>
         </li>
       </ul>
-      <div class="tab-content">
-        <ng-view></ng-view>
+      <div class="tab-content fill-screen">
+        <ng-view class="main-content"></ng-view>
       </div>
     </div>
 
