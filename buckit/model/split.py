@@ -15,9 +15,9 @@ class Split(base.Base):
     __tablename__ = 'transaction_splits'
 
     id                 = Column(Integer, primary_key=True)
-    transaction_id     = Column(Integer, ForeignKey('transactions.id'))
-    account_id         = Column(Integer, ForeignKey('accounts.id'))
-    amount             = Column(Float)
+    transaction_id     = Column(Integer, ForeignKey('transactions.id'), nullable=False)
+    account_id         = Column(Integer, ForeignKey('accounts.id'), nullable=False)
+    amount             = Column(Float, default=0.)
     reconciled_status  = Column(ReconciledStatus, default='not_reconciled')
 
     account     = relationship('Account')
