@@ -1,5 +1,7 @@
-bottle
 psycopg2
 sqlalchemy
 alembic
 python-dateutil
+Flask
+Flask-SQLAlchemy
+Flask-Restless

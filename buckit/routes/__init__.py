@@ -1,16 +1,11 @@
-import os
-import bottle
+from flask.ext.restless import APIManager
+from buckit.app import app, db
+import buckit.model as m
 
-DIR = os.path.abspath(os.path.dirname(__file__))
-public_dir = os.path.abspath(os.path.join(DIR, '../../public'))
+api = APIManager(app, flask_sqlalchemy_db=db)
 
-@bottle.get('/public/<path:path>')
-def public(path):
-    return bottle.static_file(path, root=public_dir)
-
-@bottle.get('/')
-def index():
-    return bottle.static_file('html/index.html', root=public_dir)
-
-import models
-import _summaries
+api.create_api(
+    m.Account,
+    methods=['GET'],
+    results_per_page=None,
+)
