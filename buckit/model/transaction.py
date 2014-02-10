@@ -13,19 +13,3 @@ class Transaction(base.Base):
 
     payee  = relationship('Payee')
     splits = relationship('Split')
-
-    def __json__(self, include_splits=True):
-        return {
-            'id':     self.id,
-            'date':   self.date,
-            'payee':  self.payee,
-            'splits': self.splits,
-        }
-
-    @staticmethod
-    def from_json(json):
-        return Transaction(
-            id=json.get('id,'),
-            date=dateparser.parse(json['date']),
-            payee_id=json.get('payee_id'),
-        )

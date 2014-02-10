@@ -28,19 +28,3 @@ class Account(base.Base):
 
     parent_account = relationship('Account')
     splits         = relationship('Split')
-
-    def __json__(self):
-        return {
-            'id':   self.id,
-            'name': self.name,
-            'type': self.type,
-        }
-
-    @staticmethod
-    def from_json(json):
-        return Account(
-            id=json.get('id'),
-            parent_id=json.get('parent_id'),
-            name=json['name'],
-            type=json['type'],
-        )
