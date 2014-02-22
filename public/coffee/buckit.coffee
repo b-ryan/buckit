@@ -1,4 +1,4 @@
-buckit = angular.module 'buckit', ['ngResource', 'ui.bootstrap'],
+buckit = angular.module 'buckit', ['ngRoute', 'ngResource', 'ui.bootstrap'],
     ($routeProvider) ->
         $routeProvider
             .when '/accounts',
