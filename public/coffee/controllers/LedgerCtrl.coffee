@@ -23,11 +23,13 @@ window.LedgerCtrl = (
   Payee.query (payees) ->
     $scope.payees = payees
 
+  Transaction.query (transactions) ->
+    $scope.transactions = transactions
+
   $scope.$watch 'account', () ->
     if not $scope.account
       return
     $location.path '/ledger/' + $scope.account.id
-    $scope.fetchTransactions()
 
   $scope.changeAccount = (account_id) ->
     if account_id
@@ -35,10 +37,9 @@ window.LedgerCtrl = (
     else
       $scope.account = $scope.accounts[0]
 
-  $scope.fetchTransactions = () ->
-    Transaction.query (transactions) ->
-      $scope.transactions = transactions
-      account_id: $scope.account.id
+  $scope.hasSplitForAccount = (transaction) ->
+    (s for s in transaction.splits \
+     when s.account_id == $scope.account.id).length > 0
 
   $scope.transactionDestination = (transaction) ->
     other_splits = transaction.splits.filter (split) ->
@@ -55,8 +56,6 @@ window.LedgerCtrl = (
     return transaction.splits.reduce reducer, 0
 
   $scope.transactionStatus = (transaction) ->
-    if transaction.id == 4
-      console.log transaction
     matches = transaction.splits.filter (split) ->
       split.account_id == $scope.account.id
     if matches.length == 0
