@@ -9,6 +9,7 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
+      <th>Id</th>
       <th>Date</th>
       <th>Payee</th>
       <th>Details</th>
@@ -18,13 +19,14 @@
     </thead>
     <tbody>
     <tr ng-repeat="transaction in transactions">
+      <td>{{transaction.id}}</td>
       <td>{{transaction.date}}</td>
       <td>{{transaction.payee.name}}</td>
-      <td>{{transaction.splits | transactionDestination:account}}</td>
+      <td>{{transactionDestination(transaction)}}</td>
       <td>
-      {{transaction.splits | transactionAmount:account | currency}}
+      {{transactionAmount(transaction) | currency}}
       </td>
-      <td>{{transaction.splits | transactionStatus:account}}</td>
+      <td>{{transactionStatus(transaction)}}</td>
     </tr>
     </tbody>
   </table>
