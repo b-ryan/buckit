@@ -22,11 +22,13 @@ window.EditTransactionCtrl = ($scope, $timeout, Transaction, Split) ->
 
   $scope.updatePayeeId = () ->
     payee = findByName $scope.payees, $scope.payeeName
-    $scope.payeeId = payee.id
+    if payee
+      $scope.payeeId = payee.id
 
   $scope.updateAccountId = () ->
     account = findByName $scope.accounts, $scope.destAccountName
-    $scope.destAccountId = account.id
+    if account
+      $scope.destAccountId = account.id
 
   $scope.saveTransaction = () ->
     transaction = new Transaction
@@ -45,7 +47,6 @@ window.EditTransactionCtrl = ($scope, $timeout, Transaction, Split) ->
           reconciled_status: 'not_reconciled'
         )
       ]
-
     transaction.$save()
 
   $scope.openDatepicker = () ->
