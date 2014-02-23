@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html ng-app="buckit">
   <head>
-    <title>Buckit</title>
+  <title>Buckit</title>
 
-    <!-- JQUERY & JQUERY UI -->
-    <script src="/public/lib/jquery/jquery.js"></script>
-    <script src="/public/lib/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <link href="/public/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.3.custom.min.css"
-      rel="stylesheet" media="screen">
+  <!-- JQUERY & JQUERY UI -->
+  <script src="/public/lib/jquery/jquery.js"></script>
+  <script src="/public/lib/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+  <link href="/public/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.3.custom.min.css"
+    rel="stylesheet" media="screen">
 
-    <!-- BOOTSTRAP -->
-    <script src="/public/lib/bootstrap/bootstrap.js"></script>
-    <link href="/public/lib/bootstrap/bootstrap.css" rel="stylesheet" media="screen">
+  <!-- BOOTSTRAP -->
+  <script src="/public/lib/bootstrap/bootstrap.js"></script>
+  <link href="/public/lib/bootstrap/bootstrap.css" rel="stylesheet" media="screen">
 
-    <!-- ANGULAR -->
-    <script src="/public/lib/angular/angular.min.js"></script>
-    <script src="/public/lib/angular/angular-route.min.js"></script>
-    <script src="/public/lib/angular/angular-resource.min.js"></script>
+  <!-- ANGULAR -->
+  <script src="/public/lib/angular/angular.min.js"></script>
+  <script src="/public/lib/angular/angular-route.min.js"></script>
+  <script src="/public/lib/angular/angular-resource.min.js"></script>
 
-    <!-- ANGULAR-BOOTSTRAP -->
-    <script src="/public/lib/angular-bootstrap/ui-bootstrap-custom-0.6.0.min.js"></script>
-    <script src="/public/lib/angular-bootstrap/ui-bootstrap-custom-tpls-0.6.0.min.js"></script>
+  <!-- ANGULAR-BOOTSTRAP -->
+  <script src="/public/lib/angular-bootstrap/ui-bootstrap-custom-0.6.0.min.js"></script>
+  <script src="/public/lib/angular-bootstrap/ui-bootstrap-custom-tpls-0.6.0.min.js"></script>
 
-    <!-- HIGHCHARTS -->
-    <script src="/public/lib/highcharts/highstock.js"></script>
+  <!-- HIGHCHARTS -->
+  <script src="/public/lib/highcharts/highstock.js"></script>
 
-    <!-- BUCKIT -->
-    <script src="/public/.compiled/buckit.js"></script>
-    <script src="/public/.compiled/services.js"></script>
-    <script src="/public/.compiled/controllers/TabsCtrl.js"></script>
-    <script src="/public/.compiled/controllers/AccountsCtrl.js"></script>
-    <script src="/public/.compiled/controllers/LedgerCtrl.js"></script>
-    <script src="/public/.compiled/controllers/EditTransactionCtrl.js"></script>
-    <script src="/public/.compiled/directives.js"></script>
-    <script src="/public/.compiled/filters.js"></script>
-    <script src="/public/.compiled/charts.js"></script>
-    <link href="/public/css/style.css" rel="stylesheet" media="screen">
+  <!-- BUCKIT -->
+  <script src="/public/.compiled/buckit.js"></script>
+  <script src="/public/.compiled/services.js"></script>
+  <script src="/public/.compiled/controllers/TabsCtrl.js"></script>
+  <script src="/public/.compiled/controllers/AccountsCtrl.js"></script>
+  <script src="/public/.compiled/controllers/LedgerCtrl.js"></script>
+  <script src="/public/.compiled/controllers/EditTransactionCtrl.js"></script>
+  <script src="/public/.compiled/directives.js"></script>
+  <script src="/public/.compiled/filters.js"></script>
+  <script src="/public/.compiled/charts.js"></script>
+  <link href="/public/css/style.css" rel="stylesheet" media="screen">
 
   </head>
   <body>
 
-    <div class="tabbable tabs-left fill-screen" ng-controller="TabsCtrl">
-      <ul class="nav nav-tabs fill-screen">
-        <li ng-repeat="tab in tabs" class="{{tab.active && 'active'}}">
-          <a href="{{tab.href}}">{{tab.name}}</a>
-        </li>
-      </ul>
-      <div class="tab-content fill-screen">
-        <ng-view class="main-content"></ng-view>
-      </div>
+  <div class="tabbable tabs-left fill-screen" ng-controller="TabsCtrl">
+    <ul class="nav nav-tabs fill-screen">
+    <li ng-repeat="tab in tabs" class="{{tab.active && 'active'}}">
+      <a href="{{tab.href}}">{{tab.name}}</a>
+    </li>
+    </ul>
+    <div class="tab-content fill-screen">
+    <ng-view class="main-content"></ng-view>
     </div>
+  </div>
 
   </body>
 </html>

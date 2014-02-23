@@ -1,5 +1,5 @@
 window.AccountsCtrl = ($scope, Account) ->
 
-    $scope.setActiveTab($scope.ACCOUNTS_TAB_INDEX)
+  $scope.setActiveTab($scope.ACCOUNTS_TAB_INDEX)
 
-    $scope.accounts = Account.query()
+  $scope.accounts = Account.query()
