@@ -30,21 +30,3 @@ class Split(base.Base):
             name='transaction_splits_tran_acc_uix',
         ),
     )
-
-    def __json__(self, include_transaction=True):
-        return {
-            'id':                self.id,
-            'account':           self.account,
-            'amount':            self.amount,
-            'reconciled_status': self.reconciled_status,
-        }
-
-    @staticmethod
-    def from_json(json):
-        return Split(
-            id=json.get('id'),
-            transaction_id=json.get('transaction_id'),
-            account_id=json.get('account_id'),
-            amount=float(json.get('amount', 0)),
-            reconciled_status=json.get('reconciled_status', 'not_reconciled'),
-        )
