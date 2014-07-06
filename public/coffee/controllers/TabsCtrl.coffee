@@ -19,6 +19,9 @@ window.TabsCtrl = ($scope, $modal, Account) ->
 
   $scope.accounts = Account.query()
 
+  $scope.isAssetOrLiability = (account) ->
+    account.type == 'asset' or account.type == 'liability'
+
   $scope.create_account = () ->
     modalInstance = $modal.open
       templateUrl: '/public/html/new_account.html'

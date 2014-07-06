@@ -1,6 +1,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, ForeignKey, Integer, String, Enum, Float, Date
-from sqlalchemy.orm import relationship
+from sqlalchemy import select, func
+from sqlalchemy.orm import relationship, column_property
 from sqlalchemy.schema import UniqueConstraint
 
 Base = declarative_base()
@@ -82,3 +83,8 @@ class Split(Base):
             name='transaction_splits_tran_acc_uix',
         ),
     )
+
+Account.balance = column_property(
+    select([func.sum(Split.amount)]).\
+        where(Account.id==Split.account_id)
+)
