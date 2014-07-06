@@ -1,4 +1,4 @@
-window.TabsCtrl = ($scope, Account) ->
+window.TabsCtrl = ($scope, $modal, Account) ->
 
   $scope.accountsTab =
       name: 'Accounts'
@@ -18,3 +18,12 @@ window.TabsCtrl = ($scope, Account) ->
     $scope.tabs[index].active = true
 
   $scope.accounts = Account.query()
+
+  $scope.create_account = () ->
+    modalInstance = $modal.open
+      templateUrl: '/public/html/new_account.html'
+      controller: 'NewAccountCtrl'
+
+    modalInstance.result.then (new_account) ->
+      new_account.$save (result) ->
+        $scope.accounts.push result
