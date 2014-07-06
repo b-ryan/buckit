@@ -41,12 +41,15 @@
 
   <div class="tabbable tabs-left fill-screen" ng-controller="TabsCtrl">
     <ul class="nav nav-tabs fill-screen">
-    <li ng-repeat="tab in tabs" class="{{tab.active && 'active'}}">
-      <a href="{{tab.href}}">{{tab.name}}</a>
-    </li>
+      <li class="{{accountsTab.active && 'active'}}">
+        <a href="{{accountsTab.href}}">{{accountsTab.name}}</a>
+      </li>
+      <li ng-repeat="account in accounts">
+        <a href="{{ledgerTab.href}}/{{account.id}}">{{account.name}}</a>
+      </li>
     </ul>
     <div class="tab-content fill-screen">
-    <ng-view class="main-content"></ng-view>
+      <ng-view class="main-content"></ng-view>
     </div>
   </div>
 

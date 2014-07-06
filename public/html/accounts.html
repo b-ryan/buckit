@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="account in accounts">
-      <td>{{account.name}}</td>
+      <td><a href="{{ledgerTab.href}}/{{account.id}}">{{account.name}}</a></td>
       <td>{{account.type}}</td>
     </tr>
     </tbody>
