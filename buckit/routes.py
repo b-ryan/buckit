@@ -1,5 +1,5 @@
 from flask.ext.restless import APIManager
-import buckit.model as m
+import buckit.models as m
 
 def setup_routes(app, db):
     api = APIManager(app, flask_sqlalchemy_db=db)
