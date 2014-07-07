@@ -44,7 +44,7 @@
       <li class="{{accountsTab.active && 'active'}}">
         <a href="{{accountsTab.href}}">{{accountsTab.name}}</a>
       </li>
-      <li ng-repeat="account in accounts | isAssetOrLiability">
+      <li ng-repeat="account in accounts | filter:isAssetOrLiability">
       <a href="{{ledgerTab.href}}/{{account.id}}">{{account.name}} | {{account.balance}}</a>
       </li>
       <li><a href="#" ng-click="create_account()">+ Add</a></li>
