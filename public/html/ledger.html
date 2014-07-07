@@ -1,35 +1,38 @@
 <div id="ledger" ng-controller="LedgerCtrl">
   <h3>Ledger</h3>
-  <select
-  ng-model="account"
-  ng-options="account.name for account in accounts"
-  >
+  <select ng-model="account" ng-options="account.name for account in accounts">
   </select>
   <div id="transactions-view">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Date</th>
-      <th>Payee</th>
-      <th>Details</th>
-      <th>Amount</th>
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="transaction in transactions | filter:hasSplitForAccount">
-      <td>{{transaction.id}}</td>
-      <td>{{transaction.date}}</td>
-      <td>{{transaction.payee.name}}</td>
-      <td>{{transactionDestination(transaction)}}</td>
-      <td>
-      {{transactionAmount(transaction) | currency}}
-      </td>
-      <td>{{transactionStatus(transaction)}}</td>
-    </tr>
-    </tbody>
-  </table>
+    <div class="row-fluid">
+      <label class="span1">Id</label>
+      <label class="span1">Editing</label>
+      <label class="span2">Date</label>
+      <label class="span3">Payee</label>
+      <label class="span3">Details</label>
+      <label class="span1">Amount</label>
+      <label class="span1">Status</label>
+    </div>
+    <div ng-repeat="transaction in transactions | filter:hasSplitForAccount"
+         ng-click="transaction.editing = true">
+      <div class="row-fluid" ng-hide="transaction.editing">
+        <label class="span1">{{transaction.id}}</label>
+        <label class="span1">{{transaction.editing}}</label>
+        <label class="span2">{{transaction.date}}</label>
+        <label class="span3">{{transaction.payee.name}}</label>
+        <label class="span3">{{transactionDestination(transaction)}}</label>
+        <label class="span1">{{transactionAmount(transaction) | currency}}</label>
+        <label class="span1">{{transactionStatus(transaction)}}</label>
+      </div>
+      <div class="row-fluid" ng-show="transaction.editing">
+        <label class="span1">{{transaction.id}}</label>
+        <label class="span1">{{transaction.editing}}</label>
+        <label class="span2"><input ng-model="transaction.date"></label>
+        <label class="span3"><input ng-model="transaction.payee.name"></label>
+        <label class="span3"><input></label>
+        <label class="span1"><input></label>
+        <label class="span1"l><input></label>
+      </div>
+    </div>
   </div>
   <div id="new-transaction-view" ng-controller="EditTransactionCtrl">
   <h3>Create a new transaction</h3>
