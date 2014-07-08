@@ -10,11 +10,9 @@ buckit.directive 'firstchart', () ->
 
     cbk = (transactions) ->
 
-      seriesData = (
-        [Date.parse(x.date), x.total_amount] for x in transactions
-      )
+      seriesData = ([Date.parse(x.date), x.total_amount] for x in transactions)
 
-      $('#container').highcharts 'StockChart'
+      $('#container').highcharts 'StockChart',
         chart:
           type: 'column'
           zoomType: 'x'
