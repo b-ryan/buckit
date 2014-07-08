@@ -17,13 +17,14 @@ buckit.directive 'ngBlur', ($parse) ->
       scope.$apply () ->
         fn scope, $event: event
 
-buckit.directive 'ledgerRow', (Account, $timeout) ->
+buckit.directive 'ledgerRow', (Account, ReconciledStatus, $timeout) ->
   restrict: 'E'
   scope:
     account: '=account'
     transaction: '=transaction'
   templateUrl: '/public/html/ledger_row.html'
   link: (scope, elem, attr) ->
+    scope.reconciled_statuses = ReconciledStatus.all()
 
     scope.account_split = (s for s in scope.transaction.splits \
       when s.account_id == scope.account.id)[0]
@@ -44,3 +45,5 @@ buckit.directive 'ledgerRow', (Account, $timeout) ->
     scope.cancel = () ->
       $timeout () ->
         scope.transaction.editing = false
+
+# create a directive for selecting a payee ?

@@ -22,3 +22,11 @@ buckit.factory 'Transaction', ($resource) ->
 
 buckit.factory 'Split', ($resource) ->
   $resource '/api/splits/:id', {}, RESOURCE_ACTIONS
+
+buckit.factory 'ReconciledStatus', ($resource) ->
+  all: () ->
+    [
+      'not_reconciled'
+      'cleared'
+      'reconciled'
+    ]
