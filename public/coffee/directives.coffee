@@ -17,7 +17,7 @@ buckit.directive 'ngBlur', ($parse) ->
       scope.$apply () ->
         fn scope, $event: event
 
-buckit.directive 'ledgerRow', (Account) ->
+buckit.directive 'ledgerRow', (Account, $timeout) ->
   restrict: 'E'
   scope:
     account: '=account'
@@ -41,16 +41,9 @@ buckit.directive 'ledgerRow', (Account) ->
 
     scope.displayStatus = account_split.reconciled_status
 
-      # <div class="row-fluid" ng-show="transaction.editing">
-      #   <label class="span1">{{transaction.id}}</label>
-      #   <label class="span1">{{transaction.editing}}</label>
-      #   <label class="span2"><input ng-model="transaction.date"></label>
-      #   <label class="span3">
-      #     <select ng-model="transaction.payee"
-      #             ng-options="payee.name for payee in payees">
-      #     </select>
-      #   </label>
-      #   <label class="span3">{{transactionDestination(transaction)}}</label>
-      #   <label class="span1">{{transactionAmount(transaction) | currency}}</label>
-      #   <label class="span1">{{transactionStatus(transaction)}}</label>
-      # </div>
+    scope.ok = () ->
+      scope.$apply 'transaction.editing = false'
+
+    scope.cancel = () ->
+      $timeout () ->
+        scope.transaction.editing = false
