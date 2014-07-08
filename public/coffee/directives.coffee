@@ -35,7 +35,8 @@ buckit.directive 'ledgerRow', (Account, $timeout) ->
       scope.displayCategory = 'Splits'
     else
       split = non_account_splits[0]
-      scope.displayAccount = Account.get {account_id: split.account_id}
+      Account.get {account_id: split.account_id}, (account) ->
+        scope.displayCategory = account.name
 
     scope.ok = () ->
       scope.$apply 'transaction.editing = false'
