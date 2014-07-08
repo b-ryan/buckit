@@ -84,6 +84,6 @@ class Split(Base):
     )
 
 Account.balance = column_property(
-    select([func.sum(Split.amount)]).\
-        where(Account.id==Split.account_id)
+    select([func.sum(Split.amount)]).
+    where(Account.id == Split.account_id)
 )
