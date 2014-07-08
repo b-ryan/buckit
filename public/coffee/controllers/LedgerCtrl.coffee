@@ -40,24 +40,3 @@ window.LedgerCtrl = (
   $scope.hasSplitForAccount = (transaction) ->
     (s for s in transaction.splits \
      when s.account_id == $scope.account.id).length > 0
-
-  $scope.transactionDestination = (transaction) ->
-    other_splits = transaction.splits.filter (split) ->
-      split.account_id != $scope.account.id
-    if other_splits.length == 0
-      throw new Error("Can't find any other splits")
-    else if other_splits.length > 1
-      return 'Splits'
-    return accountLookup[other_splits[0].account_id].name
-
-  $scope.transactionAmount = (transaction) ->
-    reducer = (sum, split) ->
-      sum + if split.account_id == $scope.account.id then split.amount else 0
-    return transaction.splits.reduce reducer, 0
-
-  $scope.transactionStatus = (transaction) ->
-    matches = transaction.splits.filter (split) ->
-      split.account_id == $scope.account.id
-    if matches.length == 0
-      throw new Error("Can't find account!")
-    return matches[0].reconciled_status
