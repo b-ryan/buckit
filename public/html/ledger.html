@@ -44,13 +44,11 @@
             <label class="control-label">Date</label>
             <div class="controls">
               <div class="input-append">
-                <input
-                type="text"
-                datepicker-popup="MMMM dd, yyyy"
-                ng-model="date"
-                is-open="datepickerOpened"
-                ng-required="true"
-                />
+                <input type="text"
+                       datepicker-popup="MMMM dd, yyyy"
+                       ng-model="date"
+                       is-open="datepickerOpened"
+                       ng-required="true"/>
                 <button class="btn" ng-click="openDatepicker()">
                   <i class="icon-calendar"></i>
                 </button>
@@ -61,14 +59,14 @@
             <label class="control-label">Payee</label>
             <div class="controls">
               <input type="text" auto-complete="payees:name"
-              ng-model="payeeName" ng-blur="updatePayeeId()" />
+                     ng-model="payeeName" ng-blur="updatePayeeId()" />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label">Account</label>
             <div class="controls">
               <input type="text" auto-complete="accounts:name"
-              ng-model="destAccountName" ng-blur="updateAccountId()" />
+                     ng-model="destAccountName" ng-blur="updateAccountId()" />
             </div>
           </div>
           <div class="control-group">
@@ -83,10 +81,8 @@
           <div class="control-group">
             <label class="control-label">Status</label>
             <div class="controls">
-              <select
-                ng-model="status"
-                ng-options="status for status in statuses"
-                >
+              <select ng-model="status"
+                      ng-options="status for status in statuses">
               </select>
             </div>
           </div>
