@@ -25,6 +25,7 @@ buckit.directive 'ledgerRow', (Account, ReconciledStatus, $timeout) ->
   templateUrl: '/public/html/ledger_row.html'
   link: (scope, elem, attr) ->
     scope.reconciled_statuses = ReconciledStatus.all()
+    scope.accounts = Account.query()
 
     scope.account_split = (s for s in scope.transaction.splits \
       when s.account_id == scope.account.id)[0]
@@ -54,6 +55,7 @@ buckit.directive 'ledgerRow', (Account, ReconciledStatus, $timeout) ->
     scope.ok = () ->
       $timeout () ->
         scope.editing = false
+        console.log scope.newTransaction
 
     scope.cancel = () ->
       $timeout () ->

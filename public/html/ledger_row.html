@@ -13,11 +13,15 @@
     <label class="span3"><input ng-model="newTransaction.payee"></label>
     <div class="span6">
       <div class="row-fluid" ng-repeat="split in newTransaction.splits">
-        <label class="span6"><input ng-model="split.account_id"></label>
+        <label class="span6">
+          <select ng-options="a.id as a.name for a in accounts"
+                  ng-model="split.account_id">
+          </select>
+        </label>
         <label class="span4"><input ng-model="split.amount"></label>
         <label class="span2">
-          <select ng-model="split.reconciled_status"
-                  ng-options="s for s in reconciled_statuses">
+          <select ng-options="s for s in reconciled_statuses"
+                  ng-model="split.reconciled_status">
           </select>
         </label>
       </div>
