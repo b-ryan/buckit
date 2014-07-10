@@ -10,7 +10,11 @@
   <div class="row-fluid">
     <label class="span1">{{newTransaction.id}}</label>
     <label class="span2"><input ng-model="newTransaction.date"></label>
-    <label class="span3"><input ng-model="newTransaction.payee"></label>
+    <label class="span3">
+      <select ng-options="p.id as p.name for p in payees"
+              ng-model="newTransaction.payee">
+      </select>
+    </label>
     <div class="span6">
       <div class="row-fluid" ng-repeat="split in newTransaction.splits">
         <label class="span6">

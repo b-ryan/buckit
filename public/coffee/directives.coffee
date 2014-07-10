@@ -17,7 +17,7 @@ buckit.directive 'ngBlur', ($parse) ->
       scope.$apply () ->
         fn scope, $event: event
 
-buckit.directive 'ledgerRow', (Account, ReconciledStatus, $timeout) ->
+buckit.directive 'ledgerRow', (Account, Payee, ReconciledStatus, $timeout) ->
   restrict: 'E'
   scope:
     account: '=account'
@@ -26,6 +26,7 @@ buckit.directive 'ledgerRow', (Account, ReconciledStatus, $timeout) ->
   link: (scope, elem, attr) ->
     scope.reconciled_statuses = ReconciledStatus.all()
     scope.accounts = Account.query()
+    scope.payees = Payee.query()
 
     scope.account_split = (s for s in scope.transaction.splits \
       when s.account_id == scope.account.id)[0]
