@@ -11,8 +11,7 @@
       <label class="span2">Amount</label>
       <label class="span1">Status</label>
     </div>
-    <div ng-repeat="transaction in transactions | filter:hasSplitForAccount"
-         ng-click="transaction.editing = true">
+    <div ng-repeat="transaction in transactions | filter:hasSplitForAccount">
       <ledger-row account="account" transaction="transaction"></ledger-row>
     </div>
   </div>
