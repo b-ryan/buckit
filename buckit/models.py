@@ -31,7 +31,6 @@ class Account(Base):
     type = Column(AccountType, nullable=False)
 
     parent_account = relationship('Account')
-    splits = relationship('Split')
 
 ReconciledStatus = Enum(
     'not_reconciled',
@@ -85,6 +84,6 @@ class Split(Base):
     )
 
 Account.balance = column_property(
-    select([func.sum(Split.amount)]).\
-        where(Account.id==Split.account_id)
+    select([func.sum(Split.amount)]).
+    where(Account.id == Split.account_id)
 )
