@@ -1,23 +1,16 @@
-window.LedgerCtrl = (
-    $scope,
-    $routeParams,
-    $location,
-    $modal,
-    $timeout,
-    Account,
-    Transaction,
-    Payee) ->
+window.LedgerCtrl = ($scope, $routeParams, $location, $modal, $timeout,
+                     Account, Transaction, Payee) ->
 
   $scope.setActiveTab($scope.LEDGER_TAB_INDEX)
 
   $scope.accounts = []
   $scope.payees = []
-  accountLookup = {}
+  $scope.accountLookup = {} ## TODO use caching instead?
 
   Account.query (accounts) ->
     $scope.accounts = accounts
     for a in accounts
-      accountLookup[a.id] = a
+      $scope.accountLookup[a.id] = a
     $scope.changeAccount $routeParams.account_id
 
   Payee.query (payees) ->
@@ -33,7 +26,7 @@ window.LedgerCtrl = (
 
   $scope.changeAccount = (account_id) ->
     if account_id
-      $scope.account = accountLookup[account_id]
+      $scope.account = $scope.accountLookup[account_id]
     else
       $scope.account = $scope.accounts[0]
 

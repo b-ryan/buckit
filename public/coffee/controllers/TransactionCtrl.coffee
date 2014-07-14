@@ -1,21 +1,15 @@
-window.TransactionCtrl = ($scope, ReconciledStatus, Account, Payee) ->
+window.TransactionCtrl = ($scope, ReconciledStatus, Account) ->
+
+  for s in $scope.transaction.splits
+    s.account = $scope.accountLookup[s.account_id]
 
   $scope.reconciled_statuses = ReconciledStatus.all()
-  $scope.accounts = Account.query()
-  $scope.payees = Payee.query()
 
   $scope.account_split = (s for s in $scope.transaction.splits \
     when s.account_id == $scope.account.id)[0]
 
-  non_account_splits = (s for s in $scope.transaction.splits \
+  $scope.non_account_splits = (s for s in $scope.transaction.splits \
     when s.account_id != $scope.account.id)
-
-  if non_account_splits.length > 1
-    $scope.displayCategory = 'Splits'
-  else
-    split = non_account_splits[0]
-    Account.get {account_id: split.account_id}, (account) ->
-      $scope.displayCategory = account.name
 
   $scope.edit = () ->
     $scope.editing = true

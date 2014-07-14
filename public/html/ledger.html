@@ -19,7 +19,12 @@
           <label class="span1">{{transaction.id}}</label>
           <label class="span2">{{transaction.date}}</label>
           <label class="span3">{{transaction.payee.name}}</label>
-          <label class="span3">{{displayCategory}}</label>
+          <label class="span3">
+            <span ng-show="non_account_splits.length > 1">Splits</span>
+            <span ng-hide="non_account_splits.length > 1">
+              {{non_account_splits[0].account.name}}
+            </span>
+          </label>
           <label class="span2">{{account_split.amount | currency}}</label>
           <label class="span1">{{account_split.reconciled_status}}</label>
         </div>
