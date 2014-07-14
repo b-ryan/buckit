@@ -1,4 +1,4 @@
-window.TransactionCtrl = ($scope, ReconciledStatus, Account) ->
+window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
 
   for s in $scope.transaction.splits
     s.account = $scope.accountLookup[s.account_id]
@@ -13,19 +13,23 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account) ->
 
   $scope.edit = () ->
     $scope.editing = true
-    $scope.newTransaction = $.extend true, {}, $scope.transaction
+    $scope.backup = $.extend true, {}, $scope.transaction
 
   $scope.addSplit = () ->
-    $scope.newTransaction.splits.push
+    $scope.transaction.splits.push
       id: null
-      transaction_id: $scope.newTransaction.id
+      transaction_id: $scope.transaction.id
       account_id: null
       amount: 0
       reconciled_status: 'not_reconciled'
 
   $scope.ok = () ->
-    $scope.editing = false
-    console.log $scope.newTransaction
+    func = if $scope.transaction.id then Transaction.update else Transaction.save
+    func $scope.transaction, (transaction) ->
+      $scope.transaction = transaction
+      $scope.editing = false
 
   $scope.cancel = () ->
     $scope.editing = false
+    $scope.transaction = $scope.backup
+    $scope.backup = null
