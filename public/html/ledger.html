@@ -12,7 +12,56 @@
       <label class="span1">Status</label>
     </div>
     <div ng-repeat="transaction in transactions | filter:hasSplitForAccount">
-      <ledger-row account="account" transaction="transaction"></ledger-row>
+
+
+      <div ng-controller="TransactionCtrl">
+        <div class="row-fluid" ng-hide="editing" ng-click="edit()">
+          <label class="span1">{{transaction.id}}</label>
+          <label class="span2">{{transaction.date}}</label>
+          <label class="span3">{{transaction.payee.name}}</label>
+          <label class="span3">{{displayCategory}}</label>
+          <label class="span2">{{account_split.amount | currency}}</label>
+          <label class="span1">{{account_split.reconciled_status}}</label>
+        </div>
+        <div class="row-fluid" ng-show="editing">
+          <div class="row-fluid">
+            <label class="span1">{{newTransaction.id}}</label>
+            <label class="span2"><input ng-model="newTransaction.date"></label>
+            <label class="span3">
+              <select ng-options="p.id as p.name for p in payees"
+                      ng-model="newTransaction.payee">
+              </select>
+            </label>
+            <div class="span6">
+              <div class="row-fluid" ng-repeat="split in newTransaction.splits">
+                <label class="span6">
+                  <select ng-options="a.id as a.name for a in accounts"
+                          ng-model="split.account_id">
+                  </select>
+                </label>
+                <label class="span4"><input ng-model="split.amount"></label>
+                <label class="span2">
+                  <select ng-options="s for s in reconciled_statuses"
+                          ng-model="split.reconciled_status">
+                  </select>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span6">
+              <button class="btn btn-small" ng-click="ok()">OK</button>
+              <button class="btn btn-small" ng-click="cancel()">Cancel</button>
+            </div>
+            <div class="span6">
+              <button class="bnt btn-small" ng-click="addSplit()">Add split</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
   <hr>
