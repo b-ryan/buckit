@@ -8,7 +8,7 @@ import sys
 curr_dir = path.abspath(path.dirname(__file__))
 sys.path.append(path.join(curr_dir, '..'))
 
-from buckit.model import Base
+from buckit.models import Base
 from buckit.app import db_url, db
 
 fileConfig(context.config.config_file_name)
