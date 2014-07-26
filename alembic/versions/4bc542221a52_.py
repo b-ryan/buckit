@@ -40,13 +40,14 @@ def upgrade():
     )
     op.create_table('transaction_splits',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('transaction_id', sa.Integer(), nullable=True),
-    sa.Column('account_id', sa.Integer(), nullable=True),
+    sa.Column('transaction_id', sa.Integer(), nullable=False),
+    sa.Column('account_id', sa.Integer(), nullable=False),
     sa.Column('amount', sa.Float(), nullable=True),
     sa.Column('reconciled_status', sa.Enum('not_reconciled', 'cleared', 'reconciled', name='reconciled_status'), nullable=True),
     sa.ForeignKeyConstraint(['account_id'], ['accounts.id'], ),
     sa.ForeignKeyConstraint(['transaction_id'], ['transactions.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('transaction_id', 'account_id')
     )
     ### end Alembic commands ###
 
