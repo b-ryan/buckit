@@ -12,7 +12,7 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
     when s.account_id != $scope.account.id)
 
   $scope.edit = () ->
-    $scope.editing = true
+    $scope.transaction.editing = true
     $scope.backup = $.extend true, {}, $scope.transaction
 
   $scope.addSplit = () ->
@@ -27,9 +27,9 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
     func = if $scope.transaction.id then Transaction.update else Transaction.save
     func $scope.transaction, (transaction) ->
       $scope.transaction = transaction
-      $scope.editing = false
+      $scope.transaction.editing = false
 
   $scope.cancel = () ->
-    $scope.editing = false
+    $scope.transaction.editing = false
     $scope.transaction = $scope.backup
     $scope.backup = null

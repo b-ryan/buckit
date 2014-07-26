@@ -6,6 +6,7 @@ window.LedgerCtrl = ($scope, $routeParams, $location, $modal, $timeout,
   $scope.accounts = []
   $scope.payees = []
   $scope.accountLookup = {} ## TODO use caching instead?
+  $scope.transactions = []
 
   Account.query (accounts) ->
     $scope.accounts = accounts
@@ -33,3 +34,22 @@ window.LedgerCtrl = ($scope, $routeParams, $location, $modal, $timeout,
   $scope.hasSplitForAccount = (transaction) ->
     (s for s in transaction.splits \
      when s.account_id == $scope.account.id).length > 0
+
+  $scope.addTransaction = () ->
+    $scope.transactions.push
+      date: null
+      payee_id: null
+      splits: [
+        {
+          account_id: $scope.account.id
+          amount: 0
+          reconciled_status: 'not_reconciled'
+        }
+        {
+          account_id: null
+          amount: 0
+          reconciled_status: 'not_reconciled'
+        }
+      ]
+      editing: true
+    console.log $scope.transactions
