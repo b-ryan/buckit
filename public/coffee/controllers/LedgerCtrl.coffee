@@ -52,4 +52,3 @@ window.LedgerCtrl = ($scope, $routeParams, $location, $modal, $timeout,
         }
       ]
       editing: true
-    console.log $scope.transactions

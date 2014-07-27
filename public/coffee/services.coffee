@@ -1,8 +1,13 @@
-RESOURCE_ACTIONS =
+noop = (o) ->
+  null
+
+createResourceActions = (transform) ->
   query:
     method: 'GET'
     transformResponse: (data) ->
-      angular.fromJson(data).objects
+      objs = angular.fromJson(data).objects
+      transform(o) for o in objs
+      return objs
     isArray: true
   update:
     method: 'PUT'
@@ -12,16 +17,23 @@ RESOURCE_ACTIONS =
     params: {id: '@id'}
 
 buckit.factory 'Account', ($resource) ->
-  $resource '/api/accounts/:account_id', {}, RESOURCE_ACTIONS
+  $resource '/api/accounts/:account_id', {}, createResourceActions(noop)
 
 buckit.factory 'Payee', ($resource) ->
-  $resource '/api/payees/:payee_id', {}, RESOURCE_ACTIONS
+  $resource '/api/payees/:payee_id', {}, createResourceActions(noop)
 
 buckit.factory 'Transaction', ($resource) ->
-  $resource '/api/transactions/:id', {}, RESOURCE_ACTIONS
+  r = $resource '/api/transactions/:id', {}, createResourceActions(noop)
+
+  r.prototype.splitForAccount = (account) ->
+    (s for s in this.splits when s.account_id == account.id)[0]
+  r.prototype.splitsExcludingAccount = (account) ->
+    (s for s in this.splits when s.account_id != account.id)
+
+  return r
 
 buckit.factory 'Split', ($resource) ->
-  $resource '/api/splits/:id', {}, RESOURCE_ACTIONS
+  $resource '/api/splits/:id', {}, createResourceActions(noop)
 
 buckit.factory 'ReconciledStatus', ($resource) ->
   all: () ->
