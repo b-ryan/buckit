@@ -4,6 +4,7 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
     s.account = $scope.accountLookup[s.account_id]
 
   $scope.reconciled_statuses = ReconciledStatus.all()
+  $scope.editing = false
 
   $scope.account_split = (s for s in $scope.transaction.splits \
     when s.account_id == $scope.account.id)[0]
@@ -12,7 +13,7 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
     when s.account_id != $scope.account.id)
 
   $scope.edit = () ->
-    $scope.transaction.editing = true
+    $scope.editing = true
     $scope.backup = $.extend true, {}, $scope.transaction
 
   $scope.addSplit = () ->
@@ -23,13 +24,19 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
       amount: 0
       reconciled_status: 'not_reconciled'
 
+  $scope.openDatepicker = ($event) ->
+    console.log 'hi'
+    $event.preventDefault()
+    $event.stopPropagation()
+    $scope.datePickerOpened = true
+
   $scope.ok = () ->
     func = if $scope.transaction.id then Transaction.update else Transaction.save
     func $scope.transaction, (transaction) ->
       $scope.transaction = transaction
-      $scope.transaction.editing = false
+      $scope.editing = false
 
   $scope.cancel = () ->
-    $scope.transaction.editing = false
+    $scope.editing = false
     $scope.transaction = $scope.backup
     $scope.backup = null

@@ -1,39 +1,55 @@
-noop = (o) ->
-  null
-
-createResourceActions = (transform) ->
+createActions = (transforms) ->
+  get:
+    method: 'GET'
+    transformResponse: (data) ->
+      transforms.fetch(o)
   query:
     method: 'GET'
     transformResponse: (data) ->
       objs = angular.fromJson(data).objects
-      transform(o) for o in objs
+      transforms.fetch(o) for o in objs
       return objs
     isArray: true
   update:
     method: 'PUT'
     params: {id: '@id'}
+    transformRequest: (obj) ->
+      transforms.save(obj)
+      return angular.toJson(obj)
   delete:
     method: 'DELETE'
     params: {id: '@id'}
 
-buckit.factory 'Account', ($resource) ->
-  $resource '/api/accounts/:account_id', {}, createResourceActions(noop)
+defaultActions = createActions
+  fetch: (o) ->
+    null
+  save: (o) ->
+    null
+
+buckit.factory 'BuckitResource', ($resource) ->
+  console.log 'hi'
+
+buckit.factory 'Account', ($resource, BuckitResource) ->
+  $resource '/api/accounts/:account_id', {}, defaultActions
 
 buckit.factory 'Payee', ($resource) ->
-  $resource '/api/payees/:payee_id', {}, createResourceActions(noop)
+  $resource '/api/payees/:payee_id', {}, defaultActions
 
 buckit.factory 'Transaction', ($resource) ->
-  r = $resource '/api/transactions/:id', {}, createResourceActions(noop)
-
+  transforms =
+    fetch: (o) ->
+      o.date = new Date(o.date)
+    save: (o) ->
+      o.date = o.date.toISOString().substr(0, 10)
+  r = $resource '/api/transactions/:id', {}, createActions(transforms)
   r.prototype.splitForAccount = (account) ->
     (s for s in this.splits when s.account_id == account.id)[0]
   r.prototype.splitsExcludingAccount = (account) ->
     (s for s in this.splits when s.account_id != account.id)
-
   return r
 
 buckit.factory 'Split', ($resource) ->
-  $resource '/api/splits/:id', {}, createResourceActions(noop)
+  $resource '/api/splits/:id', {}, defaultActions
 
 buckit.factory 'ReconciledStatus', ($resource) ->
   all: () ->
