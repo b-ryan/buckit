@@ -13,8 +13,11 @@ pip install -r dev_requirements.txt
 
 ## npm (Ubuntu 13.10/14.04)
 sudo apt-get install nodejs npm nodejs-legacy
-npm install coffee-script
 echo 'export PATH=$PATH:node_modules/.bin' >> ~/.bashrc.local
+
+npm install coffee-script
+npm install bower
+bower install
 ```
 
 ## Running

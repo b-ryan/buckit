@@ -1,4 +1,7 @@
-env/
-.venv/
 *.pyc
-public/.compiled/
+
+public/.compiled
+node_modules
+public/bower
+
+buckit.sqlite
