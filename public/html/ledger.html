@@ -13,11 +13,10 @@
     </div>
     <div ng-repeat="transaction in transactions | filter:hasSplitForAccount">
 
-
       <div ng-controller="TransactionCtrl">
         <div class="row-fluid" ng-hide="editing" ng-click="edit()">
           <label class="span1">{{transaction.id}}</label>
-          <label class="span2">{{transaction.date}}</label>
+          <label class="span2">{{transaction.date | date:'yyyy-MM-dd'}}</label>
           <label class="span3">{{transaction.payee.name}}</label>
           <label class="span3">
             <span ng-show="non_account_splits.length > 1">Splits</span>
@@ -28,10 +27,17 @@
           <label class="span2">{{account_split.amount | currency}}</label>
           <label class="span1">{{account_split.reconciled_status}}</label>
         </div>
-        <div class="row-fluid" ng-show="editing">
+        <div class="row-fluid" ng-if="editing">
           <div class="row-fluid">
             <label class="span1">{{transaction.id}}</label>
-            <label class="span2"><input ng-model="transaction.date"></label>
+            <label class="span2">
+              <input ng-model="transaction.date"
+                     datepicker-popup="yyyy-MM-dd"
+                     is-open="datePickerOpened">
+              <button class="btn btn-default" ng-click="openDatepicker($event)">
+                O
+              </button>
+            </label>
             <label class="span3">
               <select ng-options="p.id as p.name for p in payees"
                       ng-model="transaction.payee_id">
@@ -39,17 +45,17 @@
             </label>
             <div class="span6">
               <div class="row-fluid" ng-repeat="split in transaction.splits">
-                <label class="span6">
+                <div class="span6">
                   <select ng-options="a.id as a.name for a in accounts"
                           ng-model="split.account_id">
                   </select>
-                </label>
-                <label class="span4"><input ng-model="split.amount"></label>
-                <label class="span2">
+                </div>
+                <div class="span4"><input ng-model="split.amount"></div>
+                <div class="span2">
                   <select ng-options="s for s in reconciled_statuses"
                           ng-model="split.reconciled_status">
                   </select>
-                </label>
+                </div>
               </div>
             </div>
           </div>
@@ -65,69 +71,7 @@
         </div>
       </div>
 
-
-
     </div>
-  </div>
-  <hr>
-  <div id="new-transaction-view" ng-controller="EditTransactionCtrl">
-    <h3>Create a new transaction</h3>
-    <div class="row">
-      <div class="span6">
-        <div class="form-horizontal">
-          <div class="control-group">
-            <label class="control-label">Date</label>
-            <div class="controls">
-              <div class="input-append">
-                <input type="text"
-                       datepicker-popup="MMMM dd, yyyy"
-                       ng-model="date"
-                       is-open="datepickerOpened"
-                       ng-required="true"/>
-                <button class="btn" ng-click="openDatepicker()">
-                  <i class="icon-calendar"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Payee</label>
-            <div class="controls">
-              <input type="text" auto-complete="payees:name"
-                     ng-model="payeeName" ng-blur="updatePayeeId()" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Account</label>
-            <div class="controls">
-              <input type="text" auto-complete="accounts:name"
-                     ng-model="destAccountName" ng-blur="updateAccountId()" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Amount</label>
-            <div class="controls">
-              <div class="input-prepend">
-                <span class="add-on">$</span>
-                <input type="text" ng-model="amount" />
-              </div>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Status</label>
-            <div class="controls">
-              <select ng-model="status"
-                      ng-options="status for status in statuses">
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <button class="btn" ng-click="saveTransaction()">Save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <button class="btn" ng-click="addTransaction()">Add transaction</button>
   </div>
 </div>
