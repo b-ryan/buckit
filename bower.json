@@ -1,6 +1,7 @@
 {
   "name": "buckit",
   "dependencies": {
-    "jquery": "components/jquery#1.9.1"
+    "jquery": "components/jquery#1.9.1",
+    "jquery-ui": "jquery-ui#1.10.3"
   }
 }
