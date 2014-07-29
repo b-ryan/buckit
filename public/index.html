@@ -40,17 +40,17 @@
   </head>
   <body>
 
-  <div class="tabbable tabs-left fill-screen" ng-controller="TabsCtrl">
-    <ul class="nav nav-tabs fill-screen">
+  <div ng-controller="TabsCtrl">
+    <ul>
       <li class="{{accountsTab.active && 'active'}}">
         <a href="{{accountsTab.href}}">{{accountsTab.name}}</a>
       </li>
       <li ng-repeat="account in accounts | filter:isAssetOrLiability">
       <a href="{{ledgerTab.href}}/{{account.id}}">{{account.name}} | {{account.balance}}</a>
       </li>
-      <li><a href="#" ng-click="create_account()">+ Add</a></li>
+      <li><a href="" ng-click="create_account()">+ Add</a></li>
     </ul>
-    <div class="tab-content fill-screen">
+    <div>
       <ng-view class="main-content"></ng-view>
     </div>
   </div>
