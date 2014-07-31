@@ -10,3 +10,7 @@ html, body {
 .main-content {
     overflow-y: scroll;
 }
+
+#transactions-view {
+    margin: 15px;
+}

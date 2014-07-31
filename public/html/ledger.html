@@ -1,64 +1,84 @@
 <div id="ledger" ng-controller="LedgerCtrl">
-  <h3>Ledger</h3>
-  <select ng-model="account" ng-options="account.name for account in accounts">
-  </select>
+  <div class="container-fluid">
+    <div class="col-xs-9">
+    </div>
+    <div class="col-xs-3">
+      <select class="form-control"
+              ng-model="account"
+              ng-options="account.name for account in accounts">
+      </select>
+    </div>
+  </div>
   <div id="transactions-view">
     <div class="container-fluid">
-      <label class="col-xs-1">Id</label>
-      <label class="col-xs-2">Date</label>
-      <label class="col-xs-3">Payee</label>
-      <label class="col-xs-3">Details</label>
-      <label class="col-xs-2">Amount</label>
-      <label class="col-xs-1">Status</label>
+      <strong class="col-xs-1">Id</strong>
+      <strong class="col-xs-3">Date</strong>
+      <strong class="col-xs-3">Payee</strong>
+      <strong class="col-xs-3">Details</strong>
+      <strong class="col-xs-1">Amount</strong>
+      <strong class="col-xs-1">Status</strong>
     </div>
     <div ng-repeat="transaction in transactions | filter:hasSplitForAccount">
 
       <div ng-controller="TransactionCtrl">
-        <div class="container-fluid" ng-hide="editing" ng-click="edit()">
-          <label class="col-xs-1">{{transaction.id}}</label>
-          <label class="col-xs-2">{{transaction.date | date:'yyyy-MM-dd'}}</label>
-          <label class="col-xs-3">{{transaction.payee.name}}</label>
-          <label class="col-xs-3">
-            <span ng-show="non_account_splits.length > 1">Splits</span>
-            <span ng-hide="non_account_splits.length > 1">
+        <div class="container-fluid" ng-if="!editing" ng-click="edit()">
+          <div class="col-xs-1">{{transaction.id}}</div>
+          <div class="col-xs-3">{{transaction.date | date:'yyyy-MM-dd'}}</div>
+          <div class="col-xs-3">{{transaction.payee.name}}</div>
+          <div class="col-xs-3">
+            <div ng-show="non_account_splits.length > 1">Splits</div>
+            <div ng-hide="non_account_splits.length > 1">
               {{non_account_splits[0].account.name}}
-            </span>
-          </label>
-          <label class="col-xs-2">{{account_split.amount | currency}}</label>
-          <label class="col-xs-1">{{account_split.reconciled_status}}</label>
+            </div>
+          </div>
+          <div class="col-xs-1">{{account_split.amount | currency}}</div>
+          <div class="col-xs-1">{{account_split.reconciled_status}}</div>
         </div>
-        <div class="container-fluid" ng-if="editing">
+        <div ng-if="editing">
           <div class="container-fluid">
-            <label class="col-xs-1">{{transaction.id}}</label>
-            <label class="col-xs-2">
-              <input ng-model="transaction.date"
-                     datepicker-popup="yyyy-MM-dd"
-                     is-open="datePickerOpened">
-              <button class="btn btn-default" ng-click="openDatepicker($event)">
-                O
-              </button>
-            </label>
-            <label class="col-xs-3">
-              <select ng-options="p.id as p.name for p in payees"
-                      ng-model="transaction.payee_id">
-              </select>
-            </label>
-            <div class="col-xs-6">
-              <div class="container-fluid" ng-repeat="split in transaction.splits">
-                <div class="col-xs-6">
-                  <select ng-options="a.id as a.name for a in accounts"
-                          ng-model="split.account_id">
-                  </select>
-                </div>
-                <div class="col-xs-4"><input ng-model="split.amount"></div>
-                <div class="col-xs-2">
-                  <select ng-options="s for s in reconciled_statuses"
-                          ng-model="split.reconciled_status">
-                  </select>
+            <div class="col-xs-1">{{transaction.id}}</div>
+            <div class="col-xs-3">
+              <div class="input-group">
+                <input class="form-control" type="text"
+                       ng-model="transaction.date"
+                       datepicker-popup="yyyy-MM-dd"
+                       is-open="datePickerOpened">
+                <div class="input-group-addon">
+                  <i class="glyphicon glyphicon-calendar" ng-click="openDatePicker($event)"></i>
                 </div>
               </div>
             </div>
+            <div class="col-xs-3">
+              <select class="form-control"
+                ng-options="p.id as p.name for p in payees"
+                ng-model="transaction.payee_id">
+              </select>
+            </div>
+
+            <div class="col-xs-3">
+              <div ng-repeat="split in transaction.splits">
+                <select class="form-control"
+                  ng-options="a.id as a.name for a in accounts"
+                  ng-model="split.account_id">
+                </select>
+              </div>
+            </div>
+
+            <div class="col-xs-1">
+              <div class="container-fluid" ng-repeat="split in transaction.splits">
+                <input class="col-xs-12" ng-model="split.amount">
+              </div>
+            </div>
+
+            <div class="col-xs-1">
+              <select class="form-control"
+                ng-options="s for s in reconciled_statuses"
+                ng-model="account_split.reconciled_status">
+              </select>
+            </div>
+
           </div>
+
           <div class="container-fluid">
             <div class="col-xs-6">
               <button class="btn btn-small" ng-click="ok()">OK</button>
@@ -69,9 +89,17 @@
             </div>
           </div>
         </div>
+
       </div>
 
     </div>
-    <button class="btn" ng-click="addTransaction()">Add transaction</button>
+  </div>
+
+  <div class="container-fluid">
+    <div class="col-xs-9">
+    </div>
+    <div class="col-xs-3">
+      <button class="btn" ng-click="addTransaction()">Add transaction</button>
+    </div>
   </div>
 </div>
