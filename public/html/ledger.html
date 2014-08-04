@@ -14,7 +14,7 @@
       <strong class="col-xs-1">Id</strong>
       <strong class="col-xs-2">Date</strong>
       <strong class="col-xs-3">Payee</strong>
-      <strong class="col-xs-3">Details</strong>
+      <strong class="col-xs-3">Category</strong>
       <strong class="col-xs-1">Amount</strong>
       <strong class="col-xs-2">Status</strong>
     </div>
@@ -58,7 +58,10 @@
             </div>
 
             <div class="col-xs-3">
-              <div ng-repeat="split in transaction.splits">
+              <div class="form-control">
+                {{account.name}}
+              </div>
+              <div ng-repeat="split in non_account_splits">
                 <select class="form-control"
                   ng-options="a.id as a.name for a in accounts"
                   ng-model="split.account_id">

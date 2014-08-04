@@ -1,3 +1,5 @@
+# TODO use routing to separate the parent ledger from this stuff
+# maybe look into the angular router project
 window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
 
   for s in $scope.transaction.splits
