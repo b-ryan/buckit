@@ -30,7 +30,7 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
     $event.stopPropagation()
     $scope.datePicker.isOpen = true
 
-  $scope.ok = () ->
+  $scope.save = () ->
     func = if $scope.transaction.id then Transaction.update else Transaction.save
     func $scope.transaction, (transaction) ->
       $scope.transaction = transaction

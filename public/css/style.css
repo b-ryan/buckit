@@ -12,7 +12,11 @@ html, body {
 }
 
 /** LEDGER **/
-.transactions-view {
+.ledger {
+    overflow: auto;
+}
+
+.ledger > div {
     margin: 15px;
 }
 
@@ -26,10 +30,11 @@ html, body {
 }
 
 .transaction-row-view:hover {
-    background: #F0F0FA;
+    background: #f0f0fa;
 }
 
 .transaction-row-edit {
     padding: 4px;
     overflow: auto;
+    background: #F5F5FA;
 }
