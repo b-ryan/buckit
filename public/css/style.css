@@ -11,6 +11,25 @@ html, body {
     overflow-y: scroll;
 }
 
-#transactions-view {
+/** LEDGER **/
+.transactions-view {
     margin: 15px;
+}
+
+.transaction-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.transaction-row-view {
+    cursor: pointer;
+}
+
+.transaction-row-view:hover {
+    background: #F0F0FA;
+}
+
+.transaction-row-edit {
+    padding: 4px;
+    overflow: auto;
 }
