@@ -41,12 +41,7 @@ buckit.factory 'Transaction', ($resource) ->
       o.date = new Date(o.date)
     save: (o) ->
       o.date = o.date.toISOString().substr(0, 10)
-  r = $resource '/api/transactions/:id', {}, createActions(transforms)
-  r.prototype.splitForAccount = (account) ->
-    (s for s in this.splits when s.account_id == account.id)[0]
-  r.prototype.splitsExcludingAccount = (account) ->
-    (s for s in this.splits when s.account_id != account.id)
-  return r
+  $resource '/api/transactions/:id', {}, createActions(transforms)
 
 buckit.factory 'Split', ($resource) ->
   $resource '/api/splits/:id', {}, defaultActions

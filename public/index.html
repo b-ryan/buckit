@@ -3,23 +3,26 @@
   <head>
   <title>Buckit</title>
 
-  <!-- JQUERY & JQUERY UI -->
-  <script src="/public/bower/jquery/jquery.min.js"></script>
-  <script src="/public/bower/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+  <!-- JQUERY -->
+  <script src="/public/bower/jquery/dist/jquery.min.js"></script>
+
+  <!-- JQUERY UI -->
+  <script src="/public/bower/jquery-ui/jquery-ui.min.js"></script>
   <link href="/public/bower/jquery-ui/themes/ui-lightness/jquery-ui.min.css"
     rel="stylesheet" media="screen">
 
   <!-- BOOTSTRAP -->
-  <script src="/public/lib/bootstrap/bootstrap.js"></script>
-  <link href="/public/lib/bootstrap/bootstrap.css" rel="stylesheet" media="screen">
+  <script src="/public/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link href="/public/bower/bootstrap/dist/css/bootstrap.min.css"
+    rel="stylesheet" media="screen">
 
   <!-- ANGULAR -->
-  <script src="/public/lib/angular/angular.min.js"></script>
-  <script src="/public/lib/angular/angular-route.min.js"></script>
-  <script src="/public/lib/angular/angular-resource.min.js"></script>
+  <script src="/public/bower/angular/angular.min.js"></script>
+  <script src="/public/bower/angular-route/angular-route.min.js"></script>
+  <script src="/public/bower/angular-resource/angular-resource.min.js"></script>
 
-  <!-- ANGULAR-BOOTSTRAP -->
-  <script src="/public/lib/angular-bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
+  <!-- ANGULAR BOOTSTRAP -->
+  <script src="/public/bower/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
   <!-- HIGHCHARTS -->
   <script src="/public/lib/highcharts/highstock.js"></script>
@@ -39,17 +42,17 @@
   </head>
   <body>
 
-  <div class="tabbable tabs-left fill-screen" ng-controller="TabsCtrl">
-    <ul class="nav nav-tabs fill-screen">
+  <div ng-controller="TabsCtrl">
+    <ul>
       <li class="{{accountsTab.active && 'active'}}">
         <a href="{{accountsTab.href}}">{{accountsTab.name}}</a>
       </li>
       <li ng-repeat="account in accounts | filter:isAssetOrLiability">
       <a href="{{ledgerTab.href}}/{{account.id}}">{{account.name}} | {{account.balance}}</a>
       </li>
-      <li><a href="#" ng-click="create_account()">+ Add</a></li>
+      <li><a href="" ng-click="create_account()">+ Add</a></li>
     </ul>
-    <div class="tab-content fill-screen">
+    <div>
       <ng-view class="main-content"></ng-view>
     </div>
   </div>

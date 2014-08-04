@@ -1,3 +1,5 @@
+# TODO use routing to separate the parent ledger from this stuff
+# maybe look into the angular router project
 window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
 
   for s in $scope.transaction.splits
@@ -5,6 +7,7 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
 
   $scope.reconciled_statuses = ReconciledStatus.all()
   $scope.editing = false
+  $scope.datePicker = {isOpen: false}
 
   $scope.account_split = (s for s in $scope.transaction.splits \
     when s.account_id == $scope.account.id)[0]
@@ -24,13 +27,12 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
       amount: 0
       reconciled_status: 'not_reconciled'
 
-  $scope.openDatepicker = ($event) ->
-    console.log 'hi'
+  $scope.openDatePicker = ($event) ->
     $event.preventDefault()
     $event.stopPropagation()
-    $scope.datePickerOpened = true
+    $scope.datePicker.isOpen = true
 
-  $scope.ok = () ->
+  $scope.save = () ->
     func = if $scope.transaction.id then Transaction.update else Transaction.save
     func $scope.transaction, (transaction) ->
       $scope.transaction = transaction

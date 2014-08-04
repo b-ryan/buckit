@@ -10,3 +10,31 @@ html, body {
 .main-content {
     overflow-y: scroll;
 }
+
+/** LEDGER **/
+.ledger {
+    overflow: auto;
+}
+
+.ledger > div {
+    margin: 15px;
+}
+
+.transaction-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.transaction-row-view {
+    cursor: pointer;
+}
+
+.transaction-row-view:hover {
+    background: #f0f0fa;
+}
+
+.transaction-row-edit {
+    padding: 4px;
+    overflow: auto;
+    background: #F5F5FA;
+}
