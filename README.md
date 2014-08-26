@@ -22,5 +22,4 @@ bower install
 
 ## Running
 
-coffee -cwo public/.compiled public/coffee
-src/budget --serve
+./devserver.py
