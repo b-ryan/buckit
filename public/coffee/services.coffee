@@ -26,10 +26,7 @@ defaultActions = createActions
   save: (o) ->
     null
 
-buckit.factory 'BuckitResource', ($resource) ->
-  console.log 'hi'
-
-buckit.factory 'Account', ($resource, BuckitResource) ->
+buckit.factory 'Account', ($resource) ->
   $resource '/api/accounts/:account_id', {}, defaultActions
 
 buckit.factory 'Payee', ($resource) ->
