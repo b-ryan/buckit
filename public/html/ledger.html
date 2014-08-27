@@ -51,10 +51,10 @@
               </div>
             </div>
             <div class="col-xs-3">
-              <select class="form-control"
-                ng-options="p.id as p.name for p in payees"
-                ng-model="transaction.payee_id">
-              </select>
+              <input class="form-control" type="text"
+                     ng-model="transaction.payee"
+                     placeholder="Payee"
+                     typeahead="p as p.name for p in payees | filter:$viewValue">
             </div>
 
             <div class="col-xs-3">
