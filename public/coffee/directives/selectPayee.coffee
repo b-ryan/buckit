@@ -1,9 +1,11 @@
 buckit.directive 'selectPayee', () ->
-  restrict: 'A'
-  scope: {}
+  restrict: 'E'
+  scope: {
+    ngModel: '='
+  }
   template: '
     <input class="form-control" type="text"
-      ng-model="transaction.payee"
+      ng-model="ngModel"
       placeholder="Payee"
       typeahead="p as p.name for p in payees | filter:$viewValue">
     '
