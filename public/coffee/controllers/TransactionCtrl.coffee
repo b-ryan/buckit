@@ -33,10 +33,11 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
     $scope.datePicker.isOpen = true
 
   $scope.save = () ->
-    func = if $scope.transaction.id then Transaction.update else Transaction.save
-    func $scope.transaction, (transaction) ->
-      $scope.transaction = transaction
-      $scope.editing = false
+    console.log $scope.transaction
+    # func = if $scope.transaction.id then Transaction.update else Transaction.save
+    # func $scope.transaction, (transaction) ->
+    #   $scope.transaction = transaction
+    #   $scope.editing = false
 
   $scope.cancel = () ->
     $scope.editing = false
