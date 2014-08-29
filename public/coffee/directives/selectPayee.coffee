@@ -10,5 +10,4 @@ buckit.directive 'selectPayee', () ->
   controller: ['$scope', 'Payee', ($scope, Payee) ->
     Payee.query (ps) ->
       $scope.payees = ps
-      console.log ps
   ]
