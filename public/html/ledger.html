@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="col-xs-3">
-              <select-payee ng-model="transaction.payee"></select-payee>
+              <select-payee ng-model="transaction.payee_id"></select-payee>
             </div>
 
             <div class="col-xs-3">
@@ -59,7 +59,7 @@
                 {{account.name}}
               </div>
               <div ng-repeat="split in non_account_splits">
-                <select-account ng-model="split.account"></select-account>
+                <select-account ng-model="split.account_id"></select-account>
               </div>
             </div>
 

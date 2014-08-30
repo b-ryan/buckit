@@ -56,7 +56,6 @@ class Transaction(Base):
     date = Column(Date, nullable=False)
     payee_id = Column(Integer, ForeignKey('payees.id'))
 
-    payee = relationship('Payee')
     splits = relationship('Split')
 
 
@@ -72,7 +71,6 @@ class Split(Base):
     amount = Column(Float, default=0.)
     reconciled_status = Column(ReconciledStatus, default='not_reconciled')
 
-    account = relationship('Account')
     transaction = relationship('Transaction', lazy=False)
 
     __table_args__ = (
