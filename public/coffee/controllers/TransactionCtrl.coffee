@@ -2,9 +2,6 @@
 # maybe look into the angular router project
 window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
 
-  for s in $scope.transaction.splits
-    s.account = $scope.accountLookup[s.account_id]
-
   $scope.reconciled_statuses = ReconciledStatus.all()
   $scope.editing = false
   $scope.datePicker = {isOpen: false}
@@ -14,6 +11,12 @@ window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
 
   $scope.non_account_splits = (s for s in $scope.transaction.splits \
     when s.account_id != $scope.account.id)
+
+  if $scope.non_account_splits.length == 1
+    Account.get {id: $scope.non_account_splits[0].account_id}, (account) ->
+      $scope.accountDisplayName = account.name
+  else if $scope.non_account_splits.length > 1
+    'Splits'
 
   $scope.edit = () ->
     $scope.editing = true

@@ -28,7 +28,7 @@
           <div class="col-xs-3">
             <div ng-show="non_account_splits.length > 1">Splits</div>
             <div ng-hide="non_account_splits.length > 1">
-              {{non_account_splits[0].account.name}}
+              {{accountDisplayName}}
             </div>
           </div>
           <div class="col-xs-1">{{account_split.amount | currency}}</div>
