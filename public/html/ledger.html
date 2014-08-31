@@ -20,7 +20,7 @@
     </div>
     <div ng-repeat="transaction in transactions | filter:hasSplitForAccount">
 
-      <div class="transaction-container" ng-controller="TransactionCtrl">
+      <div class="transaction-container" ng-controller="EditTransactionCtrl">
         <div class="container-fluid transaction-row-view" ng-if="!editing" ng-click="edit()">
           <div class="col-xs-1">{{transaction.id}}</div>
           <div class="col-xs-2">{{transaction.date | date:'yyyy-MM-dd'}}</div>
