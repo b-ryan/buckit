@@ -2,22 +2,17 @@ buckit.directive 'selectAccount', ['Account', (Account) ->
   restrict: 'E'
   require: 'ngModel'
   scope: {}
-  template: '
-    <input class="form-control" type="text" placeholder="Account"
-      ng-model="selectedAccount"
-      ng-blur="accountChanged(selectedAccount)"
-      typeahead="a as a.name for a in accounts | filter:$viewValue"
-      typeahead-append-to-body="true">
-    '
+  templateUrl: '/public/html/inputLookahead.html'
   link: (scope, elem, attrs, ngModelCtrl) ->
+    scope.placeholder = 'Account'
     Account.query (accounts) ->
-      scope.accounts = accounts
+      scope.models = accounts
 
-      Account.get {id: ngModelCtrl.$modelValue}, (account) ->
-        console.log account
-        scope.selectedAccount = account
+      if ngModelCtrl.$modelValue
+        Account.get {id: ngModelCtrl.$modelValue}, (account) ->
+          scope.selectedModel = account
 
-    scope.accountChanged = (account) ->
+    scope.modelChanged = (account) ->
       ngModelCtrl.$setViewValue account.id
       ngModelCtrl.$render()
 ]
