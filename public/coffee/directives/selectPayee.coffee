@@ -13,6 +13,8 @@ buckit.directive 'selectPayee', ['Payee', (Payee) ->
           scope.selectedModel = payee
 
     scope.modelChanged = (payee) ->
+      if typeof payee == 'string'
+        console.log 'create new'
       ngModelCtrl.$setViewValue payee.id
       ngModelCtrl.$render()
 ]

@@ -3,10 +3,8 @@
 window.TransactionCtrl = ($scope, ReconciledStatus, Account, Transaction) ->
 
   for s in $scope.transaction.splits
-    delete s.account_id
     Account.get {id: s.account_id}, (account) ->
       s.account = account
-      console.log s
 
   $scope.reconciled_statuses = ReconciledStatus.all()
   $scope.editing = false

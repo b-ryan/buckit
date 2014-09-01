@@ -35,54 +35,63 @@
           <div class="col-xs-2">{{account_split.reconciled_status}}</div>
         </div>
         <div class="transaction-row-edit" ng-if="editing">
-          <div class="container-fluid">
-            <div class="col-xs-1">{{transaction.id}}</div>
-            <div class="col-xs-2">
-              <div class="input-group">
-                <input class="form-control" type="text"
-                       ng-model="transaction.date"
-                       datepicker-popup="yyyy-MM-dd"
-                       is-open="datePicker.isOpen">
-                <div class="input-group-btn">
-                  <button class="btn btn-default" ng-click="openDatePicker($event)">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                   </button>
+          <form name="form" class="css-form" novalidate>
+            <div class="container-fluid">
+              <div class="col-xs-1">{{transaction.id}}</div>
+              <div class="col-xs-2">
+                <div class="input-group">
+                  <input class="form-control" type="text"
+                         ng-model="transaction.date"
+                         datepicker-popup="yyyy-MM-dd"
+                         is-open="datePicker.isOpen">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" ng-click="openDatePicker($event)">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                     </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xs-3">
-              <select-payee ng-model="transaction.payee_id"></select-payee>
-            </div>
-
-            <div class="col-xs-3">
-              <div class="form-control">
-                {{account.name}}
+              <div class="col-xs-3">
+                <select-payee ng-model="transaction.payee_id"></select-payee>
               </div>
-              <div ng-repeat="split in non_account_splits">
-                <select-account ng-model="split.account_id"></select-account>
+
+              <div class="col-xs-3">
+                <div class="form-control">
+                  {{account.name}}
+                </div>
+                <div ng-repeat="split in non_account_splits">
+                  <select-account ng-model="split.account_id"></select-account>
+                </div>
               </div>
-            </div>
 
-            <div class="col-xs-1">
-              <div ng-repeat="split in transaction.splits">
-                <input class="form-control" ng-model="split.amount">
+              <div class="col-xs-1">
+                <div ng-repeat="split in transaction.splits">
+                  <input class="form-control" ng-model="split.amount">
+                </div>
               </div>
+
+              <div class="col-xs-2">
+                <select class="form-control"
+                  ng-options="s for s in reconciled_statuses"
+                  ng-model="account_split.reconciled_status">
+                </select>
+              </div>
+
             </div>
 
-            <div class="col-xs-2">
-              <select class="form-control"
-                ng-options="s for s in reconciled_statuses"
-                ng-model="account_split.reconciled_status">
-              </select>
+            <div class="pull-right">
+              <button class="btn btn-xs" ng-click="addSplit()">
+                Add split
+              </button>
+              <button class="btn btn-xs btn-danger" ng-click="cancel()">
+                Cancel
+              </button>
+              <button class="btn btn-xs btn-success" ng-click="save()"
+                      ng-disabled="form.$invalid">
+                Save
+              </button>
             </div>
-
-          </div>
-
-          <div class="pull-right">
-            <button class="btn btn-xs" ng-click="addSplit()">Add split</button>
-            <button class="btn btn-xs btn-danger" ng-click="cancel()">Cancel</button>
-            <button class="btn btn-xs btn-success" ng-click="save()">Save</button>
-          </div>
+          </form>
         </div>
 
       </div>
