@@ -1,6 +1,5 @@
 buckit.directive 'editTransaction', () ->
   restrict: 'E'
-  require: 'ngModel'
   scope: {
     'account': '='
     'transaction': '='
@@ -10,6 +9,8 @@ buckit.directive 'editTransaction', () ->
     $scope.name = 'buck'
     $scope.enums = enums
     $scope.datePicker = {isOpen: false}
+
+    $scope.backup = angular.copy $scope.transaction
 
     $scope.account_split = (s for s in $scope.transaction.splits \
       when s.account_id == $scope.account.id)[0]

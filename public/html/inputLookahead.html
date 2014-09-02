@@ -1,4 +1,5 @@
-<input class="form-control" type="text" placeholder="{{placeholder}}"
+<input class="form-control" type="text" name="modelInput"
+  placeholder="{{placeholder}}"
   ng-model="selectedModel"
   ng-blur="modelChanged(selectedModel)"
   typeahead="m as m.name for m in models | filter:$viewValue"

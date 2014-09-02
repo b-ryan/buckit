@@ -16,5 +16,4 @@ window.TransactionCtrl = ($scope, Account, Transaction) ->
 
   $scope.edit = () ->
     $scope.editing = true
-    $scope.backup = $.extend true, {}, $scope.transaction
 

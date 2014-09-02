@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="col-xs-3">
-        <select-payee ng-model="transaction.payee_id"></select-payee>
+        <select-payee form="form" ng-model="transaction.payee_id"></select-payee>
       </div>
 
       <div class="col-xs-3">
@@ -45,12 +45,8 @@
     </div>
 
     <div class="pull-right">
-      <button class="btn btn-xs" ng-click="addSplit()">
-        Add split
-      </button>
-      <button class="btn btn-xs btn-danger" ng-click="cancel()">
-        Cancel
-      </button>
+      <button class="btn btn-xs" ng-click="addSplit()">Add split</button>
+      <button class="btn btn-xs btn-danger" ng-click="cancel()">Cancel</button>
       <button class="btn btn-xs btn-success" ng-click="save()"
               ng-disabled="form.$invalid">
         Save
