@@ -48,7 +48,8 @@ buckit.directive 'editTransaction', () ->
           ,
             (payee) ->
               console.log 'created', payee
-        console.log $scope.transaction
+        else
+          console.log $scope.transaction
         # func = if $scope.transaction.id then Transaction.update else Transaction.save
         # func $scope.transaction, (transaction) ->
         #   $scope.transaction = transaction
