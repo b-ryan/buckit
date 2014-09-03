@@ -8,9 +8,8 @@ buckit.directive 'editTransaction', () ->
   controller: [
     '$scope'
     'enums'
-    'Account'
-    'Payee'
-    ($scope, enums, Account, Payee) ->
+    'Api'
+    ($scope, enums, Api) ->
       $scope.name = 'buck'
       $scope.enums = enums
       $scope.datePicker = {isOpen: false}
@@ -44,7 +43,7 @@ buckit.directive 'editTransaction', () ->
 
       $scope.save = () ->
         if typeof $scope.selectedPayee == 'string' and $scope.selectedPayee != ''
-          Payee.save
+          Api.payees.save
             name: $scope.selectedPayee
           ,
             (payee) ->

@@ -25,6 +25,20 @@ defaultActions = createActions
   toBackend: (model) ->
     return model
 
+transactionTransforms = createActions
+  fromBackend: (model) ->
+    model.date = new Date(model.date)
+    return model
+  toBackend: (model) ->
+    model.date = model.date.toISOString().substr(0, 10)
+    return model
+
+buckit.factory 'Api', ($resource) ->
+  accounts: $resource '/api/accounts/:id', {}, defaultActions
+  payees: $resource '/api/payees/:id', {}, defaultActions
+  transactions: $resource '/api/transactions/:id', {}, transactionTransforms
+  splits: $resource '/api/splits/:id', {}, defaultActions
+
 buckit.factory 'Account', ($resource) ->
   $resource '/api/accounts/:id', {}, defaultActions
 
@@ -32,22 +46,7 @@ buckit.factory 'Payee', ($resource) ->
   $resource '/api/payees/:id', {}, defaultActions
 
 buckit.factory 'Transaction', ($resource) ->
-  transforms =
-    fromBackend: (model) ->
-      model.date = new Date(model.date)
-      return model
-    toBackend: (model) ->
-      model.date = model.date.toISOString().substr(0, 10)
-      return model
-  $resource '/api/transactions/:id', {}, createActions(transforms)
+  $resource '/api/transactions/:id', {}, transactionTransforms
 
 buckit.factory 'Split', ($resource) ->
   $resource '/api/splits/:id', {}, defaultActions
-
-buckit.factory 'ReconciledStatus', ($resource) ->
-  all: () ->
-    [
-      'not_reconciled'
-      'cleared'
-      'reconciled'
-    ]
