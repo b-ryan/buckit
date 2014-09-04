@@ -2,6 +2,7 @@ buckit = angular.module 'buckit', [
     'ngRoute'
     'ngResource'
     'ui.bootstrap'
+    'ui.select2'
   ],
   ($routeProvider) ->
     $routeProvider
