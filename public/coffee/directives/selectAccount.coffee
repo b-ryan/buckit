@@ -3,7 +3,7 @@ buckit.directive 'selectAccount', ['Account', (Account) ->
   require: 'ngModel'
   scope: {}
   template: '
-    <select style="width:100%;" ui-select2 ng-model="selectedModel">
+    <select style="width:100%;" ui-select2 ng-model="selectedIndex">
       <option ng-repeat="m in models" value="{{$index}}">
         {{m.name}}
       </option>
@@ -15,10 +15,12 @@ buckit.directive 'selectAccount', ['Account', (Account) ->
       scope.models = accounts
 
       if ngModelCtrl.$modelValue
-        Account.get {id: ngModelCtrl.$modelValue}, (account) ->
-          scope.selectedModel = account
+        scope.selectedIndex = (i for a, i in accounts \
+          when a.id == ngModelCtrl.$modelValue)[0]
 
-    scope.$watch 'selectedModel', ($index) ->
-      if $index?
-        console.log 'changed', scope.models[$index]
+    scope.$watch 'selectedIndex', (index) ->
+      if index?
+        account = scope.models[index]
+        ngModelCtrl.$setViewValue account.id
+        ngModelCtrl.$render()
 ]
