@@ -1,3 +1,7 @@
+# This code is currently duplicated from the selectPayee directive.
+# The reason is that I already know this directive will need to drastically
+# change. Accounts can be nested and should also indicate what type of account
+# they are.
 buckit.directive 'selectAccount', ['Account', (Account) ->
   restrict: 'E'
   require: 'ngModel'
