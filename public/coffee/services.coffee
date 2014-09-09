@@ -34,10 +34,10 @@ transactionTransforms = createActions
     return model
 
 buckit.factory 'Api', ($resource) ->
-  accounts: $resource '/api/accounts/:id', {}, defaultActions
-  payees: $resource '/api/payees/:id', {}, defaultActions
-  transactions: $resource '/api/transactions/:id', {}, transactionTransforms
-  splits: $resource '/api/splits/:id', {}, defaultActions
+  accounts: $resource('/api/accounts/:id', {}, defaultActions)
+  payees: $resource('/api/payees/:id', {}, defaultActions)
+  transactions: $resource('/api/transactions/:id', {}, transactionTransforms)
+  splits: $resource('/api/splits/:id', {}, defaultActions)
 
 buckit.factory 'Account', ($resource) ->
   $resource '/api/accounts/:id', {}, defaultActions
