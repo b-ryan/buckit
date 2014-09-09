@@ -14,7 +14,6 @@ buckit.directive 'selectAccount', ['Account', (Account) ->
     </select>
   '
   link: (scope, elem, attrs, ngModelCtrl) ->
-    scope.placeholder = 'Account'
     Account.query (accounts) ->
       scope.models = accounts
 
