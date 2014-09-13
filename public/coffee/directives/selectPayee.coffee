@@ -4,17 +4,12 @@ buckit.directive 'selectPayee', ['Payee', (Payee) ->
   scope: {
   }
   template: '
-    <div class="btn-group">
-      <button class="btn button-label btn-info">XYZ</button>
-      <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        <li role="presentation">
-          <a>Hi <button ng-click="expand($event)" role="menuitem">click</button></a>
-        </li>
-      </ul>
-    </div>
+    <select style="width:100%;" ui-select2="select2Opts" ng-model="selectedIndex">
+      <option></option>
+      <option ng-repeat="m in models" value="{{$index}}">
+        {{m.name}}
+      </option>
+    </select>
   '
   link: (scope, elem, attrs, ngModelCtrl) ->
     Payee.query (payees) ->
@@ -29,8 +24,9 @@ buckit.directive 'selectPayee', ['Payee', (Payee) ->
         payee = scope.models[index]
         ngModelCtrl.$setViewValue payee
         ngModelCtrl.$render()
-
-    scope.expand = ($event) ->
-      $event.stopPropagation()
-      console.log 'expand'
+  controller: ['$scope', ($scope) ->
+    $scope.select2Opts =
+      placeholder: 'Select Payee'
+      allowClear: true
+  ]
 ]
