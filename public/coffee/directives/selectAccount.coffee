@@ -24,6 +24,14 @@ buckit.directive 'selectAccount',
           scope.selectedIndex = (i for a, i in accounts \
             when a.id == ngModelCtrl.$modelValue)[0]
 
+      backdrop = angular.element '
+        <div class="dropdownBackdrop" ng-if="dropdown.open"
+             ng-click="toggleDropdown()">
+        </div>
+      '
+      $('body').append backdrop
+      $compile(backdrop)(scope)
+
       dropdown = angular.element '
         <div class="selectAccountDropdown" ng-class="{open:dropdown.open}">
           <ul class="dropdown-menu">
@@ -45,6 +53,7 @@ buckit.directive 'selectAccount',
         positionDropdown()
 
       elem.on '$destroy', ->
+        backdrop.remove()
         dropdown.remove()
 
       scope.dropdown =
