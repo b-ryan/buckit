@@ -10,20 +10,13 @@ buckit.directive 'selectAccount',
     scope: {}
     template: '
       <div class="selectAccount btn-group" ng-class="{open:dropdown.open}">
-        <button class="btn dropdown-label">XYZ</button>
+        <button class="btn dropdown-label">{{selectedAccount.name}}</button>
         <button class="btn dropdown-toggle" ng-click="toggleDropdown()">
           <span class="caret"></span>
         </button>
       </div>
     '
     link: (scope, elem, attrs, ngModelCtrl) ->
-      Account.query (accounts) ->
-        scope.models = accounts
-
-        if ngModelCtrl.$modelValue
-          scope.selectedIndex = (i for a, i in accounts \
-            when a.id == ngModelCtrl.$modelValue)[0]
-
       backdrop = angular.element '
         <div class="dropdownBackdrop" ng-if="dropdown.open"
              ng-click="toggleDropdown()">
@@ -35,8 +28,8 @@ buckit.directive 'selectAccount',
       dropdown = angular.element '
         <div class="selectAccountDropdown" ng-class="{open:dropdown.open}">
           <ul class="dropdown-menu">
-            <li>
-              <a>Hi <button ng-click="expand($event)">click</button></a>
+            <li ng-repeat="account in accounts">
+              <a ng-click="selectAccount(account)">{{account.name}}</a>
             </li>
           </ul>
         </div>
@@ -62,9 +55,16 @@ buckit.directive 'selectAccount',
       scope.toggleDropdown = ->
         scope.dropdown.open = !scope.dropdown.open
 
-      scope.$watch 'selectedIndex', (index) ->
-        if index?
-          account = scope.models[index]
-          ngModelCtrl.$setViewValue account.id
-          ngModelCtrl.$render()
+      Account.query (accounts) ->
+        scope.accounts = accounts
+
+        if ngModelCtrl.$modelValue
+          scope.selectedAccount = (a for a in accounts \
+            when a.id == ngModelCtrl.$modelValue)[0]
+
+      scope.selectAccount = (account) ->
+        scope.dropdown.open = false
+        scope.selectedAccount = account
+        ngModelCtrl.$setViewValue account.id
+        ngModelCtrl.$render()
 ]
