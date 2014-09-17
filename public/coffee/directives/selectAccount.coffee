@@ -10,9 +10,13 @@ buckit.directive 'selectAccount',
     scope: {}
     template: '
       <div class="selectAccount btn-group" ng-class="{open:dropdown.open}">
-        <button class="btn dropdown-label">{{selectedAccount.name}}</button>
-        <button class="btn dropdown-toggle" ng-click="toggleDropdown()">
-          <span class="caret"></span>
+        <button class="btn btn-default dropdown-toggle" ng-click="toggleDropdown()">
+          <div class="pull-left">
+            <span>{{selectedAccount.name}}</span>
+          </div>
+          <div class="pull-right">
+            <span class="caret"></span>
+          </div>
         </button>
       </div>
     '
@@ -40,6 +44,7 @@ buckit.directive 'selectAccount',
       positionDropdown = ->
         dropdown.css 'top', (elem.offset().top + elem.outerHeight()) + 'px'
         dropdown.css 'left', elem.offset().left + 'px'
+        dropdown.find('.dropdown-menu').css 'width', elem.width() + 'px'
 
       positionDropdown()
       $(window).on 'resize', ->

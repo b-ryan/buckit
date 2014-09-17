@@ -39,7 +39,8 @@ html, body {
     background: #F5F5FA;
 }
 
-.selectAccount {
+.selectAccount,
+.selectAccount > .btn {
     width: 100%;
 }
 .dropdownBackdrop {
