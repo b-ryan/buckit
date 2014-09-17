@@ -38,3 +38,25 @@ html, body {
     overflow: auto;
     background: #F5F5FA;
 }
+
+.selectAccount,
+.selectAccount > .btn {
+    width: 100%;
+}
+.dropdownBackdrop {
+    border: 0px none;
+    margin: 0px;
+    padding: 0px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    display: block;
+    z-index: 1;
+    cursor: default;
+}
+.selectAccountDropdown {
+    position: fixed;
+    z-index: 2;
+}

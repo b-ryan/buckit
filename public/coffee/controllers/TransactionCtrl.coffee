@@ -6,7 +6,7 @@ window.TransactionCtrl = ($scope, Account, Transaction) ->
     Account.get {id: s.account_id}, (account) ->
       s.account = account
 
-  $scope.editing = false
+  $scope.transaction.editing = false
 
   $scope.account_split = (s for s in $scope.transaction.splits \
     when s.account_id == $scope.account.id)[0]
@@ -15,5 +15,5 @@ window.TransactionCtrl = ($scope, Account, Transaction) ->
     when s.account_id != $scope.account.id)
 
   $scope.edit = () ->
-    $scope.editing = true
+    $scope.transaction.editing = true
 

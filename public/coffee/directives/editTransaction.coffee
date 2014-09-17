@@ -3,6 +3,7 @@ buckit.directive 'editTransaction', () ->
   scope: {
     'account': '='
     'transaction': '='
+    'editing': '='
   }
   templateUrl: '/public/html/edit_transaction.html'
   controller: [
@@ -37,7 +38,7 @@ buckit.directive 'editTransaction', () ->
           reconciled_status: 'not_reconciled'
 
       $scope.cancel = () ->
-        $scope.editing = false
+        $scope.transaction.editing = false
         $scope.transaction = $scope.backup
         $scope.backup = null
 
