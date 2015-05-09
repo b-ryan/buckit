@@ -7,7 +7,9 @@
       <a href="{{ledgerTab.href}}/{{account.id}}">
         {{account.name}} | {{account.balance}}
       </a>
+      <edit-account-button prompt="'Edit'" account="account">
+      </edit-account-button>
     </li>
   </ul>
-  <edit-account-button is-new-account="true"></edit-account-button>
+  <edit-account-button prompt="'Create New Account'"></edit-account-button>
 </div>

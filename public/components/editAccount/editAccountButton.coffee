@@ -6,18 +6,19 @@ window.buckit.directive 'editAccountButton', [
     restrict: "E"
     templateUrl: componentUrl("editAccount/editAccountButton.html")
     scope:
-      isNewAccount: "="
+      account: "="
+      prompt: "="
     link: (scope, elem, attr) ->
-
-      scope.prompt = if scope.isNewAccount \
-        then "Create an Account" \
-        else "Edit Account"
 
       scope.editAccount = ->
         instance = $modal.open
           templateUrl: componentUrl("editAccount/editAccountForm.html")
           controller: 'editAccountModalCtrl'
+          resolve:
+            account: ->
+              scope.account
 
         instance.result.then (account) ->
-          Accounts.save account
+          f = if account.id then Accounts.update else Accounts.save
+          f account
 ]

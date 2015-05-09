@@ -1,7 +1,8 @@
 window.buckit.controller 'editAccountModalCtrl', [
   "$scope"
   "$modalInstance"
-  ($scope, $modalInstance) ->
+  "account"
+  ($scope, $modalInstance, account) ->
 
     $scope.accountTypes = [
       "liability"
@@ -11,13 +12,19 @@ window.buckit.controller 'editAccountModalCtrl', [
       "equity"
     ]
 
-    $scope.account =
-      name: null
-      type: "asset"
+    if account
+      $scope.isNewAccount = false
+      $scope.account = account
+    else
+      $scope.isNewAccount = true
+      $scope.account =
+        name: null
+        type: "asset"
 
     $scope.create = ->
       $modalInstance.close $scope.account
 
     $scope.cancel = ->
       $modalInstance.dismiss 'cancel'
+
 ]

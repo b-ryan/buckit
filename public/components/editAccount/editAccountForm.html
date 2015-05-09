@@ -1,6 +1,7 @@
 <form class="buckit--modal form-inline">
   <div class="modal-header">
-    <h3>Create a New Account</h3>
+    <h3 ng-if="isNewAccount">Create a New Account</h3>
+    <h3 ng-if="!isNewAccount">Edit an Account</h3>
   </div>
   <div class="modal-body">
     <div class="form-group">
@@ -17,7 +18,10 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="create()">Create</button>
+    <button class="btn btn-primary" ng-click="create()">
+      <span ng-if="isNewAccount">Create</span>
+      <span ng-if="!isNewAccount">Update</span>
+    </button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
   </div>
 </form>
