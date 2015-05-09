@@ -14,7 +14,7 @@ window.buckit.controller 'editAccountModalCtrl', [
 
     if account
       $scope.isNewAccount = false
-      $scope.account = account
+      $scope.account = angular.copy(account)
     else
       $scope.isNewAccount = true
       $scope.account =
