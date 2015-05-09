@@ -14,10 +14,15 @@ pip install -r dev_requirements.txt
 ## npm (Ubuntu 13.10/14.04)
 sudo apt-get install nodejs npm nodejs-legacy
 echo 'export PATH=$PATH:node_modules/.bin' >> ~/.bashrc.local
+. !$
 
 npm install coffee-script
 npm install bower
-bower install
+
+mkvirtualenv buckit
+pip install -r requirements.txt
+
+make server
 ```
 
 ## Running

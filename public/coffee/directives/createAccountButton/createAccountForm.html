@@ -1,0 +1,23 @@
+<form class="buckit--modal form-inline">
+  <div class="modal-header">
+    <h3>Create a New Account</h3>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="control-label">Name</label>
+      <input type="text" ng-model="account.name"></input>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Type</label>
+      <select
+        class="form-control"
+        ng-model="account.type" required="true"
+        ng-options="type for type in accountTypes">
+      </select>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="create()">Create</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</form>

@@ -1,0 +1,13 @@
+<div>
+  You have {{accounts.length}} accounts.
+
+
+  <ul>
+    <li ng-repeat="account in accounts | filter:isAssetOrLiability">
+      <a href="{{ledgerTab.href}}/{{account.id}}">
+        {{account.name}} | {{account.balance}}
+      </a>
+    </li>
+  </ul>
+  <create-account-button></create-account-button>
+</div>

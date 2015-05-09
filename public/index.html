@@ -33,39 +33,18 @@
   <script src="/public/lib/highcharts/highstock.js"></script>
 
   <!-- BUCKIT -->
-  <script src="/public/.compiled/buckit.js"></script>
-  <script src="/public/.compiled/constants.js"></script>
-  <script src="/public/.compiled/services.js"></script>
-  <script src="/public/.compiled/controllers/TabsCtrl.js"></script>
-  <script src="/public/.compiled/controllers/AccountsCtrl.js"></script>
-  <script src="/public/.compiled/controllers/NewAccountCtrl.js"></script>
-  <script src="/public/.compiled/controllers/LedgerCtrl.js"></script>
-  <script src="/public/.compiled/controllers/TransactionCtrl.js"></script>
-  <script src="/public/.compiled/directives/autoComplete.js"></script>
-  <script src="/public/.compiled/directives/ngBlur.js"></script>
-  <script src="/public/.compiled/directives/editTransaction.js"></script>
-  <script src="/public/.compiled/directives/selectPayee.js"></script>
-  <script src="/public/.compiled/directives/selectAccount.js"></script>
-  <script src="/public/.compiled/charts.js"></script>
+  <script src="/public/.compiled/app.js"></script>
+  <script src="/public/.compiled/models/Accounts.js"></script>
+  <script src="/public/.compiled/directives/buckit/buckit.js"></script>
+  <script src="/public/.compiled/directives/createAccountButton/createAccountButton.js"></script>
+  <script src="/public/.compiled/directives/createAccountButton/createAccountModalCtrl.js"></script>
+
   <link href="/public/css/style.css" rel="stylesheet" media="screen">
 
   </head>
   <body>
 
-  <div ng-controller="TabsCtrl">
-    <ul>
-      <li class="{{accountsTab.active && 'active'}}">
-        <a href="{{accountsTab.href}}">{{accountsTab.name}}</a>
-      </li>
-      <li ng-repeat="account in accounts | filter:isAssetOrLiability">
-      <a href="{{ledgerTab.href}}/{{account.id}}">{{account.name}} | {{account.balance}}</a>
-      </li>
-      <li><a href="" ng-click="create_account()">+ Add</a></li>
-    </ul>
-    <div>
-      <ng-view class="main-content"></ng-view>
-    </div>
-  </div>
+    <buckit></buckit>
 
   </body>
 </html>
