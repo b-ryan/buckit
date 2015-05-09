@@ -3,14 +3,12 @@ window.buckit.directive 'editAccountButton', [
   "Accounts"
   "$modal"
   (componentUrl, Accounts, $modal) ->
-    restrict: "E"
-    templateUrl: componentUrl("editAccount/editAccountButton.html")
+    restrict: "A"
     scope:
       account: "="
-      prompt: "="
     link: (scope, elem, attr) ->
 
-      scope.editAccount = ->
+      $(elem).on 'click', ->
         instance = $modal.open
           templateUrl: componentUrl("editAccount/editAccountForm.html")
           controller: 'editAccountModalCtrl'
