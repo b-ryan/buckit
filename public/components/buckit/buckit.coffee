@@ -1,8 +1,9 @@
 window.buckit.directive 'buckit', [
+  "componentUrl"
   "Accounts"
-  (Accounts) ->
+  (componentUrl, Accounts) ->
     restrict: "E"
-    templateUrl: "/public/coffee/directives/buckit/buckit.html"
+    templateUrl: componentUrl("buckit/buckit.html")
     replace: true
     link: (scope, elem, attr) ->
       scope.accounts = Accounts.query()

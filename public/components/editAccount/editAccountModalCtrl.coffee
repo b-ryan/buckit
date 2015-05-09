@@ -1,4 +1,4 @@
-window.buckit.controller 'createAccountModalCtrl', [
+window.buckit.controller 'editAccountModalCtrl', [
   "$scope"
   "$modalInstance"
   ($scope, $modalInstance) ->
