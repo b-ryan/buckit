@@ -14,19 +14,21 @@ list-coffee() {
 }
 
 compile-coffee() {
-    debug Compiling coffeescript into public/.compiled/buckit.js
     coffee --compile --print $(list-coffee) > public/.compiled/buckit.js
+    debug Compiled coffeescript into public/.compiled/buckit.js
 }
 
 watch() {
     # relies on it not watching changes for hidden directories, specifically
     # public/.compiled
+    compile-coffee || true
+
     while true; do
         change=$(inotifywait --quiet --event close_write,moved_to,create public)
         file=${change##* }
         filetype=${file##*.}
         if [[ "$filetype" = "coffee" ]]; then
-            compile-coffee
+            compile-coffee || true
         fi
     done
 }
