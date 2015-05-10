@@ -22,9 +22,12 @@ npm install bower
 mkvirtualenv buckit
 pip install -r requirements.txt
 
-make server
+sudo apt-get install inotify-tools
 ```
 
 ## Running
 
+./manage.sh watch
+
+workon buckit
 ./devserver.py
