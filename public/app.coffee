@@ -1,18 +1,26 @@
-buckit = angular.module 'buckit', [
-    'ngRoute'
-    'ngResource'
-    'ui.bootstrap'
-    'ui.select2'
-  ],
-  ($routeProvider) ->
-    $routeProvider
-      .when '/accounts',
-        templateUrl: '/public/html/accounts.html'
-      .when '/ledger',
-        templateUrl: '/public/html/ledger.html'
-      .when '/ledger/:account_id',
-        templateUrl: '/public/html/ledger.html'
-      .otherwise
-        templateUrl: '/public/html/main.html'
+buckit = angular.module "buckit", [
+  "ngResource"
+  "ui.bootstrap"
+  "ui.select2"
+  "ui.router"
+]
+
+buckit.config [
+  "$stateProvider"
+  ($stateProvider) ->
+
+    # For any unmatched url, redirect to some "unknown" state
+    # This state can then have a controller which can smart-route to the
+    # last known position or something like that
+    # $urlRouterProvider.otherwise("/state1");
+
+    $stateProvider
+      .state "accounts",
+        url: "/accounts"
+        template: "<accounts-view></accounts-view>"
+      .state "budget",
+        url: "/budget"
+        template: "<budget-view></budget-view>"
+]
 
 window.buckit = buckit

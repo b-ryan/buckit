@@ -24,7 +24,7 @@ watch() {
     compile-coffee || true
 
     while true; do
-        change=$(inotifywait --quiet --event close_write,moved_to,create public)
+        change=$(inotifywait --quiet --recursive --event close_write,moved_to,create public)
         file=${change##* }
         filetype=${file##*.}
         if [[ "$filetype" = "coffee" ]]; then
