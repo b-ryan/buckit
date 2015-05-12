@@ -17,7 +17,10 @@ buckit.config [
     $stateProvider
       .state "accounts",
         url: "/accounts"
-        template: "<accounts-view></accounts-view>"
+        template: "<account-list></account-list>"
+      .state "accounts.details",
+        url: "/{id:int}"
+        template: "<account-details></account-details>"
       .state "budget",
         url: "/budget"
         template: "<budget-view></budget-view>"
