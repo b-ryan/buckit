@@ -10,7 +10,7 @@ window.buckit.directive 'editAccountButton', [
 
       $(elem).on 'click', ->
         instance = $modal.open
-          templateUrl: componentUrl("editAccount/editAccountForm.html")
+          templateUrl: componentUrl("accounts/editAccountForm.html")
           controller: 'editAccountModalCtrl'
           resolve:
             account: ->

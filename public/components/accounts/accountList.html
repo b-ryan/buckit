@@ -1,12 +1,26 @@
-<select ng-model="selectedAccountId"
-  ng-options="a.id as a.name for a in accounts"
-  ng-change="accountSelected()">
-</select>
+<div>
+  <select
+    ng-model="selectedAccountId"
+    ng-options="a.id as a.name for a in accounts"
+    ng-change="accountSelected()">
+  </select>
 
-<div ng-if="!selectedAccountId">
-  <p>Please select an account</p>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+      data-toggle="dropdown" aria-expanded="false">
+      <span class="glyphicon glyphicon-cog"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="">Edit</a></li>
+      <li><a href="">Another action</a></li>
+      <li><a href="">Something else here</a></li>
+    </ul>
+  </div>
 </div>
 
 <div>
+  <p ng-if="!selectedAccountId">Please select an account</p>
   <ui-view></ui-view>
 </div>
+
+<div ui-view="modal" autoscroll="false"></div>
