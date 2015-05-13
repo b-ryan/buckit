@@ -19,18 +19,17 @@ compile-coffee() {
 }
 
 watch() {
-    # relies on it not watching changes for hidden directories, specifically
-    # public/.compiled
     compile-coffee || true
 
-    while true; do
-        change=$(inotifywait --quiet --recursive --event close_write,moved_to,create public)
+    while read change; do
         file=${change##* }
         filetype=${file##*.}
         if [[ "$filetype" = "coffee" ]]; then
             compile-coffee || true
         fi
-    done
+    done < <(inotifywait --monitor --recursive \
+        --event close_write,moved_to,delete \
+        public)
 }
 
 usage() {
