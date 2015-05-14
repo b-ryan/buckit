@@ -5,6 +5,8 @@ buckit = angular.module "buckit", [
   "ui.router"
 ]
 
+# FIXME use angular.module('buckit') instead of window.buckit everywhere
+
 buckit.config [
   "$stateProvider"
   ($stateProvider) ->

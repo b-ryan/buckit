@@ -6,5 +6,8 @@ window.buckit.directive 'accountDetails', [
     restrict: "E"
     templateUrl: componentUrl("accounts/accountDetails.html")
     link: (scope, elem, attr) ->
-      scope.account = Accounts.get {id: $stateParams.id}
+      Accounts.get({id: $stateParams.id}).$promise.then (account) ->
+        scope.account = account
+      , (error) ->
+        alert error
 ]

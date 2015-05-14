@@ -8,7 +8,11 @@ window.buckit.directive 'accounts', [
     restrict: "E"
     templateUrl: componentUrl("accounts/accounts.html")
     link: (scope, elem, attr) ->
-      scope.accounts = Accounts.query()
+      Accounts.query().$promise.then (accounts) ->
+        scope.accounts = accounts
+      , (error) ->
+        alert error
+
       scope.selectedAccountId = $stateParams.id
 
       $rootScope.$on '$stateChangeSuccess', ->
