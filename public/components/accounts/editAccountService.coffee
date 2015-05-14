@@ -9,7 +9,7 @@ window.buckit.service 'editAccountService', [
     editWithModal: (account) ->
 
       instance = $modal.open
-        templateUrl: componentUrl("accounts/editAccountForm.html")
+        templateUrl: componentUrl("accounts/editAccountModal.html")
         controller: 'editAccountModalCtrl'
         resolve:
           account: ->
@@ -30,9 +30,7 @@ window.buckit.service 'editAccountService', [
       instance.result.then (account) ->
         console.log account
         dismissalHandled = true
-        $state.go "accounts.list"
-        # f = if account.id then Accounts.update else Accounts.save
-        # f account
+        $state.go "accounts.details", {id: account.id}
       , ->
         unless dismissalHandled
           console.log "Modal was dismissed by user, transitioning back"

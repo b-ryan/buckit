@@ -1,8 +1,9 @@
 window.buckit.controller 'editAccountModalCtrl', [
   "$scope"
   "$modalInstance"
+  "Accounts"
   "account"
-  ($scope, $modalInstance, account) ->
+  ($scope, $modalInstance, Accounts, account) ->
 
     $scope.accountTypes = [
       "liability"
@@ -21,8 +22,12 @@ window.buckit.controller 'editAccountModalCtrl', [
         name: null
         type: "asset"
 
-    $scope.create = ->
-      $modalInstance.close $scope.account
+    $scope.save = ->
+      f = if $scope.account.id then Accounts.update else Accounts.save
+      f($scope.account).$promise.then (account) ->
+        $modalInstance.close account
+      , (response) ->
+        alert "Error saving!"
 
     $scope.cancel = ->
       $modalInstance.dismiss 'cancel'
