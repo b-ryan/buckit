@@ -3,7 +3,7 @@
 set -e
 
 debug() {
-    echo >&2 "$@"
+    echo >&2 "$(date --rfc-3339=seconds) $@"
 }
 
 list-coffee() {
