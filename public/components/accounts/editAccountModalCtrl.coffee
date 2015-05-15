@@ -2,8 +2,8 @@ angular.module("buckit").controller 'editAccountModalCtrl', [
   "$scope"
   "$modalInstance"
   "Accounts"
-  "account"
-  ($scope, $modalInstance, Accounts, account) ->
+  "accountId"
+  ($scope, $modalInstance, Accounts, accountId) ->
 
     $scope.accountTypes = [
       "liability"
@@ -13,9 +13,12 @@ angular.module("buckit").controller 'editAccountModalCtrl', [
       "equity"
     ]
 
-    if account
+    if accountId
       $scope.isNewAccount = false
-      $scope.account = angular.copy(account)
+      Accounts.get({id: accountId}).$promise.then (account) ->
+        $scope.account = angular.copy(account)
+      , (error) ->
+        alert error
     else
       $scope.isNewAccount = true
       $scope.account =

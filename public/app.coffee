@@ -39,6 +39,14 @@ buckit.config [
           (editAccountService) ->
             editAccountService.editWithModal null
         ]
+      .state "accounts.details.edit",
+        url: "/edit"
+        onEnter: [
+          "editAccountService"
+          "$stateParams"
+          (editAccountService, $stateParams) ->
+            editAccountService.editWithModal $stateParams.id
+        ]
 
       .state "budget",
         url: "/budget"

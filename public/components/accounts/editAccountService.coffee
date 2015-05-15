@@ -6,14 +6,14 @@ angular.module("buckit").service 'editAccountService', [
   "componentUrl"
   ($stateParams, $state, $modal, $rootScope, componentUrl) ->
 
-    editWithModal: (account) ->
+    editWithModal: (accountId) ->
 
       instance = $modal.open
         templateUrl: componentUrl("accounts/editAccountModal.html")
         controller: 'editAccountModalCtrl'
         resolve:
-          account: ->
-            account
+          accountId: ->
+            accountId
 
       # Below, there are two ways the user could leave the modal,
       # either by dismissing it directly or by changing the URL.
