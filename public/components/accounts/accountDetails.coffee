@@ -1,4 +1,4 @@
-window.buckit.directive 'accountDetails', [
+angular.module("buckit").directive 'accountDetails', [
   "componentUrl"
   "Accounts"
   "$stateParams"

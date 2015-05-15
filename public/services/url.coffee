@@ -1,4 +1,4 @@
-window.buckit.factory 'componentUrl', [
+angular.module("buckit").factory 'componentUrl', [
   ->
     (url) ->
       "/public/components/#{url}"

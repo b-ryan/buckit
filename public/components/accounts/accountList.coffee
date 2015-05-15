@@ -1,4 +1,4 @@
-window.buckit.directive 'accountList', [
+angular.module("buckit").directive 'accountList', [
   "componentUrl"
   (componentUrl) ->
     restrict: "E"

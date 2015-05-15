@@ -1,4 +1,4 @@
-buckit.factory 'Model', [
+angular.module("buckit").factory 'Model', [
   "$resource"
   ($resource) ->
     mkActions = (transforms) ->
@@ -21,9 +21,6 @@ buckit.factory 'Model', [
       delete:
         method: 'DELETE'
         params: {id: '@id'}
-
-    buckit.factory 'Accounts', ($resource) ->
-      $resource '/api/accounts/:id', {}, defaultActions
 
     return  {
       identityTransforms:

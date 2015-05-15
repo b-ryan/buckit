@@ -1,4 +1,4 @@
-window.buckit.controller 'editAccountModalCtrl', [
+angular.module("buckit").controller 'editAccountModalCtrl', [
   "$scope"
   "$modalInstance"
   "Accounts"

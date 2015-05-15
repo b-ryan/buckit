@@ -1,4 +1,4 @@
-window.buckit.service 'editAccountService', [
+angular.module("buckit").service 'editAccountService', [
   "$stateParams"
   "$state"
   "$modal"
