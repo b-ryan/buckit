@@ -12,4 +12,9 @@
 
 </div>
 
-<ui-view></ui-view>
+<div>
+  <div ng-if="!selectedAccountId">
+    <p>Please select an account</p>
+  </div>
+  <ui-view ng-if="selectedAccountId"></ui-view>
+</div>

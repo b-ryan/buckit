@@ -5,12 +5,8 @@ angular.module("buckit").config [
     $stateProvider
       .state "accounts",
         url: "/accounts"
-        abstract: true
         template: "<accounts-view></accounts-view>"
-      .state "accounts.list",
-        url: ""
-        template: "<account-list></account-list>"
-      .state "accounts.list.create",
+      .state "accounts.create",
         url: "/create"
         onEnter: [
           "editAccountService"
