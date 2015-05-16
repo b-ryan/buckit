@@ -7,15 +7,15 @@ debug() {
 }
 
 list-coffee() {
-    ls public/app.coffee
-    find public/services -name '*.coffee'
-    find public/models -name '*.coffee'
-    find public/components -name '*.coffee'
+    ls app/app.coffee
+    find app/services -name '*.coffee'
+    find app/models -name '*.coffee'
+    find app/components -name '*.coffee'
 }
 
 compile-coffee() {
-    coffee --compile --print $(list-coffee) > public/.compiled/buckit.js
-    debug Compiled coffeescript into public/.compiled/buckit.js
+    coffee --compile --print $(list-coffee) > app/.compiled/buckit.js
+    debug Compiled coffeescript into app/.compiled/buckit.js
 }
 
 watch() {
@@ -29,7 +29,7 @@ watch() {
         fi
     done < <(inotifywait --monitor --recursive \
         --event close_write,moved_to,delete \
-        public)
+        app)
 }
 
 usage() {

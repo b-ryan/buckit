@@ -1,7 +1,7 @@
 *.pyc
 
-public/.compiled
+app/.compiled
+app/bower
 node_modules
-public/bower
 
 buckit.sqlite

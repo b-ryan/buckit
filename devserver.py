@@ -2,10 +2,10 @@
 from buckit.app import app
 
 if __name__ == '__main__':
-    app.static_folder = '../public'
+    app.static_folder = '../app'
 
     @app.route('/', defaults={'filename': 'index.html'})
-    @app.route('/public/<path:filename>')
+    @app.route('/app/<path:filename>')
     def static(filename):
         return app.send_static_file(filename)
 
