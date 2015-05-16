@@ -24,25 +24,33 @@ angular.module("buckit").factory 'Model', [
         params: {id: '@id'}
 
     class Model
-      constructor: (@name, url, transforms) ->
+      constructor: (name, url, transforms) ->
         transforms ?=
           fromBackend: (model) ->
             return model
           toBackend: (model) ->
             return model
 
+        @name = name
         @resource = $resource url, {}, mkActions(transforms)
 
-      get: ->
-        return @resource.get.apply(arguments).$promise
+      get: =>
+        return @resource.get.apply(@, arguments).$promise
 
-      query: ->
-        return @resource.query.apply(arguments).$promise
+      query: =>
+        return @resource.query.apply(@, arguments).$promise
 
-      post: ->
-        promise = @resource.query.apply(arguments).$promise
-        promise.then (obj) ->
-          $rootScope.$broadcast ("post." + @name), obj
+      save: =>
+        promise = @resource.save.apply(@, arguments).$promise
+        promise.then (obj) =>
+          console.log (@name + ".POST")
+          $rootScope.$broadcast (@name + ".POST"), obj
+        return promise
+
+      update: =>
+        promise = @resource.update.apply(@, arguments).$promise
+        promise.then (obj) =>
+          $rootScope.$broadcast (@name + ".PUT"), obj
         return promise
 
     return Model

@@ -29,7 +29,7 @@ angular.module("buckit").controller 'editAccountModalCtrl', [
       f = if $scope.account.id then Accounts.update else Accounts.save
       f($scope.account).then (account) ->
         $modalInstance.close account
-      , (response) ->
+      , (error) ->
         alert "Error saving!"
 
     $scope.cancel = ->

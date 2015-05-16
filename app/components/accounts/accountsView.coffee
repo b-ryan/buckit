@@ -8,6 +8,8 @@ angular.module("buckit").directive 'accountsView', [
     restrict: "E"
     templateUrl: componentUrl("accounts/accountsView.html")
     link: (scope, elem, attr) ->
+      scope.accounts = []
+
       Accounts.query().then (accounts) ->
         scope.accounts = accounts
       , (error) ->
@@ -15,8 +17,12 @@ angular.module("buckit").directive 'accountsView', [
 
       scope.selectedAccountId = $stateParams.id
 
-      $rootScope.$on '$stateChangeSuccess', ->
+      $rootScope.$on "$stateChangeSuccess", ->
         scope.selectedAccountId = $stateParams.id
+
+      $rootScope.$on "Accounts.POST", (event, account) ->
+        console.log "received", account
+        scope.accounts.push account
 
       scope.accountSelected = ->
         $state.go 'accounts.details', {id: scope.selectedAccountId}
