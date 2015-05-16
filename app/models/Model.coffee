@@ -43,7 +43,6 @@ angular.module("buckit").factory 'Model', [
       save: =>
         promise = @resource.save.apply(@, arguments).$promise
         promise.then (obj) =>
-          console.log (@name + ".POST")
           $rootScope.$broadcast (@name + ".POST"), obj
         return promise
 
