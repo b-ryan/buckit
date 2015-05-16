@@ -21,7 +21,6 @@ angular.module("buckit").directive 'accountsView', [
         scope.selectedAccountId = $stateParams.id
 
       $rootScope.$on "Accounts.POST", (event, account) ->
-        console.log "received", account
         scope.accounts.push account
 
       scope.accountSelected = ->
