@@ -8,7 +8,7 @@ angular.module("buckit").directive 'accountsView', [
     restrict: "E"
     templateUrl: componentUrl("accounts/accountsView.html")
     link: (scope, elem, attr) ->
-      Accounts.query().$promise.then (accounts) ->
+      Accounts.query().then (accounts) ->
         scope.accounts = accounts
       , (error) ->
         alert error

@@ -1,5 +1,5 @@
 angular.module("buckit").factory "Accounts", [
   "Model"
   (Model) ->
-    Model.create "/api/accounts/:id", Model.identityTransforms
+    new Model("Accounts", "/api/accounts/:id", Model.identityTransforms)
 ]

@@ -1,6 +1,7 @@
 angular.module("buckit").factory 'Model', [
   "$resource"
-  ($resource) ->
+  "$rootScope"
+  ($resource, $rootScope) ->
     mkActions = (transforms) ->
       get:
         method: 'GET'
@@ -22,14 +23,28 @@ angular.module("buckit").factory 'Model', [
         method: 'DELETE'
         params: {id: '@id'}
 
-    return  {
-      identityTransforms:
-        fromBackend: (model) ->
-          return model
-        toBackend: (model) ->
-          return model
+    class Model
+      constructor: (@name, url, transforms) ->
+        transforms ?=
+          fromBackend: (model) ->
+            return model
+          toBackend: (model) ->
+            return model
 
-      create: (url, transforms) ->
-        $resource url, {}, mkActions(transforms)
-    }
+        @resource = $resource url, {}, mkActions(transforms)
+
+      get: ->
+        return @resource.get.apply(arguments).$promise
+
+      query: ->
+        return @resource.query.apply(arguments).$promise
+
+      post: ->
+        promise = @resource.query.apply(arguments).$promise
+        promise.then (obj) ->
+          $rootScope.$broadcast ("post." + @name), obj
+        return promise
+
+    return Model
+
 ]

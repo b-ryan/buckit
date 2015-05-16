@@ -15,7 +15,7 @@ angular.module("buckit").controller 'editAccountModalCtrl', [
 
     if accountId
       $scope.isNewAccount = false
-      Accounts.get({id: accountId}).$promise.then (account) ->
+      Accounts.get({id: accountId}).then (account) ->
         $scope.account = angular.copy(account)
       , (error) ->
         alert error
@@ -27,7 +27,7 @@ angular.module("buckit").controller 'editAccountModalCtrl', [
 
     $scope.save = ->
       f = if $scope.account.id then Accounts.update else Accounts.save
-      f($scope.account).$promise.then (account) ->
+      f($scope.account).then (account) ->
         $modalInstance.close account
       , (response) ->
         alert "Error saving!"
