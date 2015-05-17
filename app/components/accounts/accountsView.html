@@ -1,20 +1,21 @@
-<div>
-  <select
-    required="false"
-    ng-model="selectedAccountId"
-    ng-options="a.id as a.name for a in accounts"
-    ng-change="accountSelected()">
-  </select>
+<div class="accounts-view">
+  <div>
+    <select
+      required="false"
+      ng-model="selectedAccountId"
+      ng-options="a.id as a.name for a in accounts"
+      ng-change="accountSelected()">
+    </select>
 
-  <button class="btn btn-default btn-xs" ng-click="createAccount()">
-    <span class="glyphicon glyphicon-plus"></span>
-  </button>
+    <button class="btn btn-default btn-xs" ng-click="createAccount()">
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
 
-</div>
+  </div>
 
-<div>
   <div ng-if="!selectedAccountId">
     <p>Please select an account</p>
   </div>
+
   <ui-view ng-if="selectedAccountId"></ui-view>
 </div>

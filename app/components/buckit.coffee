@@ -3,5 +3,4 @@ angular.module("buckit").directive 'buckit', [
   (componentUrl) ->
     restrict: "E"
     templateUrl: componentUrl("buckit.html")
-    replace: true
 ]

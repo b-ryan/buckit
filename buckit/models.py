@@ -56,6 +56,7 @@ class Transaction(Base):
     date = Column(Date, nullable=False)
     payee_id = Column(Integer, ForeignKey('payees.id'))
 
+    payee = relationship('Payee')
     splits = relationship('Split')
 
 
