@@ -28,22 +28,13 @@ angular.module("buckit").directive 'accountDetails', [
           scope.transactions = transactions
         , (error) ->
           alert error
+    controller: [
+      "$scope"
+      ($scope) ->
+        @getActiveAccount = ->
+          $scope.account
 
-      scope.primarySplit = (transaction) ->
-        (s for s in transaction.splits when s.account_id == scope.account.id)[0]
-
-      scope.secondarySplits = (transaction) ->
-        (s for s in transaction.splits when s.account_id != scope.account.id)
-
-      scope.categoryToDisplay = (transaction) ->
-        if transaction.splits.length > 2
-          return "Splits"
-        secondaries = scope.secondarySplits(transaction)
-        return scope.accountsById[secondaries[0].account_id].name
-
-      scope.amountToDisplay = (transaction) ->
-        return scope.primarySplit(transaction).amount
-
-      scope.statusToDisplay = (transaction) ->
-        return scope.primarySplit(transaction).reconciled_status
+        @getAccountById = (id) ->
+          $scope.accountsById[id]
+    ]
 ]

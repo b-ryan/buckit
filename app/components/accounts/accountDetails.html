@@ -10,13 +10,15 @@
       <th>Status</th>
     </thead>
     <tbody>
-      <tr ng-repeat="transaction in transactions">
-          <td>{{transaction.id}}</td>
-          <td>{{transaction.date | date:'yyyy-MM-dd'}}</td>
-          <td>{{transaction.payee.name}}</td>
-          <td>{{categoryToDisplay(transaction)}}</td>
-          <td>{{amountToDisplay(transaction) | currency}}</td>
-          <td>{{statusToDisplay(transaction)}}</td>
+      <tr ledger-row
+        ng-repeat="transaction in transactions"
+        transaction="transaction">
+        <td>{{transaction.id}}</td>
+        <td>{{transaction.date | date:'yyyy-MM-dd'}}</td>
+        <td>{{transaction.payee.name}}</td>
+        <td>{{categoryToDisplay(transaction)}}</td>
+        <td>{{primarySplit.amount | currency}}</td>
+        <td>{{primarySplit.reconciled_status}}</td>
       </tr>
     </tbody>
   </table>
