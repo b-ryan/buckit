@@ -1,26 +1,4 @@
 <div class="account-details">
-
-  <table class="table">
-    <thead>
-      <th>Id</th>
-      <th>Date</th>
-      <th>Payee</th>
-      <th>Category</th>
-      <th>Amount</th>
-      <th>Status</th>
-    </thead>
-    <tbody>
-      <tr ledger-row
-        ng-repeat="transaction in transactions"
-        transaction="transaction">
-        <td>{{transaction.id}}</td>
-        <td>{{transaction.date | date:'yyyy-MM-dd'}}</td>
-        <td>{{transaction.payee.name}}</td>
-        <td>{{categoryToDisplay(transaction)}}</td>
-        <td>{{primarySplit.amount | currency}}</td>
-        <td>{{primarySplit.reconciled_status}}</td>
-      </tr>
-    </tbody>
-  </table>
-
+  <ledger account-id="accountId">
+  </ledger>
 </div>

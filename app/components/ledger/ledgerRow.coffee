@@ -1,14 +1,10 @@
 angular.module("buckit").directive "ledgerRow", [
-  "componentUrl"
-  "$stateParams"
-  "Accounts"
-  "Transactions"
-  (componentUrl, $stateParams, Accounts, Transactions) ->
+  ->
     restrict: "A"
-    require: "^accountDetails"
+    require: "^ledger"
     scope: true
-    link: (scope, elem, attr, accountDetailsCtrl) ->
-      account = accountDetailsCtrl.getActiveAccount()
+    link: (scope, elem, attr, ledgerCtrl) ->
+      account = ledgerCtrl.getActiveAccount()
       transaction = scope[attr.transaction]
 
       scope.primarySplit = null
@@ -25,5 +21,5 @@ angular.module("buckit").directive "ledgerRow", [
           return "Splits"
 
         foreignAccountId = scope.secondarySplits[0].account_id
-        return accountDetailsCtrl.getAccountById(foreignAccountId).name
+        return ledgerCtrl.getAccountById(foreignAccountId).name
 ]

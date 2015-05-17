@@ -4,6 +4,8 @@ angular.module("buckit").factory "Transactions", [
     m = new Model("Accounts", "/api/transactions/:id")
 
     m.queryByAccount = (accountId) ->
+      if not accountId
+        throw new Error("accountId must be defined")
       m.query
         q:
           filters: [
