@@ -6,6 +6,9 @@ debug() {
     echo >&2 "$(date --rfc-3339=seconds) $@"
 }
 
+# ------------------------
+# compilation
+
 list-coffee() {
     ls app/app.coffee
     find app/services -name '*.coffee'
@@ -32,6 +35,21 @@ watch() {
         app)
 }
 
+# ------------------------
+# testing
+
+compile-test-coffee() {
+    coffee --compile test/app
+}
+
+test() {
+    compile-test-coffee
+    karma start karma.js --single-run
+}
+
+# ------------------------
+# main
+
 usage() {
     cat >&2 <<EOF
 Available commands:
@@ -49,6 +67,8 @@ main() {
         list-coffee) list-coffee ;;
         compile-coffee) compile-coffee ;;
         watch) watch ;;
+        compile-test-coffee) compile-test-coffee ;;
+        test) test ;;
         help) usage ;;
         *) usage ;;
     esac
