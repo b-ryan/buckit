@@ -1,4 +1,4 @@
-angular.module("buckit").directive 'accountsView', [
+angular.module("buckit").directive "accountsView", [
   "componentUrl"
   "Accounts"
   "$state"
@@ -30,5 +30,5 @@ angular.module("buckit").directive 'accountsView', [
         # I would love for this to be doable with ui-sref but it currently
         # doesn't work. Issue about it:
         # https://github.com/angular-ui/ui-router/issues/1031
-        $state.go ".create"
+        $state.go "accounts.details.create"
 ]

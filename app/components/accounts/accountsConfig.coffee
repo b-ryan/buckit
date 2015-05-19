@@ -45,8 +45,8 @@ angular.module("buckit").config [
         url: "/edit"
         # this template fills in the ui-view from the abstract parent state
         template:
-          "<edit-transaction transaction-id=\"transactionId\">" + \
-          "</edit-transaction>"
+          "<transaction-editor transaction-id=\"transactionId\">" + \
+          "</transaction-editor>"
         controller: [
           "$stateParams"
           "$scope"
