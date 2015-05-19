@@ -28,7 +28,6 @@ angular.module("buckit").service 'editAccountService', [
           instance.dismiss()
 
       instance.result.then (account) ->
-        console.log account
         dismissalHandled = true
         $state.go "accounts.details", {id: account.id}
       , ->

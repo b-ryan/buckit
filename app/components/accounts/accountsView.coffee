@@ -15,10 +15,10 @@ angular.module("buckit").directive 'accountsView', [
       , (error) ->
         alert error
 
-      scope.selectedAccountId = $stateParams.id
+      scope.selectedAccountId = $stateParams.accountId
 
       $rootScope.$on "$stateChangeSuccess", ->
-        scope.selectedAccountId = $stateParams.id
+        scope.selectedAccountId = $stateParams.accountId
 
       $rootScope.$on "Accounts.POST", (event, account) ->
         scope.accounts.push account

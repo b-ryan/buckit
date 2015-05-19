@@ -5,6 +5,5 @@ angular.module("buckit").directive "accountDetails", [
     restrict: "E"
     templateUrl: componentUrl("accounts/accountDetails.html")
     link: (scope, elem, attr) ->
-      scope.accountId = $stateParams.id
-      console.log scope.accountId
+      scope.accountId = $stateParams.accountId
 ]
