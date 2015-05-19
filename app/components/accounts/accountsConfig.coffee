@@ -2,6 +2,9 @@ angular.module("buckit").config [
   "$stateProvider"
   ($stateProvider) ->
 
+    # TODO perhaps have all templates / controllers for states in a central
+    # directory -- make it so that only these templates have ui-view elements
+
     $stateProvider
       .state "accounts",
         url: "/accounts"
@@ -45,13 +48,13 @@ angular.module("buckit").config [
         url: "/edit"
         # this template fills in the ui-view from the abstract parent state
         template:
-          "<transaction-editor transaction-id=\"transactionId\">" + \
-          "</transaction-editor>"
+          "<transaction-editor transaction-id=\"transactionId\" account-id=\"accountId\"></transaction-editor>"
         controller: [
           "$stateParams"
           "$scope"
           ($stateParams, $scope) ->
             $scope.transactionId = $stateParams.transactionId
+            $scope.accountId = $stateParams.accountId
         ]
 
 ]
