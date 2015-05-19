@@ -1,4 +1,4 @@
-angular.module("buckit").service 'editAccountService', [
+angular.module("buckit").service "accountEditorService", [
   "$stateParams"
   "$state"
   "$modal"
@@ -9,8 +9,8 @@ angular.module("buckit").service 'editAccountService', [
     editWithModal: (accountId) ->
 
       instance = $modal.open
-        templateUrl: componentUrl("accounts/editAccountModal.html")
-        controller: 'editAccountModalCtrl'
+        templateUrl: componentUrl("accounts/accountEditorModal.html")
+        controller: "accountEditorModalCtrl"
         resolve:
           accountId: ->
             accountId

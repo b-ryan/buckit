@@ -11,9 +11,9 @@ angular.module("buckit").config [
       .state "accounts.create",
         url: "/create"
         onEnter: [
-          "editAccountService"
-          (editAccountService) ->
-            editAccountService.editWithModal null
+          "accountEditorService"
+          (accountEditorService) ->
+            accountEditorService.editWithModal null
         ]
       .state "accounts.details",
         url: "/{accountId:int}"
@@ -23,17 +23,17 @@ angular.module("buckit").config [
       .state "accounts.details.create",
         url: "/create"
         onEnter: [
-          "editAccountService"
-          (editAccountService) ->
-            editAccountService.editWithModal null
+          "accountEditorService"
+          (accountEditorService) ->
+            accountEditorService.editWithModal null
         ]
       .state "accounts.details.edit",
         url: "/edit"
         onEnter: [
-          "editAccountService"
+          "accountEditorService"
           "$stateParams"
-          (editAccountService, $stateParams) ->
-            editAccountService.editWithModal $stateParams.accountId
+          (accountEditorService, $stateParams) ->
+            accountEditorService.editWithModal $stateParams.accountId
         ]
       .state "accounts.details.transaction",
         url: "/transactions/{transactionId:int}"
