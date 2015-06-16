@@ -1,7 +1,6 @@
 angular.module "buckit", [
   "ngResource"
   "ui.bootstrap"
-  "ui.select2"
   "ui.router"
 ]
 

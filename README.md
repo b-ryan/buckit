@@ -7,6 +7,8 @@ A self-hosted budgeting app.
 ```bash
 sudo apt-get install python-virtualenv
 sudo apt-get install virtualenvwrapper
+sudo apt-get install inotify-tools
+
 mkvirtualenv buckit
 pip install -r requirements.txt
 pip install -r dev_requirements.txt
@@ -23,10 +25,9 @@ npm install karma-jasmine
 npm install karma-firefox-launcher
 npm install karma-cli
 
-mkvirtualenv buckit
-pip install -r requirements.txt
+bower install
 
-sudo apt-get install inotify-tools
+mkdir app/.compiled
 ```
 
 ## Running
