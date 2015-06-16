@@ -28,6 +28,8 @@ npm install karma-cli
 bower install
 
 mkdir app/.compiled
+
+alembic upgrade head
 ```
 
 ## Running
