@@ -28,8 +28,9 @@ angular.module("buckit").service "accountEditorService", [
           instance.dismiss()
 
       instance.result.then (account) ->
+        console.log "Account was created, going to account with ID", account.id
         dismissalHandled = true
-        $state.go "accounts.details", {id: account.id}
+        $state.go "accounts.details", {accountId: account.id}
       , ->
         unless dismissalHandled
           console.log "Modal was dismissed by user, transitioning back"

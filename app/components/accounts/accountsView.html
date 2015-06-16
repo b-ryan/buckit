@@ -13,7 +13,11 @@
 
   </div>
 
-  <div ng-if="!selectedAccountId">
+  <div ng-if="!accounts.length">
+    Looks like you haven't created any accounts. Click the + button
+    to get started.
+  </div>
+  <div ng-if="accounts.length && !selectedAccountId">
     <p>Please select an account</p>
   </div>
 
