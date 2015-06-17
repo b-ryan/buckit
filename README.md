@@ -38,3 +38,10 @@ alembic upgrade head
 
 workon buckit
 ./devserver.py
+
+## TODO
+
+- unit testing
+- API documentation
+- better installation instructions
+- distributable package
