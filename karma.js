@@ -19,7 +19,6 @@ module.exports = function(config) {
       "app/bower/jquery/dist/jquery.min.js",
       "app/bower/bootstrap/dist/js/bootstrap.min.js",
       "app/bower/angular/angular.min.js",
-      "app/bower/angular-route/angular-route.min.js",
       "app/bower/angular-resource/angular-resource.min.js",
       "app/bower/angular-ui-router/release/angular-ui-router.min.js",
       "app/bower/angular-bootstrap/ui-bootstrap-tpls.min.js",

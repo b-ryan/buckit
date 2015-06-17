@@ -9,26 +9,26 @@ debug() {
 # ------------------------
 # compilation
 
-list-coffee() {
+list_coffee() {
     ls app/app.coffee
     find app/services -name '*.coffee'
     find app/models -name '*.coffee'
     find app/components -name '*.coffee'
 }
 
-compile-coffee() {
-    coffee --compile --print $(list-coffee) > app/.compiled/buckit.js
-    debug Compiled coffeescript into app/.compiled/buckit.js
+compile_coffee() {
+    coffee --compile --print $(list_coffee) > app/.compiled/buckit.js
+    debug "Compiled coffeescript into app/.compiled/buckit.js"
 }
 
 watch() {
-    compile-coffee || true
+    compile_coffee || true
 
     while read change; do
         file=${change##* }
         filetype=${file##*.}
         if [[ "$filetype" = "coffee" ]]; then
-            compile-coffee || true
+            compile_coffee || true
         fi
     done < <(inotifywait --monitor --recursive \
         --event close_write,moved_to,delete \
@@ -38,12 +38,14 @@ watch() {
 # ------------------------
 # testing
 
-compile-test-coffee() {
+compile_test_coffee() {
     coffee --compile test/app
+    debug "Compiled test coffeescript into app/.compiled/buckit.js"
 }
 
-test() {
-    compile-test-coffee
+test_coffee() {
+    compile_coffee
+    compile_test_coffee
     karma start karma.js --single-run
 }
 
@@ -58,18 +60,20 @@ Available commands:
     * list-coffee
     * compile-coffee
     * watch
+    * compile-test-coffee
+    * test
 EOF
 }
 
 main() {
     local func=$1
     case $func in
-        list-coffee) list-coffee ;;
-        compile-coffee) compile-coffee ;;
-        watch) watch ;;
-        compile-test-coffee) compile-test-coffee ;;
-        test) test ;;
         help) usage ;;
+        list-coffee) list_coffee ;;
+        compile-coffee) compile_coffee ;;
+        watch) watch ;;
+        compile-test-coffee) compile_test_coffee ;;
+        test) test_coffee ;;
         *) usage ;;
     esac
 }
