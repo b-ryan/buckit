@@ -24,7 +24,7 @@ module.exports = function(config) {
       "app/bower/angular-ui-router/release/angular-ui-router.min.js",
       "app/bower/angular-bootstrap/ui-bootstrap-tpls.min.js",
       "app/.compiled/buckit.js",
-      "test/app/**/*Spec.js"
+      "test/app/.compiled/**/*Spec.js"
     ],
 
 
