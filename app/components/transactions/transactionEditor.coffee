@@ -2,8 +2,7 @@ angular.module("buckit").directive "transactionEditor", [
   "componentUrl"
   "Transactions"
   "Accounts"
-  "$timeout"
-  (componentUrl, Transactions, Accounts, $timeout) ->
+  (componentUrl, Transactions, Accounts) ->
     restrict: "E"
     templateUrl: componentUrl("transactions/transactionEditor.html")
     scope:
@@ -25,6 +24,9 @@ angular.module("buckit").directive "transactionEditor", [
         scope.accounts = accounts
       , (error) ->
         alert error
+
+      # FIXME
+      scope.payees = []
 
       if scope.transactionId
         Transactions.get({id: scope.transactionId}).then (transaction) ->
@@ -56,7 +58,13 @@ angular.module("buckit").directive "transactionEditor", [
         # splits
         transaction.splits[0].amount = -1 * amount_sum
 
-        scope.transaction = transaction
+        f = if scope.transactionId \
+          then Transactions.update \
+          else Transactions.save
+        f(transaction).then (transaction) ->
+          console.log "saved", transaction
+        , (error) ->
+          alert error
 
       elem.find('input[name="date"]')[0].focus()
 ]
