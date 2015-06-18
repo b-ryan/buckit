@@ -2,7 +2,8 @@ angular.module("buckit").directive "transactionEditor", [
   "componentUrl"
   "Transactions"
   "Accounts"
-  (componentUrl, Transactions, Accounts) ->
+  "Payees"
+  (componentUrl, Transactions, Accounts, Payees) ->
     restrict: "E"
     templateUrl: componentUrl("transactions/transactionEditor.html")
     scope:
@@ -25,8 +26,10 @@ angular.module("buckit").directive "transactionEditor", [
       , (error) ->
         alert error
 
-      # FIXME
-      scope.payees = []
+      Payees.query().then (payees) ->
+        scope.payees = payees
+      , (error) ->
+        alert error
 
       if scope.transactionId
         Transactions.get({id: scope.transactionId}).then (transaction) ->
