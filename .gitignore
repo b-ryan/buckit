@@ -4,6 +4,6 @@ app/.compiled
 app/bower
 node_modules
 
-test/app/**/*js
+test/app/.compiled
 
 buckit.sqlite
