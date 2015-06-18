@@ -41,7 +41,7 @@ watch() {
 compile_test_coffee() {
     rm -rf test/app/.compiled
     coffee --compile --output test/app/.compiled test/app
-    debug "Compiled test coffeescript into app/.compiled/buckit.js"
+    debug "Compiled test coffeescript into test/app/.compiled/"
 }
 
 test_coffee() {
