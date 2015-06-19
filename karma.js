@@ -24,6 +24,7 @@ module.exports = function(config) {
       "app/bower/angular-ui-router/release/angular-ui-router.min.js",
       "app/bower/angular-bootstrap/ui-bootstrap-tpls.min.js",
       "app/.compiled/buckit.js",
+      "app/**/*.html",
       "test/app/.compiled/**/*Spec.js"
     ],
 
@@ -36,6 +37,13 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      "app/**/*.html": ["ng-html2js"]
+    },
+
+    // http://stackoverflow.com/questions/15214760/unit-testing-angularjs-directive-with-templateurl
+    ngHtml2JsPreprocessor: {
+      prependPrefix: "/",
+      moduleName: "buckit.templates"
     },
 
 
