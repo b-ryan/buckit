@@ -18,13 +18,7 @@ sudo apt-get install nodejs npm nodejs-legacy
 echo 'export PATH=$PATH:node_modules/.bin' >> ~/.bashrc.local
 . !$
 
-npm install coffee-script
-npm install bower
-npm install karma
-npm install karma-jasmine
-npm install karma-firefox-launcher
-npm install karma-cli
-
+npm install
 bower install
 
 mkdir app/.compiled
