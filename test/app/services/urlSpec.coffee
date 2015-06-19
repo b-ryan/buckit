@@ -1,10 +1,10 @@
 describe "componentUrl service", ->
-  beforeEach(module("buckit"))
-
   componentUrl = null
 
-  beforeEach inject((_componentUrl_) ->
-    componentUrl = _componentUrl_
+  beforeEach module("buckit")
+
+  beforeEach inject(($injector) ->
+    componentUrl = $injector.get "componentUrl"
   )
 
   it "is false", ->

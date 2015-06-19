@@ -1,4 +1,4 @@
-angular.module("buckit").factory 'Model', [
+angular.module("buckit").factory "Model", [
   "$resource"
   "$rootScope"
   ($resource, $rootScope) ->
