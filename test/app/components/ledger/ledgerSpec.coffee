@@ -72,6 +72,8 @@ describe "ledger directive", ->
     elem = angular.element "<ledger account-id=\"1\"></ledger>"
     $compile(elem)(scope)
     scope.$digest()
+
+    $httpBackend.flush()
   )
 
   afterEach ->
@@ -79,8 +81,6 @@ describe "ledger directive", ->
     $httpBackend.verifyNoOutstandingRequest()
 
   it "should do something", ->
-    $httpBackend.flush()
-
     rows = elem.find "div.ledger table tbody tr"
     expect(rows.length).toBe(1)
 

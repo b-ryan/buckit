@@ -24,7 +24,7 @@ angular.module("buckit").directive "accountsView", [
         scope.accounts.push account
 
       scope.accountSelected = ->
-        $state.go 'accounts.details', {id: scope.selectedAccountId}
+        $state.go "accounts.details", {accountId: scope.selectedAccountId}
 
       scope.createAccount = ->
         # I would love for this to be doable with ui-sref but it currently
