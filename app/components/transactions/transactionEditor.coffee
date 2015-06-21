@@ -1,4 +1,4 @@
-angular.module("buckit").directive "transactionEditor", [
+angular.module("buckit.components").directive "transactionEditor", [
   "componentUrl"
   "Transactions"
   "Accounts"

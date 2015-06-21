@@ -10,14 +10,25 @@ debug() {
 # compilation
 
 list_coffee() {
-    ls app/app.coffee
-    find app/services -name '*.coffee'
-    find app/models -name '*.coffee'
-    find app/components -name '*.coffee'
+    modules=(
+        services
+        models
+        components
+        routing
+    )
+    for m in ${modules[@]}; do
+        ls app/buckit.${m}.coffee
+        find app/${m} -name '*.coffee'
+    done
+
+    ls app/buckit.coffee
 }
 
 compile_coffee() {
-    coffee --compile --print $(list_coffee) > app/.compiled/buckit.js
+    > app/.compiled/buckit.js
+    for f in $(list_coffee); do
+        coffee --compile --print $f >> app/.compiled/buckit.js
+    done
     debug "Compiled coffeescript into app/.compiled/buckit.js"
 }
 

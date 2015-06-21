@@ -1,4 +1,4 @@
-angular.module("buckit").directive "ledgerRow", [
+angular.module("buckit.components").directive "ledgerRow", [
   ->
     restrict: "A"
     require: "^ledger"

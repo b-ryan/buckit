@@ -1,4 +1,4 @@
-angular.module("buckit").directive "ledger", [
+angular.module("buckit.components").directive "ledger", [
   "componentUrl"
   "Accounts"
   "Transactions"

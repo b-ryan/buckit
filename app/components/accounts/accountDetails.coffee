@@ -1,4 +1,4 @@
-angular.module("buckit").directive "accountDetails", [
+angular.module("buckit.components").directive "accountDetails", [
   "componentUrl"
   "$stateParams"
   (componentUrl, $stateParams) ->

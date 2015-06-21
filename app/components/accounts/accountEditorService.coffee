@@ -1,4 +1,4 @@
-angular.module("buckit").service "accountEditorService", [
+angular.module("buckit.components").service "accountEditorService", [
   "$stateParams"
   "$state"
   "$modal"

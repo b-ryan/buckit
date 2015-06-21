@@ -1,4 +1,4 @@
-angular.module("buckit").controller "accountEditorModalCtrl", [
+angular.module("buckit.components").controller "accountEditorModalCtrl", [
   "$scope"
   "$modalInstance"
   "Accounts"

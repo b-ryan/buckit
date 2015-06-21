@@ -1,4 +1,4 @@
-angular.module("buckit").directive 'buckitNavbar', [
+angular.module("buckit.components").directive 'buckitNavbar', [
   "componentUrl"
   "$location"
   (componentUrl, $location) ->
