@@ -1,6 +1,4 @@
 angular.module "buckit.components", [
-  "ngResource"
-  "ui.bootstrap"
-  "ui.router"
   "buckit.core"
+  "ui.bootstrap"
 ]

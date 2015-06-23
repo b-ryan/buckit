@@ -1,7 +1,7 @@
 angular.module "buckit.routing", [
-  "ui.router"
   "buckit.core"
   "buckit.components"
+  "ui.router"
 ]
 
 angular.module("buckit.routing").run [
