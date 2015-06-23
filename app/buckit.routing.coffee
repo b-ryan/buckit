@@ -1,10 +1,10 @@
-angular.module "buckit", [
-  "ngResource"
-  "ui.bootstrap"
+angular.module "buckit.routing", [
   "ui.router"
+  "buckit.core"
+  "buckit.components"
 ]
 
-angular.module("buckit").run [
+angular.module("buckit.routing").run [
   "$rootScope"
   "$state"
   "$stateParams"
@@ -13,7 +13,7 @@ angular.module("buckit").run [
     $rootScope.$stateParams = $stateParams
 ]
 
-angular.module("buckit").config [
+angular.module("buckit.routing").config [
   "$stateProvider"
   ($stateProvider) ->
 

@@ -1,4 +1,4 @@
-angular.module("buckit").config [
+angular.module("buckit.routing").config [
   "$stateProvider"
   ($stateProvider) ->
 

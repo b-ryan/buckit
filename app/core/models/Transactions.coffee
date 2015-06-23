@@ -1,4 +1,4 @@
-angular.module("buckit").factory "Transactions", [
+angular.module("buckit.core").factory "Transactions", [
   "Model"
   (Model) ->
     m = new Model("Accounts", "/api/transactions/:id")

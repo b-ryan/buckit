@@ -10,10 +10,17 @@ debug() {
 # compilation
 
 list_coffee() {
-    ls app/app.coffee
-    find app/services -name '*.coffee'
-    find app/models -name '*.coffee'
-    find app/components -name '*.coffee'
+    modules=(
+        core
+        components
+        routing
+    )
+    for m in ${modules[@]}; do
+        ls app/buckit.${m}.coffee
+        find app/${m} -name '*.coffee'
+    done
+
+    ls app/buckit.coffee
 }
 
 compile_coffee() {
