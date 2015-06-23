@@ -2,6 +2,8 @@
 
 set -e
 
+COMPILED_JS=app/.compiled/buckit.js
+
 debug() {
     echo >&2 "$(date --rfc-3339=seconds) $@"
 }
@@ -24,7 +26,17 @@ list_coffee() {
 }
 
 compile_coffee() {
-    coffee --compile --print $(list_coffee) > app/.compiled/buckit.js
+    # iterating through the list of files to compile rather than
+    # providing them directly as an argument to coffee ensures the
+    # files are compiled in the correct order. otherwise coffee
+    # seems to sometimes order them incorrectly, perhaps due to
+    # parallelization.
+
+    > ${COMPILED_JS}
+    for f in $(list_coffee); do
+        coffee --compile --print ${f} >> ${COMPILED_JS}
+    done
+
     debug "Compiled coffeescript into app/.compiled/buckit.js"
 }
 
