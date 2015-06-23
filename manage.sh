@@ -11,8 +11,7 @@ debug() {
 
 list_coffee() {
     modules=(
-        services
-        models
+        core
         components
         routing
     )

@@ -1,7 +1,6 @@
 angular.module "buckit.routing", [
   "ui.router"
-  "buckit.services"
-  "buckit.models"
+  "buckit.core"
   "buckit.components"
 ]
 
