@@ -37,7 +37,7 @@ compile_coffee() {
         coffee --compile --print ${f} >> ${COMPILED_JS}
     done
 
-    debug "Compiled coffeescript into app/.compiled/buckit.js"
+    debug "Compiled coffeescript into ${COMPILED_JS}"
 }
 
 watch() {

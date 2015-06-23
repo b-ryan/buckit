@@ -1,11 +1,11 @@
 describe "componentUrl service", ->
   componentUrl = null
 
-  beforeEach module("buckit")
+  beforeEach module "buckit"
 
   beforeEach inject(($injector) ->
     componentUrl = $injector.get "componentUrl"
   )
 
-  it "is false", ->
+  it "formats URLs correctly", ->
     expect(componentUrl("abc/xyz")).toEqual("/app/components/abc/xyz")

@@ -1,13 +1,17 @@
 angular.module("buckit.components").service "accountEditorService", [
-  "$stateParams"
-  "$state"
   "$modal"
-  "$rootScope"
   "componentUrl"
-  ($stateParams, $state, $modal, $rootScope, componentUrl) ->
+  ($modal, componentUrl) ->
 
+    instance = null
+
+    # returns a promise that will contain the account on success or one of the
+    # following possible reasons on error:
+    #
+    # - "escape key press"
+    # - "cancel button press"
+    # - "cancel function called"
     editWithModal: (accountId) ->
-
       instance = $modal.open
         templateUrl: componentUrl("accounts/accountEditorModal.html")
         controller: "accountEditorModalCtrl"
@@ -15,25 +19,16 @@ angular.module("buckit.components").service "accountEditorService", [
           accountId: ->
             accountId
 
-      # Below, there are two ways the user could leave the modal,
-      # either by dismissing it directly or by changing the URL.
-      # This var describes which means was used so the listeners
-      # know how to behave.
-      dismissalHandled = false
+      promise = instance.result
 
-      $rootScope.$on "$stateChangeStart", (event) ->
-        unless dismissalHandled
-          console.log "state change about to happen, dismissing modal"
-          dismissalHandled = true
-          instance.dismiss()
+      promise.catch (reason) ->
+        console.log "account editor modal dismissed. Reason:", reason
 
-      instance.result.then (account) ->
-        console.log "Account was created, going to account with ID", account.id
-        dismissalHandled = true
-        $state.go "accounts.details", {accountId: account.id}
-      , ->
-        unless dismissalHandled
-          console.log "Modal was dismissed by user, transitioning back"
-          dismissalHandled = true
-          $state.go "^"
+      promise.finally ->
+        instance = null
+
+      return promise
+
+    cancelModal: ->
+      instance.dismiss "cancel function called"
 ]

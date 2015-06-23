@@ -33,6 +33,6 @@ angular.module("buckit.components").controller "accountEditorModalCtrl", [
         alert "Error saving!"
 
     $scope.cancel = ->
-      $modalInstance.dismiss 'cancel'
+      $modalInstance.dismiss "cancel button press"
 
 ]
