@@ -4,7 +4,7 @@ describe "ledger directive", ->
   scope = null
   elem = null
 
-  beforeEach module("buckit")
+  beforeEach module("buckit.components")
   beforeEach module("buckit.templates")
 
   beforeEach inject(($injector) ->

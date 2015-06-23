@@ -4,7 +4,7 @@ describe "accounts directive", ->
   scope = null
   elem = null
 
-  beforeEach module("buckit")
+  beforeEach module("buckit.routing")
   beforeEach module("buckit.templates")
 
   beforeEach inject(($injector) ->
