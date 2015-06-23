@@ -10,7 +10,7 @@ angular.module("buckit.routing").config [
         url: "/accounts"
         views:
           "mainView":
-            template: "<accounts-view></accounts-view>"
+            template: "<accounts></accounts>"
       .state "accounts.create",
         url: "/create"
         onEnter: [

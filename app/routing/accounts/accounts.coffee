@@ -1,12 +1,12 @@
-angular.module("buckit.components").directive "accountsView", [
-  "componentUrl"
+angular.module("buckit.routing").directive "accounts", [
+  "appUrl"
   "Accounts"
   "$state"
   "$stateParams"
   "$rootScope"
-  (componentUrl, Accounts, $state, $stateParams, $rootScope) ->
+  (appUrl, Accounts, $state, $stateParams, $rootScope) ->
     restrict: "E"
-    templateUrl: componentUrl("accounts/accountsView.html")
+    templateUrl: appUrl("routing/accounts/accounts.html")
     link: (scope, elem, attr) ->
       scope.accounts = []
 

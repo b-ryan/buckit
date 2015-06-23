@@ -1,4 +1,4 @@
-describe "accountsView directive", ->
+describe "accounts directive", ->
   $httpBackend = null
   $location = null
   scope = null
@@ -27,7 +27,7 @@ describe "accountsView directive", ->
 
     $location = $injector.get "$location"
 
-    elem = angular.element "<accounts-view></accounts-view>"
+    elem = angular.element "<accounts></accounts>"
     $compile = $injector.get "$compile"
     scope = $injector.get "$rootScope"
     $compile(elem)(scope)
@@ -41,7 +41,7 @@ describe "accountsView directive", ->
     $httpBackend.verifyNoOutstandingRequest()
 
   it "handles the <select> properly", ->
-    select = elem.find "div.accounts-view div select"
+    select = elem.find "div.accounts div select"
     expect(select.length).toBe(1)
 
     options = select.find "option"
