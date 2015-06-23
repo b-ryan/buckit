@@ -7,7 +7,7 @@ describe "routedAccountEditorService", ->
   deferred = null
   accountEditorService = null
 
-  beforeEach module "buckit.routing"
+  beforeEach module("buckit.routing")
 
   beforeEach module(($provide) ->
     accountEditorService = jasmine.createSpyObj "accountEditorService", [

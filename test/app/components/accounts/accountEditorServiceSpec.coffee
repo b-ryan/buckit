@@ -3,8 +3,8 @@ describe "accountEditorService", ->
   service = null
   $rootScope = null
 
-  beforeEach module "buckit.components"
-  beforeEach module "buckit.templates"
+  beforeEach module("buckit.components")
+  beforeEach module("buckit.templates")
 
   beforeEach inject(($injector) ->
     $httpBackend = $injector.get "$httpBackend"

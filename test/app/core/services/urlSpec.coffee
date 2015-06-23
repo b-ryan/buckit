@@ -1,7 +1,7 @@
 describe "componentUrl service", ->
   componentUrl = null
 
-  beforeEach module "buckit"
+  beforeEach module("buckit")
 
   beforeEach inject(($injector) ->
     componentUrl = $injector.get "componentUrl"

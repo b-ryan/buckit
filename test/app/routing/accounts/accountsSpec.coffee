@@ -1,4 +1,4 @@
-describe "accounts directive", ->
+describe "accounts", ->
   $httpBackend = null
   $location = null
   scope = null
