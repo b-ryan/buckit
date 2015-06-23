@@ -2,9 +2,6 @@ angular.module("buckit.routing").config [
   "$stateProvider"
   ($stateProvider) ->
 
-    # TODO perhaps have all templates / controllers for states in a central
-    # directory -- make it so that only these templates have ui-view elements
-
     $stateProvider
       .state "accounts",
         url: "/accounts"
@@ -43,12 +40,18 @@ angular.module("buckit.routing").config [
         abstract: true
         views:
           "accountsDetailsSubview":
-            template: "<ui-view></ui-view>"
+            template: "
+              <div ui-view=\"accountsDetailsTransactionsSubview\">
+              </div>
+            "
       .state "accounts.details.transactions.create",
         url: "/create"
-        # this template fills in the ui-view from the abstract parent state
-        template:
-          "<transaction-editor account-id=\"accountId\"></transaction-editor>"
+        views:
+          "accountsDetailsTransactionsSubview":
+            template: "
+              <transaction-editor account-id=\"accountId\">
+              </transaction-editor>
+            "
         controller: [
           "$stateParams"
           "$scope"
@@ -57,9 +60,13 @@ angular.module("buckit.routing").config [
         ]
       .state "accounts.details.transactions.edit",
         url: "/{transactionId:int}/edit"
-        # this template fills in the ui-view from the abstract parent state
-        template:
-          "<transaction-editor account-id=\"accountId\" transaction-id=\"transactionId\"></transaction-editor>"
+        views:
+          "accountsDetailsTransactionsSubview":
+            template: "
+              <transaction-editor account-id=\"accountId\"
+                transaction-id=\"transactionId\">
+              </transaction-editor>
+            "
         controller: [
           "$stateParams"
           "$scope"
