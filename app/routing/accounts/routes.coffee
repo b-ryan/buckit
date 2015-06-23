@@ -22,7 +22,7 @@ angular.module("buckit.routing").config [
         url: "/{accountId:int}"
         views:
           "accountsSubview":
-            template: "<account-details></account-details>"
+            template: "<accounts-details></accounts-details>"
       .state "accounts.details.create",
         url: "/create"
         onEnter: [
@@ -42,7 +42,7 @@ angular.module("buckit.routing").config [
         url: "/transactions"
         abstract: true
         views:
-          "accountDetailsSubview":
+          "accountsDetailsSubview":
             template: "<ui-view></ui-view>"
       .state "accounts.details.transactions.create",
         url: "/create"
