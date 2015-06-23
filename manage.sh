@@ -24,10 +24,7 @@ list_coffee() {
 }
 
 compile_coffee() {
-    > app/.compiled/buckit.js
-    for f in $(list_coffee); do
-        coffee --compile --print $f >> app/.compiled/buckit.js
-    done
+    coffee --compile --print $(list_coffee) > app/.compiled/buckit.js
     debug "Compiled coffeescript into app/.compiled/buckit.js"
 }
 
