@@ -1,4 +1,4 @@
-html, body {
-    height: 100%;
-    overflow-y: hidden;
+div[ui-view="accountsDetailsTransactionsSubview"] div.transaction-editor {
+    margin: 15px;
+    background-color: #eee;
 }
