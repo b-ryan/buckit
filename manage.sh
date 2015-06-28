@@ -8,6 +8,11 @@ debug() {
     echo >&2 "$(date --rfc-3339=seconds) $@"
 }
 
+install() {
+    npm install
+    bower install
+}
+
 # ------------------------
 # compilation
 
@@ -72,30 +77,36 @@ test_coffee() {
 # ------------------------
 # main
 
+OPTIONS=(
+    'install'
+    'list-coffee'
+    'compile-coffee'
+    'watch'
+    'compile-test-coffee'
+    'test-coffee'
+)
+
 usage() {
     cat >&2 <<EOF
 Available commands:
 
-    * help
-    * list-coffee
-    * compile-coffee
-    * watch
-    * compile-test-coffee
-    * test
 EOF
+    for o in ${OPTIONS[@]}; do
+        echo "    * $o"
+    done
 }
 
 main() {
     local func=$1
-    case $func in
-        help) usage ;;
-        list-coffee) list_coffee ;;
-        compile-coffee) compile_coffee ;;
-        watch) watch ;;
-        compile-test-coffee) compile_test_coffee ;;
-        test) test_coffee ;;
-        *) usage ;;
-    esac
+
+    for o in ${OPTIONS[@]}; do
+        if [[ "$o" == "$func" ]]; then
+            ${func/-/_}
+            return 0
+        fi
+    done
+
+    usage
 }
 
 main "$@"
