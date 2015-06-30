@@ -33,6 +33,7 @@ angular.module("buckit.components").directive "transactionEditor", [
 
       if scope.transactionId
         Transactions.get({id: scope.transactionId}).then (transaction) ->
+          console.log "Editing transaction", transaction
           scope.form.date = transaction.date
           scope.form.payee_id = transaction.payee_id
         , (error) ->

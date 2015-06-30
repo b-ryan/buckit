@@ -1,13 +1,15 @@
-<div class="accounts-details container-fluid">
-  <ledger account-id="accountId"></ledger>
+<div class="accounts-details fill-height">
+  <div class="container-fluid">
+    <ledger account-id="accountId"></ledger>
 
-  <div class="row">
-    <div class="col-md-10"></div>
-    <div class="col-md-2">
-      <button class="btn" ng-click="addTransaction()">
-        Add transaction
-      </button>
+    <div class="row">
+      <div class="col-md-10"></div>
+      <div class="col-md-2">
+        <button class="btn" ng-click="addTransaction()">
+          Add transaction
+        </button>
+      </div>
     </div>
   </div>
-  <div ui-view="accountsDetailsSubview"></div>
+  <div ui-view="transactionEditorSubview"></div>
 </div>

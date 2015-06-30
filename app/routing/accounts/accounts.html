@@ -1,4 +1,4 @@
-<div class="accounts">
+<div class="accounts fill-height">
   <div>
     <select
       required="false"
@@ -21,5 +21,7 @@
     <p>Please select an account</p>
   </div>
 
-  <div ui-view="accountsSubview" ng-if="selectedAccountId"></div>
+  <div class="fill-height"
+    ui-view="accountsSubview" ng-if="selectedAccountId">
+  </div>
 </div>

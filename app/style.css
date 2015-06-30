@@ -1,4 +1,25 @@
-div[ui-view="accountsDetailsTransactionsSubview"] div.transaction-editor {
-    margin: 15px;
+html,
+body {
+    height: 100%;
+}
+
+div.fill-height {
+    min-height: 100%;
+    height: 100%;
+}
+
+div.accounts-details {
+    /* we use relative positioning in order to give the transaction editor
+     a fixed positioning at the bottom of the div */
+    position: relative;
+}
+
+div.accounts-details div[ui-view="transactionEditorSubview"] {
+    position: fixed;
+    top: calc(100% - 200px);
+    height: 200px;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
     background-color: #eee;
 }
