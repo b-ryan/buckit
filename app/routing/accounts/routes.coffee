@@ -38,16 +38,10 @@ angular.module("buckit.routing").config [
       .state "accounts.details.transactions",
         url: "/transactions"
         abstract: true
-        views:
-          "accountsDetailsSubview":
-            template: "
-              <div ui-view=\"accountsDetailsTransactionsSubview\">
-              </div>
-            "
       .state "accounts.details.transactions.create",
         url: "/create"
         views:
-          "accountsDetailsTransactionsSubview":
+          "accountsDetailsSubview@accounts.details":
             template: "
               <transaction-editor account-id=\"accountId\">
               </transaction-editor>
@@ -61,7 +55,7 @@ angular.module("buckit.routing").config [
       .state "accounts.details.transactions.edit",
         url: "/{transactionId:int}/edit"
         views:
-          "accountsDetailsTransactionsSubview":
+          "accountsDetailsSubview@accounts.details":
             template: "
               <transaction-editor account-id=\"accountId\"
                 transaction-id=\"transactionId\">
