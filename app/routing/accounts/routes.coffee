@@ -43,15 +43,9 @@ angular.module("buckit.routing").config [
         views:
           "accountsDetailsSubview@accounts.details":
             template: "
-              <transaction-editor account-id=\"accountId\">
+              <transaction-editor account-id=\"$stateParams.accountId\">
               </transaction-editor>
             "
-            controller: [
-              "$stateParams"
-              "$scope"
-              ($stateParams, $scope) ->
-                $scope.accountId = $stateParams.accountId
-            ]
       .state "accounts.details.transactions.details",
         url: "/{transactionId:int}"
         abstract: true
@@ -60,15 +54,10 @@ angular.module("buckit.routing").config [
         views:
           "accountsDetailsSubview@accounts.details":
             template: "
-              <transaction-editor account-id=\"accountId\"
-                transaction-id=\"transactionId\">
+              <transaction-editor
+                account-id=\"$stateParams.accountId\"
+                transaction-id=\"$stateParams.transactionId\">
               </transaction-editor>
             "
-            controller: [
-              "$stateParams"
-              "$scope"
-              ($stateParams, $scope) ->
-                $scope.transactionId = $stateParams.transactionId
-            ]
 
 ]
