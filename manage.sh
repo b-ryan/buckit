@@ -59,6 +59,10 @@ watch() {
         app)
 }
 
+serve() {
+    $WORKON_HOME/buckit/bin/python ./devserver.py
+}
+
 # ------------------------
 # testing
 
@@ -79,6 +83,7 @@ test_coffee() {
 
 OPTIONS=(
     'install'
+    'serve'
     'list-coffee'
     'compile-coffee'
     'watch'

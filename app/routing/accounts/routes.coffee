@@ -43,9 +43,20 @@ angular.module("buckit.routing").config [
         views:
           "transactionEditorSubview@accounts.details":
             template: "
-              <transaction-editor account-id=\"$stateParams.accountId\">
+              <transaction-editor
+                account-id=\"$stateParams.accountId\"
+                on-cancel=\"onCancel\"
+                on-save=\"onSave\">
               </transaction-editor>
             "
+            controller: [
+              "$scope"
+              ($scope) ->
+                $scope.onCancel = ->
+                  console.log 'canceled'
+                $scope.onSave = (transaction) ->
+                  console.log 'save', transaction
+            ]
       .state "accounts.details.transactions.details",
         url: "/{transactionId:int}"
         abstract: true

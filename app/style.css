@@ -14,12 +14,17 @@ div.accounts-details {
     position: relative;
 }
 
-div.accounts-details div[ui-view="transactionEditorSubview"] {
+/* FIXME this is not reactive at all */
+div.accounts-details div.transaction-editor {
+    /* Will be fixed to the bottom of the account-details section */
     position: fixed;
-    top: calc(100% - 200px);
-    height: 200px;
-    width: 100%;
-    margin: 0;
+    top: calc(100% - 250px);
+    height: 250px;
+    width: calc(100% - 40px);
+    margin: 0 0 0 20px;
     padding: 15px;
     background-color: #eee;
+    border: 1px solid #222;
+    border-bottom: none;
+    overflow-y: scroll;
 }
