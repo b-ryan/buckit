@@ -3,19 +3,31 @@ body {
     height: 100%;
 }
 
-div.fill-height {
+/* generic rules */
+
+.fill-height {
     min-height: 100%;
     height: 100%;
 }
 
-div.accounts-details {
+.transaction-editor {
+    overflow-y: scroll;
+}
+
+.transaction-editor .button-bar {
+    margin-top: 15px;
+}
+
+/* specific rules */
+
+.accounts-details {
     /* we use relative positioning in order to give the transaction editor
      a fixed positioning at the bottom of the div */
     position: relative;
 }
 
 /* FIXME this is not reactive at all */
-div.accounts-details div.transaction-editor {
+.accounts-details .transaction-editor {
     /* Will be fixed to the bottom of the account-details section */
     position: fixed;
     top: calc(100% - 250px);
@@ -26,5 +38,4 @@ div.accounts-details div.transaction-editor {
     background-color: #eee;
     border: 1px solid #222;
     border-bottom: none;
-    overflow-y: scroll;
 }
