@@ -26,13 +26,13 @@ angular.module("buckit.components").directive "transactionEditor", [
             account_id: scope.accountId
             amount: 0
             reconciled_status: "not_reconciled"
-            locked: true
+            isPrimarySplit: true
           }
           {
             account_id: null
             amount: 0
             reconciled_status: "not_reconciled"
-            locked: false
+            isPrimarySplit: false
           }
         ]
 
@@ -62,6 +62,13 @@ angular.module("buckit.components").directive "transactionEditor", [
         $event.stopPropagation()
         scope.datepicker.isOpen = true
 
+      scope.splitAmountUpdated = (split) ->
+        if split.isPrimarySplit
+          return
+        primarySplit = scope.formVals.splits[0]
+        # FIXME will not work well with multiple splits
+        primarySplit.amount = -1 * split.amount
+
       scope.cancel = ->
         scope.onCancel()
 
@@ -78,15 +85,6 @@ angular.module("buckit.components").directive "transactionEditor", [
               reconciled_status: "not_reconciled"
             }
           ]
-
-        amount_sum = 0
-        for split in scope.formVals.splits
-          transaction.splits.push split
-          amount_sum += split.amount
-
-        # FIXME probably not relevant when user explicitly entering multiple
-        # splits
-        transaction.splits[0].amount = -1 * amount_sum
 
         console.log transaction
 

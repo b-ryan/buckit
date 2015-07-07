@@ -1,5 +1,5 @@
 <div class="transaction-editor">
-  <form class="form container-fluid" name="form" formnovalidate>
+  <form class="form container-fluid" name="form">
 
     <div class="row">
 
@@ -40,11 +40,11 @@
           <div class="col-md-4">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
               for="account_id_{{$index}}">
-              Account
+              Category
             </label>
             <div>
               <select class="form-control" name="account_id_{{$index}}" required="true"
-                ng-disabled="split.locked"
+                ng-disabled="split.isPrimarySplit"
                 ng-model="split.account_id"
                 ng-options="a.id as a.name for a in accounts">
               </select>
@@ -68,8 +68,9 @@
             <div class="input-group">
               <span class="input-group-addon">$</span>
               <input class="form-control" type="number" name="amount_{{$index}"
-                ng-disabled="split.locked"
-                step="0.01" ng-model="split.amount">
+                ng-disabled="split.isPrimarySplit"
+                step="0.01" ng-model="split.amount"
+                ng-blur="splitAmountUpdated(split)">
             </div>
           </div>
 
@@ -82,10 +83,10 @@
       <div class="col-md-10"></div>
       <div class="col-md-2">
         <button class="btn" ng-click="save()"
-          ng-disabled="form.$invalid">
+          ng-disabled="form.$invalid" formnovalidate>
           Save
         </button>
-        <button class="btn" ng-click="cancel()">Cancel</button>
+        <button class="btn" ng-click="cancel()" formnovalidate>Cancel</button>
       </div>
     </div>
 
