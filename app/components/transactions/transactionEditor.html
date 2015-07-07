@@ -1,16 +1,19 @@
 <div class="transaction-editor">
-  <form class="form-horizontal container-fluid" name="form" formnovalidate>
+  <form class="form container-fluid" name="form" formnovalidate>
 
     <div class="row">
 
-        <label class="col-md-1 control-label" for="date">Date</label>
-        <div class="col-md-2">
+      <div class="col-md-2">
+        <label class="control-label" for="date">Date</label>
+        <div>
           <div class="input-group datepicker-wrapper">
             <input class="form-control" type="text" name="date" required="true"
-              ng-model="formVals.date"
-              datepicker-popup="yyyy-MM-dd"
-              is-open="datepicker.isOpen"
-              show-weeks="false">
+            placeholder="YYYY-MM-DD"
+            ng-model="formVals.date"
+            datepicker-popup="yyyy-MM-dd"
+            is-open="datepicker.isOpen"
+            show-button-bar="false"
+            show-weeks="false">
             <span class="input-group-btn">
               <button class="btn btn-default btn-small" type="button"
                 ng-click="openDatepicker($event)">
@@ -19,50 +22,70 @@
             </span>
           </div>
         </div>
-
-
-      <label class="col-md-1 control-label" for="payee_id">Payee</label>
-      <div class="col-md-2">
-        <select class="form-control" name="payee_id"
-          ng-model="split.payee_id"
-          ng-options="p.id as p.name for p in payees">
-        </select>
       </div>
 
-      <div class="col-md-6 container-fluid">
+      <div class="col-md-2">
+        <label class="control-label" for="payee_id">Payee</label>
+        <div>
+          <select class="form-control" name="payee_id"
+            ng-model="split.payee_id"
+            ng-options="p.id as p.name for p in payees">
+          </select>
+        </div>
+      </div>
 
-        <div ng-repeat="split in formVals.splits">
-          <div class="row">
+      <div class="col-md-8 container-fluid splits-container">
+        <div ng-repeat="split in formVals.splits" class="row">
 
-            <label class="col-md-2 control-label" for="account_id_{{$index}}">Account</label>
-            <div class="col-md-4">
+          <div class="col-md-4">
+            <label class="control-label" ng-class="{'sr-only': $index > 0}"
+              for="account_id_{{$index}}">
+              Account
+            </label>
+            <div>
               <select class="form-control" name="account_id_{{$index}}" required="true"
                 ng-disabled="split.locked"
                 ng-model="split.account_id"
                 ng-options="a.id as a.name for a in accounts">
               </select>
             </div>
+          </div>
 
-            <label class="col-md-2 control-label" for="amount_{{$index}}">Amount</label>
-            <div class="col-md-4">
+          <div class="col-md-4">
+            <label class="control-label" ng-class="{'sr-only': $index > 0}"
+              for="amount_{{$index}}">
+              Description
+            </label>
+            <input class="form-control" type="text" name="description_{{$index}"
+              ng-model="split.description">
+          </div>
+
+          <div class="col-md-4">
+            <label class="control-label" ng-class="{'sr-only': $index > 0}"
+              for="amount_{{$index}}">
+              Amount
+            </label>
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
               <input class="form-control" type="number" name="amount_{{$index}"
                 ng-disabled="split.locked"
                 step="0.01" ng-model="split.amount">
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
+
     </div>
 
     <div class="row button-bar">
       <div class="col-md-10"></div>
       <div class="col-md-2">
-        <button class="btn" ng-click="cancel()">Cancel</button>
         <button class="btn" ng-click="save()"
           ng-disabled="form.$invalid">
           Save
         </button>
+        <button class="btn" ng-click="cancel()">Cancel</button>
       </div>
     </div>
 
