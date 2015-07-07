@@ -6,8 +6,8 @@
         <label class="col-md-1 control-label" for="date">Date</label>
         <div class="col-md-2">
           <div class="input-group datepicker-wrapper">
-            <input class="form-control" type="text" name="date"
-              ng-model="formVals.date" required="true"
+            <input class="form-control" type="text" name="date" required="true"
+              ng-model="formVals.date"
               datepicker-popup="yyyy-MM-dd"
               is-open="datepicker.isOpen"
               show-weeks="false">
@@ -36,15 +36,17 @@
 
             <label class="col-md-2 control-label" for="account_id_{{$index}}">Account</label>
             <div class="col-md-4">
-              <select class="form-control" name="account_id_{{$index}}"
+              <select class="form-control" name="account_id_{{$index}}" required="true"
+                ng-disabled="split.locked"
                 ng-model="split.account_id"
-                ng-options="a.id as a.name for a in accounts" required="true">
+                ng-options="a.id as a.name for a in accounts">
               </select>
             </div>
 
             <label class="col-md-2 control-label" for="amount_{{$index}}">Amount</label>
             <div class="col-md-4">
               <input class="form-control" type="number" name="amount_{{$index}"
+                ng-disabled="split.locked"
                 step="0.01" ng-model="split.amount">
             </div>
           </div>

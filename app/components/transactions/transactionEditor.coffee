@@ -26,11 +26,13 @@ angular.module("buckit.components").directive "transactionEditor", [
             account_id: scope.accountId
             amount: 0
             reconciled_status: "not_reconciled"
+            locked: true
           }
           {
             account_id: null
             amount: 0
             reconciled_status: "not_reconciled"
+            locked: false
           }
         ]
 
