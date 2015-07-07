@@ -5,7 +5,7 @@ angular.module("buckit.components").directive "ledgerRow", [
     scope: true
     link: (scope, elem, attr, ledgerCtrl) ->
       account = ledgerCtrl.getActiveAccount()
-      transaction = scope[attr.transaction]
+      transaction = scope[attr.ledgerRow]
 
       scope.primarySplit = null
       scope.secondarySplits = []

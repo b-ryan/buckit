@@ -10,9 +10,7 @@
       <th>Status</th>
     </thead>
     <tbody>
-      <tr ledger-row
-        ng-repeat="transaction in transactions"
-        transaction="transaction">
+      <tr ng-repeat="transaction in transactions" ledger-row="transaction">
         <td>{{transaction.id}}</td>
         <td>{{transaction.date | date:'yyyy-MM-dd'}}</td>
         <td>{{transaction.payee.name}}</td>
