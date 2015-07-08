@@ -6,13 +6,13 @@
       <div class="col-md-2">
         <label class="control-label" for="date">Date</label>
         <input class="form-control" type="text" name="date" required="true"
-          ng-model="date" placeholder="YYYY-MM-DD">
+          ng-model="transBase.date" placeholder="YYYY-MM-DD">
       </div>
 
       <div class="col-md-2">
         <label class="control-label" for="payee_id">Payee</label>
         <select class="form-control" name="payee_id"
-          ng-model="payee_id" ng-options="p.id as p.name for p in payees">
+          ng-model="transBase.payee_id" ng-options="p.id as p.name for p in payees">
         </select>
       </div>
 
