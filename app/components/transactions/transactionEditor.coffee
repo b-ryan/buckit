@@ -36,8 +36,9 @@ angular.module("buckit.components").directive "transactionEditor", [
           }
         ]
 
-      scope.datepicker =
-        isOpen: false
+      dateInput = elem.find("input[name='date']")
+      dateInput.datepicker
+        dateFormat: "yy-mm-dd"
 
       Accounts.query().then (accounts) ->
         scope.accounts = accounts
@@ -56,11 +57,6 @@ angular.module("buckit.components").directive "transactionEditor", [
           scope.formVals.payee_id = transaction.payee_id
         , (error) ->
           alert error
-
-      scope.openDatepicker = ($event) ->
-        $event.preventDefault()
-        $event.stopPropagation()
-        scope.datepicker.isOpen = true
 
       scope.splitAmountUpdated = (split) ->
         if split.isPrimarySplit
@@ -88,13 +84,12 @@ angular.module("buckit.components").directive "transactionEditor", [
 
         console.log transaction
 
-        f = if scope.transactionId \
-          then Transactions.update \
-          else Transactions.save
-        f(transaction).then (transaction) ->
-          console.log "saved", transaction
-        , (error) ->
-          alert error
+        # f = if scope.transactionId \
+        #   then Transactions.update \
+        #   else Transactions.save
+        # f(transaction).then (transaction) ->
+        #   console.log "saved", transaction
+        # , (error) ->
+        #   alert error
 
-      elem.find('input[name="date"]')[0].focus()
 ]

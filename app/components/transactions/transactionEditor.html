@@ -5,33 +5,16 @@
 
       <div class="col-md-2">
         <label class="control-label" for="date">Date</label>
-        <div>
-          <div class="input-group datepicker-wrapper">
-            <input class="form-control" type="text" name="date" required="true"
-            placeholder="YYYY-MM-DD"
-            ng-model="formVals.date"
-            datepicker-popup="yyyy-MM-dd"
-            is-open="datepicker.isOpen"
-            show-button-bar="false"
-            show-weeks="false">
-            <span class="input-group-btn">
-              <button class="btn btn-default btn-small" type="button"
-                ng-click="openDatepicker($event)">
-                <i class="glyphicon glyphicon-calendar"></i>
-              </button>
-            </span>
-          </div>
-        </div>
+        <input class="form-control" type="text" name="date" required="true"
+          placeholder="YYYY-MM-DD">
       </div>
 
       <div class="col-md-2">
         <label class="control-label" for="payee_id">Payee</label>
-        <div>
-          <select class="form-control" name="payee_id"
-            ng-model="split.payee_id"
-            ng-options="p.id as p.name for p in payees">
-          </select>
-        </div>
+        <select class="form-control" name="payee_id"
+          ng-model="split.payee_id"
+          ng-options="p.id as p.name for p in payees">
+        </select>
       </div>
 
       <div class="col-md-8 container-fluid splits-container">
@@ -42,13 +25,11 @@
               for="account_id_{{$index}}">
               Category
             </label>
-            <div>
-              <select class="form-control" name="account_id_{{$index}}" required="true"
-                ng-disabled="split.isPrimarySplit"
-                ng-model="split.account_id"
-                ng-options="a.id as a.name for a in accounts">
-              </select>
-            </div>
+            <select class="form-control" name="account_id_{{$index}}" required="true"
+              ng-disabled="split.isPrimarySplit"
+              ng-model="split.account_id"
+              ng-options="a.id as a.name for a in accounts">
+            </select>
           </div>
 
           <div class="col-md-4">

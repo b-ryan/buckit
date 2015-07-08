@@ -18,6 +18,10 @@ body {
     margin-top: 15px;
 }
 
+.ui-datepicker {
+    font-size: 10px;
+}
+
 /* specific rules */
 
 .accounts-details {
@@ -26,15 +30,19 @@ body {
     position: relative;
 }
 
-/* FIXME this is not reactive at all */
 .accounts-details .transaction-editor {
     /* Will be fixed to the bottom of the account-details section */
     position: fixed;
-    top: calc(100% - 250px);
-    height: 250px;
-    width: calc(100% - 40px);
-    margin: 0 0 0 20px;
+
+    top: 70%;
+    height: 30%;
+
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 4%;
+
     padding: 15px;
+
     background-color: #eee;
     border: 1px solid #222;
     border-bottom: none;
