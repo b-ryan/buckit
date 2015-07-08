@@ -6,19 +6,18 @@
       <div class="col-md-2">
         <label class="control-label" for="date">Date</label>
         <input class="form-control" type="text" name="date" required="true"
-          placeholder="YYYY-MM-DD">
+          ng-model="date" placeholder="YYYY-MM-DD">
       </div>
 
       <div class="col-md-2">
         <label class="control-label" for="payee_id">Payee</label>
         <select class="form-control" name="payee_id"
-          ng-model="split.payee_id"
-          ng-options="p.id as p.name for p in payees">
+          ng-model="payee_id" ng-options="p.id as p.name for p in payees">
         </select>
       </div>
 
       <div class="col-md-8 container-fluid splits-container">
-        <div ng-repeat="split in formVals.splits" class="row">
+        <div ng-repeat="split in foreignSplits" class="row">
 
           <div class="col-md-4">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
@@ -26,7 +25,6 @@
               Category
             </label>
             <select class="form-control" name="account_id_{{$index}}" required="true"
-              ng-disabled="split.isPrimarySplit"
               ng-model="split.account_id"
               ng-options="a.id as a.name for a in accounts">
             </select>
@@ -49,9 +47,8 @@
             <div class="input-group">
               <span class="input-group-addon">$</span>
               <input class="form-control" type="number" name="amount_{{$index}"
-                ng-disabled="split.isPrimarySplit"
                 step="0.01" ng-model="split.amount"
-                ng-blur="splitAmountUpdated()">
+                ng-blur="setPrimarySplitAmount()">
             </div>
           </div>
 
@@ -59,11 +56,15 @@
 
         <div class="row">
           <div class="col-md-1">
-            <button class="btn btn-default btn-xs" ng-click="addSplit()" formnovalidate>
+            <button class="btn btn-default btn-xs"
+              ng-click="addForeignSplit()" formnovalidate>
               Add split
             </button>
           </div>
-          <div class="col-md-11"></div>
+          <div class="col-md-9"></div>
+          <div class="col-md-2">
+            <strong>Total:</strong> {{primarySplit.amount | currency}}
+          </div>
         </div>
       </div>
 
@@ -76,7 +77,7 @@
           ng-disabled="form.$invalid" formnovalidate>
           Save
         </button>
-        <button class="btn" ng-click="cancel()" formnovalidate>Cancel</button>
+        <button class="btn" ng-click="onCancel()" formnovalidate>Cancel</button>
       </div>
     </div>
 

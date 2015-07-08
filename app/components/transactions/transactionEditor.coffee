@@ -18,25 +18,26 @@ angular.module("buckit.components").directive "transactionEditor", [
       if not scope.onSave
         throw new Error("transaction editor must have an on-save callback")
 
+      DATEPICKER_DATE_FORMAT = "yy-mm-dd"
+
       newSplit = ->
           {
             account_id: null
             amount: 0
             reconciled_status: "not_reconciled"
-            isPrimarySplit: false
           }
 
-      scope.formVals =
-        date: null
+      scope.transBase =
+        date: $.datepicker.formatDate(DATEPICKER_DATE_FORMAT, new Date())
         payee_id: null
-        splits: [newSplit(), newSplit()]
 
-      scope.formVals.splits[0].account_id = scope.accountId
-      scope.formVals.splits[0].isPrimarySplit = true
+      scope.primarySplit = newSplit()
+      scope.primarySplit.account_id = scope.accountId
+      scope.foreignSplits = [newSplit()]
 
       dateInput = elem.find("input[name='date']")
       dateInput.datepicker
-        dateFormat: "yy-mm-dd"
+        dateFormat: DATEPICKER_DATE_FORMAT
 
       Accounts.query().then (accounts) ->
         scope.accounts = accounts
@@ -51,37 +52,26 @@ angular.module("buckit.components").directive "transactionEditor", [
       if scope.transactionId
         Transactions.get({id: scope.transactionId}).then (transaction) ->
           console.log "Editing transaction", transaction
-          scope.formVals.date = transaction.date
-          scope.formVals.payee_id = transaction.payee_id
+          scope.transBase =
+            date: transaction.date # FIXME not formatted properly
+            payee_id: transaction.payee_id
+          # FIXME does not copy splits
         , (error) ->
           alert error
 
-      scope.splitAmountUpdated = ->
-        primarySplit = scope.formVals.splits[0]
+      scope.setPrimarySplitAmount = ->
         total = 0
-        for s in scope.formVals.splits[1..]
+        for s in scope.foreignSplits
           total += s.amount
-        primarySplit.amount = -1 * total
+        scope.primarySplit.amount = -1 * total
 
-      scope.addSplit = () ->
-        scope.formVals.splits.push newSplit()
-
-      scope.cancel = ->
-        scope.onCancel()
+      scope.addForeignSplit = () ->
+        scope.foreignSplits.push newSplit()
 
       scope.save = ->
-        # TODO validation
-
-        transaction =
-          date: scope.formVals.date
-          payee_id: scope.formVals.payee_id
-          splits: [
-            {
-              account_id: scope.accountId
-              amount: 0
-              reconciled_status: "not_reconciled"
-            }
-          ]
+        transaction = angular.copy(scope.transBase)
+        transaction.splits = angular.copy(scope.foreignSplits)
+        transaction.splits.splice(0, 0, angular.copy(scope.primarySplit))
 
         console.log transaction
 
