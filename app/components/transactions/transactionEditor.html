@@ -51,10 +51,19 @@
               <input class="form-control" type="number" name="amount_{{$index}"
                 ng-disabled="split.isPrimarySplit"
                 step="0.01" ng-model="split.amount"
-                ng-blur="splitAmountUpdated(split)">
+                ng-blur="splitAmountUpdated()">
             </div>
           </div>
 
+        </div>
+
+        <div class="row">
+          <div class="col-md-1">
+            <button class="btn btn-default btn-xs" ng-click="addSplit()" formnovalidate>
+              Add split
+            </button>
+          </div>
+          <div class="col-md-11"></div>
         </div>
       </div>
 

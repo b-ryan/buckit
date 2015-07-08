@@ -18,23 +18,21 @@ angular.module("buckit.components").directive "transactionEditor", [
       if not scope.onSave
         throw new Error("transaction editor must have an on-save callback")
 
-      scope.formVals =
-        date: null
-        payee_id: null
-        splits: [
-          {
-            account_id: scope.accountId
-            amount: 0
-            reconciled_status: "not_reconciled"
-            isPrimarySplit: true
-          }
+      newSplit = ->
           {
             account_id: null
             amount: 0
             reconciled_status: "not_reconciled"
             isPrimarySplit: false
           }
-        ]
+
+      scope.formVals =
+        date: null
+        payee_id: null
+        splits: [newSplit(), newSplit()]
+
+      scope.formVals.splits[0].account_id = scope.accountId
+      scope.formVals.splits[0].isPrimarySplit = true
 
       dateInput = elem.find("input[name='date']")
       dateInput.datepicker
@@ -58,12 +56,15 @@ angular.module("buckit.components").directive "transactionEditor", [
         , (error) ->
           alert error
 
-      scope.splitAmountUpdated = (split) ->
-        if split.isPrimarySplit
-          return
+      scope.splitAmountUpdated = ->
         primarySplit = scope.formVals.splits[0]
-        # FIXME will not work well with multiple splits
-        primarySplit.amount = -1 * split.amount
+        total = 0
+        for s in scope.formVals.splits[1..]
+          total += s.amount
+        primarySplit.amount = -1 * total
+
+      scope.addSplit = () ->
+        scope.formVals.splits.push newSplit()
 
       scope.cancel = ->
         scope.onCancel()
