@@ -18,6 +18,11 @@ body {
     margin-top: 15px;
 }
 
+.transaction-editor form .ng-invalid.ng-touched,
+.transaction-editor form.ng-submitted .ng-invalid {
+    border: 1px solid red;
+}
+
 .ui-datepicker {
     font-size: 10px;
 }

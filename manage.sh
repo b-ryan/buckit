@@ -60,7 +60,7 @@ watch() {
 }
 
 serve() {
-    $WORKON_HOME/buckit/bin/python ./devserver.py
+    $HOME/.virtualenvs/buckit/bin/python ./devserver.py
 }
 
 # ------------------------

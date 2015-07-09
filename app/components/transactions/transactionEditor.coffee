@@ -69,6 +69,10 @@ angular.module("buckit.components").directive "transactionEditor", [
         scope.foreignSplits.push newSplit()
 
       scope.save = ->
+        if scope.form.$invalid
+          scope.form.$setSubmitted()
+          return
+
         transaction = angular.copy(scope.transBase)
         transaction.splits = angular.copy(scope.foreignSplits)
         transaction.splits.splice(0, 0, angular.copy(scope.primarySplit))
