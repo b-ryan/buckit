@@ -23,7 +23,8 @@ angular.module("buckit.components").directive "transactionEditor", [
       newSplit = ->
           {
             account_id: null
-            amount: 0
+            outflow: 0
+            inflow: 0
             reconciled_status: "not_reconciled"
           }
 
@@ -34,6 +35,8 @@ angular.module("buckit.components").directive "transactionEditor", [
       scope.primarySplit = newSplit()
       scope.primarySplit.account_id = scope.accountId
       scope.foreignSplits = [newSplit()]
+
+      scope.multiSplitMode = false
 
       dateInput = elem.find("input[name='date']")
       dateInput.datepicker
@@ -59,11 +62,25 @@ angular.module("buckit.components").directive "transactionEditor", [
         , (error) ->
           alert error
 
-      scope.setPrimarySplitAmount = ->
-        total = 0
+      setPrimarySplitAmount = ->
+        scope.primarySplit.outflow = 0
+        scope.primarySplit.inflow = 0
+
         for s in scope.foreignSplits
-          total += s.amount
-        scope.primarySplit.amount = -1 * total
+          scope.primarySplit.outflow += s.outflow
+          scope.primarySplit.inflow += s.inflow
+
+      scope.outflowBlurred = (split) ->
+        if split.outflow != 0
+          split.outflow = Math.abs(split.outflow)
+          split.inflow = 0
+        setPrimarySplitAmount()
+
+      scope.inflowBlurred = (split) ->
+        if split.inflow != 0
+          split.inflow = Math.abs(split.inflow)
+          split.outflow = 0
+        setPrimarySplitAmount()
 
       scope.addForeignSplit = () ->
         scope.foreignSplits.push newSplit()

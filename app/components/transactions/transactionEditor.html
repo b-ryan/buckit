@@ -19,7 +19,7 @@
       <div class="col-md-8 container-fluid splits-container">
         <div ng-repeat="split in foreignSplits" class="row">
 
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
               for="account_id_{{$index}}">
               Category
@@ -30,25 +30,38 @@
             </select>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
-              for="amount_{{$index}}">
+              for="description_{{$index}}">
               Description
             </label>
             <input class="form-control" type="text" name="description_{{$index}"
               ng-model="split.description">
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
-              for="amount_{{$index}}">
-              Amount
+              for="outflow_{{$index}}">
+              Outflow
             </label>
             <div class="input-group">
               <span class="input-group-addon">$</span>
-              <input class="form-control" type="number" name="amount_{{$index}"
-                step="0.01" ng-model="split.amount"
-                ng-blur="setPrimarySplitAmount()">
+              <input class="form-control" type="number" name="outflow_{{$index}"
+                step="0.01" ng-model="split.outflow"
+                ng-blur="outflowBlurred(split)">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="control-label" ng-class="{'sr-only': $index > 0}"
+              for="inflow_{{$index}}">
+              Inflow
+            </label>
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input class="form-control" type="number" name="inflow_{{$index}"
+                step="0.01" ng-model="split.inflow"
+                ng-blur="inflowBlurred(split)">
             </div>
           </div>
 
@@ -62,8 +75,11 @@
             </button>
           </div>
           <div class="col-md-9"></div>
-          <div class="col-md-2">
-            <strong>Total:</strong> {{primarySplit.amount | currency}}
+          <div class="col-md-1">
+            <strong>Outflow:</strong> {{primarySplit.outflow | currency}}
+          </div>
+          <div class="col-md-1">
+            <strong>Inflow:</strong> {{primarySplit.inflow | currency}}
           </div>
         </div>
       </div>
