@@ -20,23 +20,19 @@ angular.module("buckit.components").directive "transactionEditor", [
 
       DATEPICKER_DATE_FORMAT = "yy-mm-dd"
 
-      newSplit = ->
+      newFormSplit = ->
           {
-            account_id: null
+            accountId: null
+            accountLocked: false
+            description: null
             outflow: 0
             inflow: 0
-            reconciled_status: "not_reconciled"
           }
 
-      scope.transBase =
-        date: $.datepicker.formatDate(DATEPICKER_DATE_FORMAT, new Date())
-        payee_id: null
+      scope.date = $.datepicker.formatDate(DATEPICKER_DATE_FORMAT, new Date())
+      scope.payee_id = null
 
-      scope.primarySplit = newSplit()
-      scope.primarySplit.account_id = scope.accountId
-      scope.foreignSplits = [newSplit()]
-
-      scope.multiSplitMode = false
+      scope.formSplits = [newFormSplit()]
 
       dateInput = elem.find("input[name='date']")
       dateInput.datepicker
@@ -55,44 +51,42 @@ angular.module("buckit.components").directive "transactionEditor", [
       if scope.transactionId
         Transactions.get({id: scope.transactionId}).then (transaction) ->
           console.log "Editing transaction", transaction
-          scope.transBase =
-            date: transaction.date # FIXME not formatted properly
-            payee_id: transaction.payee_id
-          # FIXME does not copy splits
+          # FIXME
         , (error) ->
           alert error
 
-      setPrimarySplitAmount = ->
-        scope.primarySplit.outflow = 0
-        scope.primarySplit.inflow = 0
-
-        for s in scope.foreignSplits
-          scope.primarySplit.outflow += s.outflow
-          scope.primarySplit.inflow += s.inflow
-
       scope.outflowBlurred = (split) ->
         if split.outflow != 0
+          # FIXME instead of Math.abs, warn the user / do not allow negatives
           split.outflow = Math.abs(split.outflow)
           split.inflow = 0
-        setPrimarySplitAmount()
 
       scope.inflowBlurred = (split) ->
         if split.inflow != 0
           split.inflow = Math.abs(split.inflow)
           split.outflow = 0
-        setPrimarySplitAmount()
 
-      scope.addForeignSplit = () ->
-        scope.foreignSplits.push newSplit()
+      scope.addSplit = () ->
+        # if we currently only have one formSplit, then we are entering
+        # multi-split mode. FIXME more docs
+        if scope.formSplits.length == 1
+          scope.formSplits.push newFormSplit()
+          scope.formSplits.push newFormSplit()
+          scope.formSplits[1].accountId = scope.formSplits[0].accountId
+          scope.formSplits[0].accountId = scope.accountId
+          scope.formSplits[0].accountLocked = true
+        else
+          scope.formSplits.push newFormSplit()
 
       scope.save = ->
         if scope.form.$invalid
           scope.form.$setSubmitted()
           return
 
-        transaction = angular.copy(scope.transBase)
-        transaction.splits = angular.copy(scope.foreignSplits)
-        transaction.splits.splice(0, 0, angular.copy(scope.primarySplit))
+        transaction =
+          date: scope.date # FIXME formatting?
+          payee_id: scope.payee_id
+          splits: [] # FIXME
 
         console.log transaction
 

@@ -6,18 +6,18 @@
       <div class="col-md-2">
         <label class="control-label" for="date">Date</label>
         <input class="form-control" type="text" name="date" required="true"
-          ng-model="transBase.date" placeholder="YYYY-MM-DD">
+          ng-model="date" placeholder="YYYY-MM-DD">
       </div>
 
       <div class="col-md-2">
         <label class="control-label" for="payee_id">Payee</label>
         <select class="form-control" name="payee_id"
-          ng-model="transBase.payee_id" ng-options="p.id as p.name for p in payees">
+          ng-model="payee_id" ng-options="p.id as p.name for p in payees">
         </select>
       </div>
 
       <div class="col-md-8 container-fluid splits-container">
-        <div ng-repeat="split in foreignSplits" class="row">
+        <div ng-repeat="formSplit in formSplits" class="row">
 
           <div class="col-md-3">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
@@ -25,21 +25,22 @@
               Category
             </label>
             <select class="form-control" name="account_id_{{$index}}" required="true"
-              ng-model="split.account_id"
+              ng-model="formSplit.accountId"
+              ng-if="!formSplit.accountLocked"
               ng-options="a.id as a.name for a in accounts">
             </select>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-5">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
               for="description_{{$index}}">
               Description
             </label>
             <input class="form-control" type="text" name="description_{{$index}"
-              ng-model="split.description">
+              ng-model="formSplit.description">
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
               for="outflow_{{$index}}">
               Outflow
@@ -47,12 +48,12 @@
             <div class="input-group">
               <span class="input-group-addon">$</span>
               <input class="form-control" type="number" name="outflow_{{$index}"
-                step="0.01" ng-model="split.outflow"
-                ng-blur="outflowBlurred(split)">
+                step="0.01" ng-model="formSplit.outflow"
+                ng-blur="outflowBlurred(formSplit)">
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="control-label" ng-class="{'sr-only': $index > 0}"
               for="inflow_{{$index}}">
               Inflow
@@ -60,8 +61,8 @@
             <div class="input-group">
               <span class="input-group-addon">$</span>
               <input class="form-control" type="number" name="inflow_{{$index}"
-                step="0.01" ng-model="split.inflow"
-                ng-blur="inflowBlurred(split)">
+                step="0.01" ng-model="formSplit.inflow"
+                ng-blur="inflowBlurred(formSplit)">
             </div>
           </div>
 
@@ -70,17 +71,11 @@
         <div class="row">
           <div class="col-md-1">
             <button class="btn btn-default btn-xs"
-              ng-click="addForeignSplit()" formnovalidate>
+              ng-click="addSplit()" formnovalidate>
               Add split
             </button>
           </div>
-          <div class="col-md-9"></div>
-          <div class="col-md-1">
-            <strong>Outflow:</strong> {{primarySplit.outflow | currency}}
-          </div>
-          <div class="col-md-1">
-            <strong>Inflow:</strong> {{primarySplit.inflow | currency}}
-          </div>
+          <div class="col-md-11"></div>
         </div>
       </div>
 
