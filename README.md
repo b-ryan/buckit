@@ -13,22 +13,16 @@ mkvirtualenv buckit
 pip install -r requirements.txt
 pip install -r dev_requirements.txt
 
-## npm (Ubuntu 13.10/14.04)
-sudo apt-get install nodejs npm nodejs-legacy
-echo 'export PATH=$PATH:node_modules/.bin' >> ~/.bashrc.local
-. !$
-
-npm install
-bower install
-
-mkdir app/.compiled
+# create the database
+psql
+CREATE ROLE buckit LOGIN ENCRYPTED PASSWORD 'password';
+CREATE DATABASE buckit OWNER buckit;
+\q
 
 alembic upgrade head
 ```
 
 ## Running
-
-./manage.sh watch
 
 workon buckit
 ./devserver.py
