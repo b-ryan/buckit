@@ -9,7 +9,9 @@ curr_dir = path.abspath(path.dirname(__file__))
 sys.path.append(path.join(curr_dir, '..'))
 
 from buckit.models import Base
-from buckit.app import db_url, db
+import buckit.app
+
+app = buckit.app.create()
 
 fileConfig(context.config.config_file_name)
 
@@ -25,8 +27,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = db_url
-    context.configure(url=url)
+    context.configure(url=app.db.engine.url)
 
     with context.begin_transaction():
         context.run_migrations()
@@ -38,7 +39,7 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connection = db.engine.connect()
+    connection = app.db.engine.connect()
 
     context.configure(
         connection=connection,

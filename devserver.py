@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-from buckit.app import app
+import buckit.app
 
 if __name__ == '__main__':
+    app = buckit.app.create()
     app.static_folder = '../app'
 
     @app.route('/', defaults={'filename': 'index.html'})
