@@ -73,6 +73,7 @@ class Split(Base):
     reconciled_status = Column(ReconciledStatus, default='not_reconciled')
 
     transaction = relationship('Transaction', lazy=False)
+    account = relationship('Account')
 
     __table_args__ = (
         UniqueConstraint(

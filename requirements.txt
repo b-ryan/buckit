@@ -1,6 +1,6 @@
-sqlalchemy
 alembic
-python-dateutil
 Flask
 Flask-SQLAlchemy
 Flask-Restless
+python-dateutil
+sqlalchemy
