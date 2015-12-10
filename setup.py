@@ -14,9 +14,10 @@ setup(
     ],
     install_requires=[
         "alembic",
-        "Flask",
-        "Flask-SQLAlchemy",
-        "Flask-Restless",
+        "flask",
+        "flask-cors",
+        "flask-sqlalchemy",
+        "flask-restless",
         "python-dateutil",
         "sqlalchemy",
     ],
