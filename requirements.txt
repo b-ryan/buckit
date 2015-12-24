@@ -5,3 +5,5 @@ flask-sqlalchemy
 flask-restless
 python-dateutil
 sqlalchemy
+pep8
+nose
