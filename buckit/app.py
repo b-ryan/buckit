@@ -5,6 +5,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import logging
 import os
 
+
 def create():
     app = flask.Flask(__name__, static_folder=None)
     app.logger.setLevel(logging.DEBUG)
