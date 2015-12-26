@@ -2,7 +2,7 @@
 
 A self-hosted budgeting app.
 
-![circleci status](https://circleci.com/gh/b-ryan/buckit.png?style=shield&circle-token=900699d95e7b0250798d7b9756b9747f4fd0789b)
+![circleci status](https://circleci.com/gh/b-ryan/buckit.png?style=shield&circle-token=6479cec582723fb5dbee4f5b262e10f2a12ad6bc)
 
 ## Setup
 
