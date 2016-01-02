@@ -1,8 +1,17 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, ForeignKey, Integer, String, Enum, Float, Date
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    Enum,
+    Float,
+    Integer,
+    ForeignKey,
+    String,
+)
 from sqlalchemy import select, func
 from sqlalchemy.orm import relationship, column_property
-from sqlalchemy.schema import UniqueConstraint
+from sqlalchemy.schema import Index, UniqueConstraint
 
 Base = declarative_base()
 
@@ -71,6 +80,7 @@ class Split(Base):
                         nullable=False)
     amount = Column(Float, default=0.)
     reconciled_status = Column(ReconciledStatus, default='not_reconciled')
+    is_primary_split = Column(Boolean, default=0)
 
     transaction = relationship('Transaction', lazy=False)
     account = relationship('Account')
@@ -82,6 +92,16 @@ class Split(Base):
             name='transaction_splits_tran_acc_uix',
         ),
     )
+
+primary_split_uix_where = Split.is_primary_split != 0
+Index(
+    'primary_split_uix',
+    Split.transaction_id,
+    Split.is_primary_split,
+    unique=True,
+    postgresql_where=primary_split_uix_where,
+    sqlite_where=primary_split_uix_where,
+)
 
 Account.balance = column_property(
     select([func.sum(Split.amount)]).

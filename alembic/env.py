@@ -1,4 +1,5 @@
 from alembic import context
+from functools import partial
 from sqlalchemy import engine_from_config
 from logging.config import fileConfig
 
@@ -15,6 +16,9 @@ app = buckit.app.create()
 
 fileConfig(context.config.config_file_name)
 
+# render_as_batch allows SQLite migrations to work.
+configure_context = partial(context.configure, render_as_batch=True)
+
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
 
@@ -27,7 +31,7 @@ def run_migrations_offline():
     script output.
 
     """
-    context.configure(url=app.db.engine.url)
+    configure_context(url=app.db.engine.url)
 
     with context.begin_transaction():
         context.run_migrations()
@@ -41,7 +45,7 @@ def run_migrations_online():
     """
     connection = app.db.engine.connect()
 
-    context.configure(
+    configure_context(
         connection=connection,
         target_metadata=Base.metadata,
     )

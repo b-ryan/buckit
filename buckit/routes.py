@@ -34,15 +34,6 @@ def initialize(app):
             methods=['GET', 'POST', 'PUT'],
             results_per_page=25,
         ),
-        api.create_api_blueprint(
-            m.Split,
-            methods=['POST'],
-            results_per_page=25,
-        ),
     ]
-
-    # _delay(blueprints[2])
-    # _delay(blueprints[0])
-    # _fail(blueprints[0])
 
     map(app.register_blueprint, blueprints)
