@@ -1,8 +1,18 @@
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    Enum,
+    Float,
+    Integer,
+    ForeignKey,
+    String,
+    func,
+    select,
+)
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, ForeignKey, Integer, String, Enum, Float, Date
-from sqlalchemy import select, func
-from sqlalchemy.orm import relationship, column_property
-from sqlalchemy.schema import UniqueConstraint
+from sqlalchemy.orm import column_property, relationship, validates
+from sqlalchemy.schema import Index, UniqueConstraint
 
 Base = declarative_base()
 
@@ -62,7 +72,7 @@ class Transaction(Base):
 
 class Split(Base):
 
-    __tablename__ = 'transaction_splits'
+    __tablename__ = 'splits'
 
     id = Column(Integer, primary_key=True)
     transaction_id = Column(Integer, ForeignKey('transactions.id'),
@@ -71,6 +81,7 @@ class Split(Base):
                         nullable=False)
     amount = Column(Float, default=0.)
     reconciled_status = Column(ReconciledStatus, default='not_reconciled')
+    is_primary_split = Column(Boolean, default=0)
 
     transaction = relationship('Transaction', lazy=False)
     account = relationship('Account')
@@ -79,9 +90,25 @@ class Split(Base):
         UniqueConstraint(
             'transaction_id',
             'account_id',
-            name='transaction_splits_tran_acc_uix',
+            name='transaction__account__uix',
         ),
     )
+
+# The following creates a unique constraint on the 'splits' table for the
+# combination of (transaction_id, is_primary_split), but only where
+# is_primary_split is not 0. This allows us to ensure only 1 split per
+# transaction is marked as the primary split. This takes advantage of the
+# "partial index" feature provided by sqlite and postgresql. MySQL does not
+# have this feature.
+primary_split_uix_where = Split.is_primary_split != 0
+Index(
+    'transaction__primary_split__uix',
+    Split.transaction_id,
+    Split.is_primary_split,
+    unique=True,
+    postgresql_where=primary_split_uix_where,
+    sqlite_where=primary_split_uix_where,
+)
 
 Account.balance = column_property(
     select([func.sum(Split.amount)]).
