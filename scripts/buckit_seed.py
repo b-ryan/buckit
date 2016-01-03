@@ -25,23 +25,23 @@ def main():
     for tbl in [m.Split, m.Transaction, m.Payee, m.Account]:
         session.query(tbl).delete()
 
-    a1 = m.Account(name="Checking", type="asset")
-    a2 = m.Account(name="Savings", type="asset")
-    a3 = m.Account(name="Groceries", type="expense")
+    checking = m.Account(name="Checking", type="asset")
+    savings = m.Account(name="Savings", type="asset")
+    groceries = m.Account(name="Groceries", type="expense")
 
-    p1 = m.Payee(name="Grocery Store")
+    grocery_store = m.Payee(name="Grocery Store")
 
     # paid for groceries with checking account
     t1 = m.Transaction(
         date=datetime.date.today(),
-        payee=p1,
+        payee=grocery_store,
         splits=[
             m.Split(
-                account=a1,
+                account=checking,
                 amount=-20.52,
             ),
             m.Split(
-                account=a3,
+                account=groceries,
                 amount=20.52,
             ),
         ],
@@ -52,11 +52,12 @@ def main():
         date=datetime.date.today(),
         splits=[
             m.Split(
-                account=a1,
+                account=checking,
                 amount=88,
+                is_primary_split=True,
             ),
             m.Split(
-                account=a2,
+                account=savings,
                 amount=-88,
             ),
         ],
@@ -66,24 +67,25 @@ def main():
     # towards groceries
     t3 = m.Transaction(
         date=datetime.date.today(),
-        payee=p1,
+        payee=grocery_store,
         splits=[
             m.Split(
-                account=a1,
+                account=checking,
                 amount=-10,
             ),
             m.Split(
-                account=a2,
+                account=savings,
                 amount=5,
+                is_primary_split=True,
             ),
             m.Split(
-                account=a3,
+                account=groceries,
                 amount=5,
             ),
         ],
     )
 
-    for x in [a1, a2, a3, p1, t1, t2, t3]:
+    for x in [checking, savings, groceries, grocery_store, t1, t2, t3]:
         session.add(x)
 
     session.commit()

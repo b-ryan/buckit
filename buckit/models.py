@@ -1,4 +1,3 @@
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     Boolean,
     Column,
@@ -8,9 +7,11 @@ from sqlalchemy import (
     Integer,
     ForeignKey,
     String,
+    func,
+    select,
 )
-from sqlalchemy import select, func
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import column_property, relationship, validates
 from sqlalchemy.schema import Index, UniqueConstraint
 
 Base = declarative_base()
